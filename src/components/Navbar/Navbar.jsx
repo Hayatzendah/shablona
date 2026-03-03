@@ -16,7 +16,7 @@ const navLinks = [
       { path: '/brands/stars', label: 'شبلونة مواقع النجوم' },
     ],
   },
-  { path: 'https://shabllona.org', label: 'المنتجات', external: true },
+  { path: 'https://shabllona.com', label: 'المنتجات', external: true },
   { path: '/digital-twin', label: 'التوأم الرقمي' },
   { path: '/faq', label: 'الأسئلة الشائعة' },
   { path: '/contact', label: 'تواصل معنا' },

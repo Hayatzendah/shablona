@@ -1,7 +1,8 @@
 /* Definition section */
 .definitionSection {
+  position: relative;
   padding-top: calc(var(--navbar-height) + 60px);
-  padding-bottom: 60px;
+  padding-bottom: 40px;
 }
 
 .definitionGrid {
@@ -23,6 +24,17 @@
   font-size: 1.1rem;
   color: var(--text-muted);
   line-height: 1.9;
+}
+
+.brandNote {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--primary-gold);
+  margin-top: 16px;
+  padding: 16px;
+  border-right: 3px solid var(--primary-gold);
+  background: rgba(201, 162, 39, 0.05);
+  border-radius: 4px;
 }
 
 .definitionImage {
@@ -59,7 +71,7 @@
 
 /* Process section */
 .processSection {
-  padding: 60px 0;
+  padding: 50px 0;
   background: rgba(30, 58, 95, 0.08);
 }
 
@@ -84,7 +96,7 @@
 
 /* Stats section */
 .statsSection {
-  padding: 80px 0;
+  padding: 50px 0;
 }
 
 .statsGrid {
@@ -129,7 +141,7 @@
 
 /* Comparison section */
 .comparisonSection {
-  padding: 60px 0 80px;
+  padding: 50px 0 60px;
   background: rgba(30, 58, 95, 0.08);
 }
 
@@ -150,7 +162,7 @@
 
 /* CTA section */
 .ctaSection {
-  padding: 60px 0 80px;
+  padding: 50px 0 60px;
 }
 
 .ctaBox {

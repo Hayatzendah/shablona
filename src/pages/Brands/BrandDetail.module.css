@@ -61,7 +61,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: calc(var(--navbar-height) + 40px) 20px 60px;
+  padding: calc(var(--navbar-height) + 40px) 20px 30px;
   overflow: hidden;
 }
 
@@ -169,7 +169,7 @@
 
 /* Content */
 .content {
-  padding: 60px 20px 40px;
+  padding: 40px 20px 40px;
 }
 
 .section {

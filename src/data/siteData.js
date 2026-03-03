@@ -21,7 +21,7 @@ const siteData = {
     { path: '/', label: 'الرئيسية' },
     { path: '/about', label: 'من نحن' },
     { path: '/brands', label: 'البراندات' },
-    { path: 'https://shabllona.org', label: 'المنتجات', external: true },
+    { path: 'https://shabllona.com', label: 'المنتجات', external: true },
     { path: '/digital-twin', label: 'التوأم الرقمي' },
     { path: '/faq', label: 'الأسئلة الشائعة' },
     { path: '/contact', label: 'تواصل معنا' },

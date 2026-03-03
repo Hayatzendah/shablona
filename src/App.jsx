@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton';
+import ScrollIndicator from './components/ScrollIndicator/ScrollIndicator';
 import PageWrapper from './components/PageWrapper/PageWrapper';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 
@@ -78,6 +79,7 @@ function App() {
         </Suspense>
       </main>
       <Footer />
+      <ScrollIndicator />
       <WhatsAppButton />
     </>
   );

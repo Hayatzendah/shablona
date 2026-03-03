@@ -1,0 +1,83 @@
+.indicator {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 14, 23, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 12px 10px;
+  opacity: 1;
+  transition: opacity 0.5s ease, background 0.3s ease;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mouse {
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(201, 162, 39, 0.5);
+  border-radius: 11px;
+  position: relative;
+}
+
+.wheel {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 6px;
+  background: var(--primary-gold);
+  border-radius: 2px;
+  animation: scrollWheel 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollWheel {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(14px);
+  }
+}
+
+.arrow {
+  color: var(--primary-gold);
+  font-size: 1rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .indicator {
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .mouse {
+    width: 20px;
+    height: 30px;
+  }
+}

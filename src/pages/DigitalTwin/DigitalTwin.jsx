@@ -84,6 +84,9 @@ function DigitalTwin() {
             <div className={styles.definitionContent}>
               <h1 className={styles.definitionTitle}>{definition.title}</h1>
               <p className={styles.definitionText}>{definition.text}</p>
+              {definition.brandNote && (
+                <p className={styles.brandNote}>{definition.brandNote}</p>
+              )}
             </div>
             <div className={styles.definitionImage}>
               {definition.image ? (
@@ -155,7 +158,7 @@ function DigitalTwin() {
                 <i className="fab fa-whatsapp"></i>
                 تواصل معنا
               </a>
-              <a href="https://shabllona.org" target="_blank" rel="noopener noreferrer" className={styles.ctaBtnOutline}>
+              <a href="https://shabllona.com" target="_blank" rel="noopener noreferrer" className={styles.ctaBtnOutline}>
                 <i className="fas fa-box-open"></i>
                 استعرض المنتجات
               </a>

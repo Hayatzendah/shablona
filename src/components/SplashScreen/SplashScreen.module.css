@@ -45,8 +45,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
   transform: translate(-50%, -50%);
   opacity: 0;
   scale: 0.6;
@@ -56,8 +56,8 @@
 
 .shape {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   opacity: 0.85;
   animation: float 3s ease-in-out infinite;
 }
@@ -161,8 +161,8 @@
     border-color: rgba(201, 162, 39, 0.6);
   }
   100% {
-    width: 320px;
-    height: 320px;
+    width: 260px;
+    height: 260px;
     opacity: 0;
     border-color: rgba(201, 162, 39, 0);
   }
@@ -181,13 +181,13 @@
   }
 
   .shapesOrbit {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
   }
 
   .shape {
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
   }
 
   .title {
@@ -206,8 +206,8 @@
       border-color: rgba(201, 162, 39, 0.6);
     }
     100% {
-      width: 240px;
-      height: 240px;
+      width: 200px;
+      height: 200px;
       opacity: 0;
       border-color: rgba(201, 162, 39, 0);
     }

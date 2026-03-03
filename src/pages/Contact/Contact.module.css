@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   padding-top: calc(var(--navbar-height) + 60px);
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   text-align: center;
   background-image: url('/images/contact/contact-bg.webp');
   background-size: cover;
@@ -40,7 +40,7 @@
 }
 
 .contactSection {
-  padding: 60px 0 80px;
+  padding: 40px 0 60px;
 }
 
 .layout {

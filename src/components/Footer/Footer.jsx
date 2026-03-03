@@ -18,7 +18,7 @@ const serviceLinks = [
 
 const quickLinks = [
   { path: '/about', label: 'من نحن' },
-  { path: 'https://shabllona.org', label: 'المتجر', external: true },
+  { path: 'https://shabllona.com', label: 'المتجر', external: true },
   { path: '/faq', label: 'الأسئلة الشائعة' },
   { path: '/contact', label: 'تواصل معنا' },
 ];
@@ -105,6 +105,9 @@ function Footer() {
       <div className={styles.footerBottom}>
         <div className="container">
           <p>&copy; 2026 شركة شبلونة لحلول التوأمة الرقمية. جميع الحقوق محفوظة.</p>
+          <p className={styles.ipNotice}>
+            جميع حقوق الملكية الفكرية والعلامات التجارية محفوظة لشركة شبلونة تحت إشراف واستشارة محمد عبد الهادي، ولا يجوز استخدامها دون إذن كتابي مسبق.
+          </p>
         </div>
       </div>
     </footer>

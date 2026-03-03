@@ -14,6 +14,19 @@ function About() {
         description="تعرف على شركة شبلونة وقصة تأسيسها وفلسفة الأجسام الأفلاطونية الخمسة وحلزون فيبوناتشي الذي يربط براندات شبلونة ببعضها."
       />
 
+      {/* Activity Section */}
+      <section className={styles.activitySection}>
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>{activity.title}</h2>
+          <div className={styles.activityBox}>
+            <div className={styles.activityIcon}>
+              <i className="fas fa-building"></i>
+            </div>
+            <p className={styles.activityText}>{activity.text}</p>
+          </div>
+        </div>
+      </section>
+
       {/* Story Section */}
       <section className={styles.storySection}>
         <div className={styles.container}>
@@ -80,19 +93,6 @@ function About() {
 
       {/* Platonic Solids / Philosophy */}
       <Philosophy />
-
-      {/* Activity Section */}
-      <section className={styles.activitySection}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>{activity.title}</h2>
-          <div className={styles.activityBox}>
-            <div className={styles.activityIcon}>
-              <i className="fas fa-building"></i>
-            </div>
-            <p className={styles.activityText}>{activity.text}</p>
-          </div>
-        </div>
-      </section>
 
       {/* Capabilities Section */}
       <section className={styles.capabilitiesSection}>
