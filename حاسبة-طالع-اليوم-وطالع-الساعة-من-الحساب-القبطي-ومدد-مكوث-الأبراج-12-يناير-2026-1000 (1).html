@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة طول الشمس التقريبي - الطريقة القبطية v8.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            background: linear-gradient(135deg, #050818 0%, #0a0e27 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(5, 8, 24, 0.98));
+            border: 3px solid #d4af37;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "﷽";
+            position: absolute;
+            top: 15px;
+            left: 25px;
+            font-size: 60px;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: 'Scheherazade New', serif;
+        }
+
+        .header h1 {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 48px;
+            color: #f4d03f;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: 900;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .header p {
+            font-size: 24px;
+            color: #d4af37;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.7);
+        }
+
+        .bismillah-text {
+            font-size: 18px;
+            color: #d4af37;
+            margin-top: 10px;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .info-panel {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(5, 8, 24, 0.95));
+            padding: 30px;
+            border-radius: 18px;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .info-panel h3 {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 32px;
+            color: #d4af37;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #d4af37;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 900;
+        }
+
+        .coptic-months-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .coptic-months-table th {
+            background: linear-gradient(135deg, #d4af37, #b7950b);
+            color: #050818;
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 17px;
+            border: none;
+            font-weight: 900;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .coptic-months-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .coptic-months-table tr {
+            background: rgba(10, 14, 39, 0.7);
+        }
+
+        .coptic-months-table tr:nth-child(even) {
+            background: rgba(15, 20, 45, 0.7);
+        }
+
+        .coptic-months-table tr:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .month-name {
+            font-weight: 900;
+            color: #f4d03f;
+            font-size: 18px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .season-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 900;
+            color: white;
+            margin: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .season-flood { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .season-growth { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .season-harvest { background: linear-gradient(135deg, #e67e22, #d35400); }
+
+        .date-inputs {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(5, 8, 24, 0.95));
+            padding: 30px;
+            border-radius: 18px;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: #f4d03f;
+            font-weight: 900;
+            font-size: 22px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 18px;
+            background: #ffffff;
+            border: 3px solid #d4af37;
+            border-radius: 12px;
+            color: #000000;
+            font-size: 20px;
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-weight: 900;
+            text-align: center;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #f4d03f;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, #d4af37, #b7950b);
+            color: #050818;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 28px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(135deg, #f4d03f, #d4af37);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(5, 8, 24, 0.95));
+            padding: 35px;
+            border-radius: 18px;
+            border: 3px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #b7950b);
+        }
+
+        .result-box h3 {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 32px;
+            color: #d4af37;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #d4af37;
+            font-weight: 900;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .coptic-result {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+            border-radius: 12px;
+            border: 3px solid #d4af37;
+            line-height: 1.5;
+            direction: rtl;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .zodiac-name {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 32px;
+            color: #f4d03f;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(244, 208, 63, 0.5);
+        }
+
+        .degrees-display {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 40px;
+            color: #2ecc71;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+
+        .calculation-steps {
+            background: linear-gradient(135deg, rgba(20, 30, 70, 0.9), rgba(10, 20, 50, 0.8));
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border-radius: 8px;
+            border-right: 5px solid #d4af37;
+            font-size: 17px;
+            font-weight: 900;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+            transform: translateX(-5px);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #d4af37, #b7950b);
+            color: #050818;
+            padding: 6px 12px;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .step-value {
+            font-weight: 900;
+            color: #f4d03f;
+            font-size: 18px;
+        }
+
+        .zodiac-control {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(5, 8, 24, 0.95));
+            padding: 30px;
+            border-radius: 18px;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            margin-bottom: 25px;
+        }
+
+        .zodiac-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .zodiac-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(20, 30, 70, 0.5);
+            border-radius: 10px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .zodiac-input label {
+            font-size: 16px;
+            color: #f4d03f;
+            font-weight: 900;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .zodiac-input input {
+            padding: 12px;
+            background: #ffffff;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            color: #000000;
+            font-weight: 900;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .degree-value-display {
+            font-size: 13px;
+            color: #f4d03f;
+            margin-top: 6px;
+            font-weight: 900;
+            text-align: center;
+            padding: 6px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 5px;
+        }
+
+        .zodiac-total {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.15));
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            border: 3px solid #2ecc71;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .zodiac-total.correct {
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+
+        .zodiac-total.incorrect {
+            color: #e74c3c;
+            border-color: #e74c3c;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.15));
+        }
+
+        .save-zodiac-btn, .btn-secondary, .export-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 20px;
+            font-weight: 900;
+            cursor: pointer;
+            margin: 10px 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .save-zodiac-btn:hover, .btn-secondary:hover, .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .export-btn:nth-child(2) {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        .details-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #050818, #0d1525);
+            margin: 30px auto;
+            padding: 40px;
+            border-radius: 20px;
+            border: 4px solid #d4af37;
+            width: 90%;
+            max-width: 1400px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .modal-title {
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+            font-size: 36px;
+            color: #f4d03f;
+            font-weight: 900;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .close-modal {
+            background: linear-gradient(135deg, #d4af37, #b7950b);
+            color: #050818;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 28px;
+            cursor: pointer;
+            font-weight: 900;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .close-modal:hover {
+            transform: scale(1.1);
+        }
+
+        .pillar-info {
+            background: linear-gradient(135deg, rgba(30, 40, 70, 0.9), rgba(20, 30, 50, 0.8));
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #d4af37;
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+            z-index: 9999;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            border: 3px solid;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            font-family: 'Tajawal', 'Calibri', sans-serif !important;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.95), rgba(39, 174, 96, 0.9));
+            border-color: #2ecc71;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 0.9));
+            border-color: #e74c3c;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.95), rgba(41, 128, 185, 0.9));
+            border-color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .time-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>حاسبة طول الشمس التقريبي - الطريقة القبطية v8.1</h1>
+            <p>حساب فلكي قبطي مصري أصيل مع خوارزمية طالع الساعة المتقدمة</p>
+            <p class="bismillah-text">بسم الله الرحمن الرحيم - الحمد لله على نعمة العلم والحكمة</p>
+        </div>
+
+        <div class="main-grid">
+            <div class="info-panel">
+                <h3><i class="fas fa-calendar-alt"></i> جدول الشهور القبطية التامة</h3>
+                <table class="coptic-months-table" id="copticMonthsTable">
+                    <thead>
+                        <tr>
+                            <th>الشهر القبطي</th>
+                            <th>الميلادي</th>
+                            <th>الاسم الدارج</th>
+                            <th>الموسم</th>
+                        </tr>
+                    </thead>
+                    <tbody id="copticMonthsBody"></tbody>
+                </table>
+                <button class="btn-secondary" onclick="showMonthDetails()">
+                    <i class="fas fa-info-circle"></i> تفاصيل الشهور والمواسم والحكمة
+                </button>
+            </div>
+
+            <div class="date-inputs">
+                <h3 style="font-family: 'Tajawal', 'Calibri', sans-serif !important; font-size: 28px; color: #d4af37; margin-bottom: 20px;">
+                    <i class="fas fa-clock"></i> إدخال التاريخ والوقت
+                </h3>
+                
+                <div class="input-group">
+                    <label><i class="fas fa-calendar"></i> التاريخ الميلادي:</label>
+                    <input type="text" id="gregorianDate" placeholder="اختر التاريخ الميلادي">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-moon"></i> التاريخ القبطي المحول:</label>
+                    <div id="copticDateDisplay" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.1)); padding: 18px; border-radius: 10px; font-family: 'Tajawal', 'Calibri', sans-serif !important; font-size: 22px; font-weight: 900; color: #ffffff; border: 3px solid #d4af37;">
+                        في انتظار التحويل...
+                    </div>
+                </div>
+
+                <div class="time-inputs">
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-sun"></i> لحظة الشروق:</label>
+                        <input type="time" id="sunriseTime" value="06:30">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-regular fa-clock"></i> لحظة الزوال:</label>
+                        <input type="time" id="noonTime" value="12:00">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-star"></i> لحظة السؤال:</label>
+                        <input type="time" id="queryTime" value="13:45">
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateCopticSunLength()">
+                    <i class="fas fa-calculator"></i> احسب طول الشمس (طالع اليوم)
+                </button>
+
+                <button class="calculate-btn" onclick="calculateAllZodiacs()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <i class="fas fa-star"></i> احسب الطالع والغارب والعاشر والرابع
+                </button>
+            </div>
+        </div>
+
+        <div id="resultsSection" style="display: none;">
+            <div class="results-section">
+                <div class="result-box">
+                    <h3><i class="fas fa-sun"></i> طول الشمس التقريبي (طالع اليوم)</h3>
+                    <div class="coptic-result" id="sunLengthResult"></div>
+                    <div class="calculation-steps" id="calculationSteps"></div>
+                </div>
+
+                <div class="result-box">
+                    <h3><i class="fas fa-star"></i> طالع الساعة لراصد القاهرة</h3>
+                    <div class="coptic-result" id="zodiacResult"></div>
+                    <div class="calculation-steps" id="zodiacSteps"></div>
+                </div>
+
+                <div class="result-box">
+                    <h3><i class="fas fa-star"></i> غارب لحظة السؤال (نظير طالع الساعة)</h3>
+                    <div class="coptic-result" id="garbResult"></div>
+                    <div class="calculation-steps" id="garbSteps"></div>
+                    <div class="pillar-info">
+                        <strong>🌅 المبدأ:</strong> غارب لحظة السؤال = طالع لحظة السؤال + 6 أبراج (180 درجة)
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <h3><i class="fas fa-star"></i> العاشر (وتد السماء - من الزوال)</h3>
+                    <div class="coptic-result" id="tenthResult"></div>
+                    <div class="calculation-steps" id="tenthSteps"></div>
+                </div>
+
+                <div class="result-box">
+                    <h3><i class="fas fa-star"></i> الرابع (وتد الأرض - نظير العاشر)</h3>
+                    <div class="coptic-result" id="fourthResult"></div>
+                    <div class="calculation-steps" id="fourthSteps"></div>
+                    <div class="pillar-info">
+                        <strong>🌍 المبدأ:</strong> الرابع = العاشر + 6 أبراج (180 درجة) - وتد الأرض بالتناظر
+                    </div>
+                </div>
+            </div>
+
+            <div class="zodiac-control">
+                <h3 style="font-family: 'Tajawal', 'Calibri', sans-serif !important; font-size: 28px; color: #d4af37; margin-bottom: 20px;">
+                    <i class="fas fa-cog"></i> إعدادات مدد مكوث الأبراج في أفق المشرق لراصد القاهرة
+                </h3>
+                <div class="zodiac-inputs" id="zodiacInputs"></div>
+                <div class="zodiac-total" id="zodiacTotal">
+                    المجموع: 00:00 (يجب أن يكون 24:00)
+                </div>
+                <button class="save-zodiac-btn" onclick="saveZodiacDurations('horizon')">
+                    <i class="fas fa-save"></i> حفظ المدد المعدلة
+                </button>
+                <button class="export-btn" onclick="resetZodiacDurations('horizon')">
+                    <i class="fas fa-undo"></i> إعادة القيم القبطية الأصلية
+                </button>
+            </div>
+
+            <div class="zodiac-control" style="margin-top: 30px;">
+                <h3 style="font-family: 'Tajawal', 'Calibri', sans-serif !important; font-size: 28px; color: #d4af37; margin-bottom: 20px;">
+                    <i class="fas fa-satellite-dish"></i> مدد مكوث الأبراج في كبد السماء (المطالع الفلكية)
+                </h3>
+                <div class="zodiac-inputs" id="midheavenInputs"></div>
+                <div class="zodiac-total" id="midheavenTotal">
+                    المجموع: 00:00 (يجب أن يكون 24:00)
+                </div>
+                <button class="save-zodiac-btn" onclick="saveZodiacDurations('midheaven')">
+                    <i class="fas fa-save"></i> حفظ المدد المعدلة
+                </button>
+                <button class="export-btn" onclick="resetZodiacDurations('midheaven')">
+                    <i class="fas fa-undo"></i> إعادة القيم الفلكية الأصلية
+                </button>
+                <button class="btn-secondary" onclick="showMidheavenInfo()">
+                    <i class="fas fa-info-circle"></i> معلومات عن المطالع الفلكية
+                </button>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="export-btn" onclick="showDetailsModal()">
+                    <i class="fas fa-info-circle"></i> عرض التفاصيل الكاملة
+                </button>
+                <button class="export-btn" onclick="shareResults()">
+                    <i class="fas fa-share"></i> مشاركة النتائج
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">التفاصيل الفلكية الكاملة</div>
+                <button class="close-modal" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
+    
+    <script>
+        const copticMonths = [
+            { 
+                name: "توت", days: 30, gregorian: "11 سبتمبر - 10 أكتوبر", modern: "سبتمبر", season: "flood", 
+                story: "توت إله الحكمة، بداية السنة والفيضان",
+                proverbs: ["توت يخللي الصبية كركوبة (لشدة البرد)", "توت يشيل الزرع ويجيب الزرة (بداية الحصاد)"]
+            },
+            { 
+                name: "بابة", days: 30, gregorian: "11 أكتوبر - 9 نوفمبر", modern: "أكتوبر", season: "flood", 
+                story: "بابة (الأب)، الشهر الثاني للفيضان",
+                proverbs: ["بابة يبرد الحمام ويهد البابا (البرد يتزايد)", "بابة يجيب العدس اليايّس (موسم زراعة العدس)"]
+            },
+            { 
+                name: "هاتور", days: 30, gregorian: "10 نوفمبر - 9 ديسمبر", modern: "نوفمبر", season: "flood", 
+                story: "هاتور إلهة الحب والجمال، نهاية الفيضان",
+                proverbs: ["الهاتور بيوقف الميِّ (نهاية الفيضان)", "هاتور بيجيب الندى على الزرع (الندى يجيء بكثرة)"]
+            },
+            { 
+                name: "كيهك", days: 30, gregorian: "10 ديسمبر - 8 يناير", modern: "ديسمبر", season: "flood", 
+                story: "كيهك (الكيك)، بداية موسم النمو",
+                proverbs: ["كيهك الدنيا بتلمع (طلوع النجوم وبرودة الجو)", "كيهك بيجيب الشتاء والمطر والبرد"]
+            },
+            { 
+                name: "طوبة", days: 30, gregorian: "9 يناير - 7 فبراير", modern: "يناير", season: "growth", 
+                story: "طوبة (الطيبة)، منتصف موسم النمو",
+                proverbs: ["طوبة تخللي الصبية كركوبة (أشد شهور البرد)", "طوبة بيموت الماء في الصحارى (المسطحات المائية تتجمد)"]
+            },
+            { 
+                name: "أمشير", days: 30, gregorian: "8 فبراير - 9 مارس", modern: "فبراير", season: "growth", 
+                story: "أمشير (العظمة)، نهاية النمو",
+                proverbs: ["أمشير يودي التقيل ويجيب الخفيف (تغيرات الجو)", "أمشير بيجيب الربيع والزهور"]
+            },
+            { 
+                name: "برمهات", days: 30, gregorian: "10 مارس - 8 أبريل", modern: "مارس", season: "growth", 
+                story: "برمهات (بر المعبود)، بداية الحصاد",
+                proverbs: ["برمهات بيعوت السمك (موسم تكاثر السمك)", "برمهات بيجيب الحر والعطش"]
+            },
+            { 
+                name: "برمودة", days: 30, gregorian: "9 أبريل - 8 مايو", modern: "أبريل", season: "growth", 
+                story: "برمودة (بر المجد)، منتصف الحصاد",
+                proverbs: ["برمودة الخفيف فيه كالديد (الحرارة المعتدلة)", "برمودة بيجيب القمح والشعير"]
+            },
+            { 
+                name: "بشنس", days: 30, gregorian: "9 مايو - 7 يونيو", modern: "مايو", season: "harvest", 
+                story: "بشنس (الحياة)، نهاية الحصاد",
+                proverbs: ["بشنس بيربع النخل فيه (تجهيز النخيل للتمر)", "بشنس بيجيب التمر والعنب"]
+            },
+            { 
+                name: "بؤونة", days: 30, gregorian: "8 يونيو - 7 يوليو", modern: "يونيو", season: "harvest", 
+                story: "بؤونة (الصوصنة)، بداية الفيضان الجديد",
+                proverbs: ["بؤونة بيجي فيها الماء الزلال (بداية الفيضان)", "بؤونة بترتوي الأرض العطشانة"]
+            },
+            { 
+                name: "أبيب", days: 30, gregorian: "8 يوليو - 6 أغسطس", modern: "يوليو", season: "harvest", 
+                story: "أبيب (الحبيب)، الفيضان يعلو",
+                proverbs: ["أبيب يحبب الكنيب (الماء يفيض)", "أبيب بيجيب النيل والخير والبركة"]
+            },
+            { 
+                name: "مسرى", days: 30, gregorian: "7 أغسطس - 5 سبتمبر", modern: "أغسطس", season: "harvest", 
+                story: "مسرى (مس رع)، نهاية السنة",
+                proverbs: ["مسرى بيروح ويجيب الندى (نهاية الفيضان)", "مسرى بيجيب البرد والخريف"]
+            },
+            { 
+                name: "نسيء", days: 5, gregorian: "6-10 سبتمبر", modern: "النسيء (5 أو 6 أيام - سنة مكبوسة)", season: "flood", 
+                story: "النسيء: الأيام الخمسة المكبوسة (أو ستة في السنة المكبوسة) لتقويم السنة القمرية",
+                proverbs: ["النسيء خمسة أو ستة أيام كتقويم مكبوس للسنة القمرية", "النسيء أيام الحسرة والندم عند القدماء"]
+            }
+        ];
+
+        const zodiacSigns = [
+            { name: "الحمل", symbol: "♈", hours: 1, minutes: 23, color: "#e74c3c", isNorthern: true },
+            { name: "الثور", symbol: "♉", hours: 1, minutes: 25, color: "#2ecc71", isNorthern: true },
+            { name: "الجوزاء", symbol: "♊", hours: 1, minutes: 57, color: "#f39c12", isNorthern: true },
+            { name: "السرطان", symbol: "♋", hours: 2, minutes: 14, color: "#3498db", isNorthern: true },
+            { name: "الأسد", symbol: "♌", hours: 2, minutes: 17, color: "#e67e22", isNorthern: true },
+            { name: "السنبلة", symbol: "♍", hours: 2, minutes: 14, color: "#9b59b6", isNorthern: true },
+            { name: "الميزان", symbol: "♎", hours: 2, minutes: 14, color: "#1abc9c", isNorthern: false },
+            { name: "العقرب", symbol: "♏", hours: 2, minutes: 16, color: "#34495e", isNorthern: false },
+            { name: "القوس", symbol: "♐", hours: 2, minutes: 13, color: "#f1c40f", isNorthern: false },
+            { name: "الجدي", symbol: "♑", hours: 1, minutes: 54, color: "#95a5a6", isNorthern: false },
+            { name: "الدلو", symbol: "♒", hours: 1, minutes: 33, color: "#3498db", isNorthern: false },
+            { name: "الحوت", symbol: "♓", hours: 1, minutes: 22, color: "#2ecc71", isNorthern: false }
+        ];
+
+        // المطالع الفلكية (كبد السماء) - القيم الأصلية من ملف Word
+        const zodiacMidheaven = [
+            { name: "الجدي", hours: 2, minutes: 5 },
+            { name: "الدلو", hours: 1, minutes: 55 },
+            { name: "الحوت", hours: 1, minutes: 48 },
+            { name: "الحمل", hours: 1, minutes: 48 },
+            { name: "الثور", hours: 1, minutes: 56 },
+            { name: "الجوزاء", hours: 2, minutes: 5 },
+            { name: "السرطان", hours: 2, minutes: 5 },
+            { name: "الأسد", hours: 1, minutes: 55 },
+            { name: "السنبلة", hours: 1, minutes: 48 },
+            { name: "الميزان", hours: 1, minutes: 48 },
+            { name: "العقرب", hours: 1, minutes: 56 },
+            { name: "القوس", hours: 2, minutes: 5 }
+        ];
+
+        function gregorianToCoptic(gregorianDate) {
+            const date = new Date(gregorianDate);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            let copticYear = year - 283;
+            let copticMonth = 0;
+            let copticDay = 0;
+
+            const copticStart = new Date(year, 8, 11);
+            
+            if (date >= copticStart) {
+                const diffTime = date - copticStart;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                let daysRemaining = diffDays;
+                for (let i = 0; i < copticMonths.length; i++) {
+                    const monthDays = copticMonths[i].days;
+                    if (daysRemaining < monthDays) {
+                        copticMonth = i + 1;
+                        copticDay = daysRemaining + 1;
+                        break;
+                    }
+                    daysRemaining -= monthDays;
+                }
+            } else {
+                copticYear = year - 284;
+                const prevYearStart = new Date(year - 1, 8, 11);
+                const diffTime = date - prevYearStart;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                let daysRemaining = diffDays;
+                for (let i = 0; i < copticMonths.length; i++) {
+                    const monthDays = copticMonths[i].days;
+                    if (daysRemaining < monthDays) {
+                        copticMonth = i + 1;
+                        copticDay = daysRemaining + 1;
+                        break;
+                    }
+                    daysRemaining -= monthDays;
+                }
+            }
+
+            return {
+                year: copticYear,
+                month: copticMonth,
+                day: copticDay,
+                monthName: copticMonths[copticMonth - 1]?.name || "",
+                isLeapYear: copticYear % 4 === 0
+            };
+        }
+
+        function calculateElapsedDays(copticDate) {
+            let elapsedDays = 0;
+            for (let i = 0; i < copticDate.month - 1; i++) {
+                elapsedDays += copticMonths[i].days;
+            }
+            elapsedDays += copticDate.day - 1;
+            return elapsedDays;
+        }
+
+        function addAsElShams(elapsedDays) {
+            const asElShamsDays = (5 * 30) + 18;
+            return elapsedDays + asElShamsDays;
+        }
+
+        function determineZodiacAdvanced(totalDays) {
+            let adjustedDays = totalDays;
+            let use31Degrees = false;
+            
+            if (adjustedDays > 360) {
+                adjustedDays -= 360;
+                use31Degrees = true;
+            }
+            
+            let currentDegrees = 0;
+            let zodiacIndex = 0;
+            
+            for (let i = 0; i < 12; i++) {
+                const degreesPerSign = (use31Degrees && zodiacSigns[i].isNorthern) ? 31 : 30;
+                
+                if (adjustedDays < currentDegrees + degreesPerSign) {
+                    zodiacIndex = i;
+                    break;
+                }
+                currentDegrees += degreesPerSign;
+            }
+            
+            const finalDegrees = Math.floor(adjustedDays - currentDegrees);
+            const zodiac = zodiacSigns[zodiacIndex];
+            
+            return {
+                zodiac: zodiac,
+                degrees: finalDegrees,
+                totalDays: totalDays,
+                adjustedDays: adjustedDays,
+                zodiacIndex: zodiacIndex,
+                use31Degrees: use31Degrees
+            };
+        }
+
+        function calculateHourlyZodiac(sunriseTime, queryTime, dailyZodiacDegrees, isMidheaven = false) {
+            const [sunriseHour, sunriseMinute] = sunriseTime.split(':').map(Number);
+            const [queryHour, queryMinute] = queryTime.split(':').map(Number);
+            
+            const sunriseTotalMinutes = sunriseHour * 60 + sunriseMinute;
+            const queryTotalMinutes = queryHour * 60 + queryMinute;
+            
+            let timeDifference = queryTotalMinutes - sunriseTotalMinutes;
+            if (timeDifference < 0) timeDifference += 24 * 60;
+            
+            const remainingDegrees = zodiacSigns[dailyZodiacDegrees.zodiacIndex].isNorthern ? 31 : 30;
+            const remainingInSign = remainingDegrees - dailyZodiacDegrees.degrees;
+            
+            const zodiacDurations = isMidheaven ? getStoredZodiacDurations('midheaven') : getStoredZodiacDurations('horizon');
+            const currentZodiac = zodiacSigns[dailyZodiacDegrees.zodiacIndex];
+            
+            let balance = timeDifference;
+            let currentZodiacIndex = dailyZodiacDegrees.zodiacIndex;
+            let foundZodiac = null;
+            let degreesInZodiac = 0;
+            
+            if (remainingInSign > 0) {
+                const zodiacDurationMinutes = zodiacDurations[currentZodiacIndex].hours * 60 + 
+                                              zodiacDurations[currentZodiacIndex].minutes;
+                const perDegreeDuration = zodiacDurationMinutes / (zodiacSigns[currentZodiacIndex].isNorthern ? 31 : 30);
+                const remainingTime = remainingInSign * perDegreeDuration;
+                
+                if (balance <= remainingTime) {
+                    foundZodiac = zodiacSigns[currentZodiacIndex];
+                    degreesInZodiac = dailyZodiacDegrees.degrees + Math.floor(balance / perDegreeDuration);
+                } else {
+                    balance -= remainingTime;
+                    currentZodiacIndex = (currentZodiacIndex + 1) % 12;
+                }
+            } else {
+                currentZodiacIndex = (dailyZodiacDegrees.zodiacIndex + 1) % 12;
+            }
+            
+            while (!foundZodiac) {
+                const zodiacDurationMinutes = zodiacDurations[currentZodiacIndex].hours * 60 + 
+                                              zodiacDurations[currentZodiacIndex].minutes;
+                
+                if (balance <= zodiacDurationMinutes) {
+                    foundZodiac = zodiacSigns[currentZodiacIndex];
+                    const perDegreeDuration = zodiacDurationMinutes / (zodiacSigns[currentZodiacIndex].isNorthern ? 31 : 30);
+                    degreesInZodiac = Math.floor(balance / perDegreeDuration);
+                    break;
+                }
+                
+                balance -= zodiacDurationMinutes;
+                currentZodiacIndex = (currentZodiacIndex + 1) % 12;
+            }
+            
+            return {
+                zodiac: foundZodiac,
+                degrees: degreesInZodiac,
+                timeDifference: timeDifference,
+                balance: balance,
+                remainingDegrees: remainingInSign,
+                usedMidheaven: isMidheaven
+            };
+        }
+
+        function calculateMidheavenZodiac(noonTime, queryTime, dailyZodiacDegrees) {
+            const [noonHour, noonMinute] = noonTime.split(':').map(Number);
+            const [queryHour, queryMinute] = queryTime.split(':').map(Number);
+            
+            const noonTotalMinutes = noonHour * 60 + noonMinute;
+            const queryTotalMinutes = queryHour * 60 + queryMinute;
+            
+            let timeDifference = queryTotalMinutes - noonTotalMinutes;
+            if (timeDifference < 0) timeDifference += 24 * 60;
+            
+            const remainingDegrees = zodiacSigns[dailyZodiacDegrees.zodiacIndex].isNorthern ? 31 : 30;
+            const remainingInSign = remainingDegrees - dailyZodiacDegrees.degrees;
+            
+            const zodiacDurations = getStoredZodiacDurations('midheaven');
+            
+            let balance = timeDifference;
+            let currentZodiacIndex = dailyZodiacDegrees.zodiacIndex;
+            let foundZodiac = null;
+            let degreesInZodiac = 0;
+            
+            if (remainingInSign > 0) {
+                const zodiacDurationMinutes = zodiacDurations[currentZodiacIndex].hours * 60 + 
+                                              zodiacDurations[currentZodiacIndex].minutes;
+                const perDegreeDuration = zodiacDurationMinutes / (zodiacSigns[currentZodiacIndex].isNorthern ? 31 : 30);
+                const remainingTime = remainingInSign * perDegreeDuration;
+                
+                if (balance <= remainingTime) {
+                    foundZodiac = zodiacSigns[currentZodiacIndex];
+                    degreesInZodiac = dailyZodiacDegrees.degrees + Math.floor(balance / perDegreeDuration);
+                } else {
+                    balance -= remainingTime;
+                    currentZodiacIndex = (currentZodiacIndex + 1) % 12;
+                }
+            } else {
+                currentZodiacIndex = (dailyZodiacDegrees.zodiacIndex + 1) % 12;
+            }
+            
+            while (!foundZodiac) {
+                const zodiacDurationMinutes = zodiacDurations[currentZodiacIndex].hours * 60 + 
+                                              zodiacDurations[currentZodiacIndex].minutes;
+                
+                if (balance <= zodiacDurationMinutes) {
+                    foundZodiac = zodiacSigns[currentZodiacIndex];
+                    const perDegreeDuration = zodiacDurationMinutes / (zodiacSigns[currentZodiacIndex].isNorthern ? 31 : 30);
+                    degreesInZodiac = Math.floor(balance / perDegreeDuration);
+                    break;
+                }
+                
+                balance -= zodiacDurationMinutes;
+                currentZodiacIndex = (currentZodiacIndex + 1) % 12;
+            }
+            
+            return {
+                zodiac: foundZodiac,
+                degrees: degreesInZodiac,
+                timeDifference: timeDifference,
+                balance: balance,
+                remainingDegrees: remainingInSign
+            };
+        }
+
+        function calculateGarbZodiac(hourlyZodiac) {
+            const garbIndex = (hourlyZodiac.zodiacIndex + 6) % 12;
+            return {
+                zodiac: zodiacSigns[garbIndex],
+                degrees: hourlyZodiac.degrees
+            };
+        }
+
+        function calculateFourthZodiac(tenthZodiac) {
+            const fourthIndex = (tenthZodiac.zodiacIndex + 6) % 12;
+            return {
+                zodiac: zodiacSigns[fourthIndex],
+                degrees: tenthZodiac.degrees
+            };
+        }
+
+        function getStoredZodiacDurations(type = 'horizon') {
+            const storageKey = type === 'midheaven' ? 'copticMidheavenDurations' : 'copticZodiacDurations';
+            const stored = localStorage.getItem(storageKey);
+            return stored ? JSON.parse(stored) : (type === 'midheaven' ? [...zodiacMidheaven] : [...zodiacSigns]);
+        }
+
+        function saveZodiacDurations(type = 'horizon') {
+            const storageKey = type === 'midheaven' ? 'copticMidheavenDurations' : 'copticZodiacDurations';
+            const containerId = type === 'midheaven' ? 'midheavenInputs' : 'zodiacInputs';
+            const durations = [];
+            let totalMinutes = 0;
+            
+            for (let i = 0; i < zodiacSigns.length; i++) {
+                const hours = parseInt(document.getElementById(`${type}-${i}-hours`).value) || 0;
+                const minutes = parseInt(document.getElementById(`${type}-${i}-minutes`).value) || 0;
+                
+                durations.push({
+                    name: zodiacSigns[i].name,
+                    symbol: zodiacSigns[i].symbol,
+                    hours: hours,
+                    minutes: minutes,
+                    color: zodiacSigns[i].color,
+                    isNorthern: zodiacSigns[i].isNorthern
+                });
+                
+                totalMinutes += hours * 60 + minutes;
+            }
+            
+            const totalHours = Math.floor(totalMinutes / 60);
+            const remainingMinutes = totalMinutes % 60;
+            
+            if (totalHours === 24 && remainingMinutes === 0) {
+                localStorage.setItem(storageKey, JSON.stringify(durations));
+                showNotification(`✅ تم حفظ مدد الأبراج (${type === 'midheaven' ? 'كبد السماء' : 'أفق المشرق'}) بنجاح - المجموع صحيح = 24:00`, 'success');
+                updateZodiacTotal(type);
+            } else {
+                showNotification(`❌ المجموع يجب أن يكون 24:00 (الحالي: ${totalHours}:${remainingMinutes.toString().padStart(2, '0')})`, 'error');
+            }
+        }
+
+        function resetZodiacDurations(type = 'horizon') {
+            const storageKey = type === 'midheaven' ? 'copticMidheavenDurations' : 'copticZodiacDurations';
+            localStorage.removeItem(storageKey);
+            if (type === 'midheaven') {
+                populateMidheavenInputs();
+                updateZodiacTotal('midheaven');
+            } else {
+                populateZodiacInputs();
+                updateZodiacTotal('horizon');
+            }
+            showNotification(`✅ تمت إعادة القيم الأصلية لمدد مكوث الأبراج (${type === 'midheaven' ? 'كبد السماء' : 'أفق المشرق'})`, 'success');
+        }
+
+        function updateZodiacTotal(type = 'horizon') {
+            const durations = getStoredZodiacDurations(type);
+            let totalMinutes = 0;
+            
+            durations.forEach(zodiac => {
+                totalMinutes += zodiac.hours * 60 + zodiac.minutes;
+            });
+            
+            const totalHours = Math.floor(totalMinutes / 60);
+            const remainingMinutes = totalMinutes % 60;
+            
+            const totalElement = document.getElementById(type === 'midheaven' ? 'midheavenTotal' : 'zodiacTotal');
+            totalElement.textContent = 
+                `المجموع: ${totalHours}:${remainingMinutes.toString().padStart(2, '0')} (يجب أن يكون 24:00)`;
+            
+            totalElement.className = (totalHours === 24 && remainingMinutes === 0) ? 
+                'zodiac-total correct' : 'zodiac-total incorrect';
+        }
+
+        function updateMidheavenTotal() {
+            updateZodiacTotal('midheaven');
+        }
+
+        function calculateDegreeValue(hours, minutes) {
+            const totalMinutes = hours * 60 + minutes;
+            const degreesPerSign = 30;
+            const minutesPerDegree = Math.floor(totalMinutes / degreesPerSign);
+            const secondsPerDegree = Math.floor(((totalMinutes % degreesPerSign) * 60) / degreesPerSign);
+            return { minutes: minutesPerDegree, seconds: secondsPerDegree };
+        }
+
+        function populateCopticMonths() {
+            const tbody = document.getElementById('copticMonthsBody');
+            tbody.innerHTML = '';
+            
+            copticMonths.forEach((month, index) => {
+                if (month.name === 'نسيء') {
+                    const row = document.createElement('tr');
+                    row.style.background = 'linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2))';
+                    row.innerHTML = `
+                        <td class="month-name" colspan="2">${month.name}</td>
+                        <td>${month.gregorian}</td>
+                        <td>
+                            <span class="season-badge season-flood">${month.days} أو 6 أيام (سنة مكبوسة)</span>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                    return;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="month-name">${month.name}</td>
+                    <td>${month.gregorian}</td>
+                    <td>${month.modern}</td>
+                    <td>
+                        <span class="season-badge season-${month.season}">
+                            ${month.season === 'flood' ? 'الفيضان 🌊' : month.season === 'growth' ? 'النمو 🌱' : 'الحصاد 🌾'}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function populateZodiacInputs() {
+            const container = document.getElementById('zodiacInputs');
+            const durations = getStoredZodiacDurations('horizon');
+            
+            container.innerHTML = '';
+            
+            durations.forEach((zodiac, index) => {
+                const degreeValue = calculateDegreeValue(zodiac.hours, zodiac.minutes);
+                
+                const inputDiv = document.createElement('div');
+                inputDiv.className = 'zodiac-input';
+                inputDiv.innerHTML = `
+                    <label style="color: ${zodiac.color};">
+                        ${zodiac.symbol} ${zodiac.name}
+                    </label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="horizon-${index}-hours" min="0" max="12" 
+                               value="${zodiac.hours}" placeholder="ساعات"
+                               onchange="updateZodiacInput('horizon', ${index})">
+                        <input type="number" id="horizon-${index}-minutes" min="0" max="59" 
+                               value="${zodiac.minutes}" placeholder="دقائق"
+                               onchange="updateZodiacInput('horizon', ${index})">
+                    </div>
+                    <div class="degree-value-display" id="degree-value-horizon-${index}">
+                        قيمة الدرجة: ${degreeValue.minutes} ق ${degreeValue.seconds} ني
+                    </div>
+                `;
+                container.appendChild(inputDiv);
+            });
+            
+            updateZodiacTotal('horizon');
+        }
+
+        function populateMidheavenInputs() {
+            const container = document.getElementById('midheavenInputs');
+            const durations = getStoredZodiacDurations('midheaven');
+            
+            container.innerHTML = '';
+            
+            durations.forEach((zodiac, index) => {
+                const degreeValue = calculateDegreeValue(zodiac.hours, zodiac.minutes);
+                
+                const inputDiv = document.createElement('div');
+                inputDiv.className = 'zodiac-input';
+                inputDiv.innerHTML = `
+                    <label style="color: ${zodiacSigns[index].color};">
+                        ${zodiacSigns[index].symbol} ${zodiac.name}
+                    </label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="midheaven-${index}-hours" min="0" max="12" 
+                               value="${zodiac.hours}" placeholder="ساعات"
+                               onchange="updateZodiacInput('midheaven', ${index})">
+                        <input type="number" id="midheaven-${index}-minutes" min="0" max="59" 
+                               value="${zodiac.minutes}" placeholder="دقائق"
+                               onchange="updateZodiacInput('midheaven', ${index})">
+                    </div>
+                    <div class="degree-value-display" id="degree-value-midheaven-${index}">
+                        قيمة الدرجة: ${degreeValue.minutes} ق ${degreeValue.seconds} ني
+                    </div>
+                `;
+                container.appendChild(inputDiv);
+            });
+            
+            updateZodiacTotal('midheaven');
+        }
+
+        function updateZodiacInput(type, index) {
+            const hours = parseInt(document.getElementById(`${type}-${index}-hours`).value) || 0;
+            const minutes = parseInt(document.getElementById(`${type}-${index}-minutes`).value) || 0;
+            
+            const degreeValue = calculateDegreeValue(hours, minutes);
+            document.getElementById(`degree-value-${type}-${index}`).textContent = 
+                `قيمة الدرجة: ${degreeValue.minutes} ق ${degreeValue.seconds} ني`;
+            
+            updateZodiacTotal(type);
+        }
+
+        function calculateCopticSunLength() {
+            const gregorianDate = document.getElementById('gregorianDate').value;
+            if (!gregorianDate) {
+                showNotification('❌ الرجاء اختيار تاريخ ميلادي', 'error');
+                return;
+            }
+            
+            const copticDate = gregorianToCoptic(gregorianDate);
+            const elapsedDays = calculateElapsedDays(copticDate);
+            const totalDaysWithAs = addAsElShams(elapsedDays);
+            const zodiacResult = determineZodiacAdvanced(totalDaysWithAs);
+            
+            displaySunLengthResults(copticDate, elapsedDays, totalDaysWithAs, zodiacResult);
+            document.getElementById('resultsSection').style.display = 'block';
+            showNotification('✅ تم حساب طول الشمس بنجاح', 'success');
+        }
+
+        function calculateAllZodiacs() {
+            const gregorianDate = document.getElementById('gregorianDate').value;
+            const sunriseTime = document.getElementById('sunriseTime').value;
+            const noonTime = document.getElementById('noonTime').value;
+            const queryTime = document.getElementById('queryTime').value;
+            
+            if (!gregorianDate) {
+                showNotification('❌ الرجاء اختيار تاريخ أولاً', 'error');
+                return;
+            }
+            
+            if (!sunriseTime || !queryTime || !noonTime) {
+                showNotification('❌ الرجاء إدخال لحظة الشروق والزوال والسؤال', 'error');
+                return;
+            }
+            
+            const copticDate = gregorianToCoptic(gregorianDate);
+            const elapsedDays = calculateElapsedDays(copticDate);
+            const totalDaysWithAs = addAsElShams(elapsedDays);
+            const dailyZodiac = determineZodiacAdvanced(totalDaysWithAs);
+            
+            // حساب الطالع (الشرق)
+            const hourlyZodiac = calculateHourlyZodiac(sunriseTime, queryTime, dailyZodiac, false);
+            
+            // حساب الغارب (نظير طالع الساعة وليس طالع اليوم)
+            const garbZodiac = calculateGarbZodiac(hourlyZodiac);
+            
+            // حساب العاشر (وتد السماء) من الزوال (مختلف عن الإصدار السابق!)
+            const tenthZodiac = calculateMidheavenZodiac(noonTime, queryTime, dailyZodiac);
+            
+            // حساب الرابع (وتد الأرض) بالتناظر
+            const fourthZodiac = calculateFourthZodiac(tenthZodiac);
+            
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            // عرض النتائج
+            displaySunLengthResults(copticDate, elapsedDays, totalDaysWithAs, dailyZodiac);
+            displayHourlyZodiacResults(hourlyZodiac, sunriseTime, queryTime, dailyZodiac, 'zodiacResult', 'zodiacSteps');
+            displayHourlyZodiacResults(tenthZodiac, noonTime, queryTime, dailyZodiac, 'tenthResult', 'tenthSteps', 'وتد السماء');
+            
+            // عرض الغارب بناءً على طالع الساعة (تم التصحيح!)
+            document.getElementById('garbResult').innerHTML = `
+                <div style="font-size: 36px; color: ${garbZodiac.zodiac.color};">
+                    <span class="degrees-display">${garbZodiac.degrees}</span>
+                    <span style="color: #d4af37;">جه</span>
+                    <span class="zodiac-name">${garbZodiac.zodiac.name}</span>
+                </div>
+                <div style="font-size: 18px; color: #e0e0e0; margin-top: 15px;">
+                    التناظر الكامل: طالع الساعة + 6 أبراج (180 درجة) = الغارب<br>
+                    ${hourlyZodiac.degrees} جه ${hourlyZodiac.zodiac.name} → ${garbZodiac.degrees} جه ${garbZodiac.zodiac.name}
+                </div>
+            `;
+            
+            document.getElementById('garbSteps').innerHTML = `
+                <div class="step" style="background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.05);">
+                    <span><span class="step-number">1</span> طالع الساعة</span>
+                    <span class="step-value">${hourlyZodiac.degrees} جه ${hourlyZodiac.zodiac.name}</span>
+                </div>
+                <div class="step" style="background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.05);">
+                    <span><span class="step-number">2</span> إضافة 6 أبراج بالضبط</span>
+                    <span class="step-value">${garbZodiac.degrees} جه ${garbZodiac.zodiac.name}</span>
+                </div>
+                <div class="step" style="background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.1)); border-right-color: #e74c3c;">
+                    <span><span class="step-number">3</span> غارب لحظة السؤال</span>
+                    <span class="step-value">${garbZodiac.degrees} جه ${garbZodiac.zodiac.name}</span>
+                </div>
+            `;
+
+            // عرض الرابع بناءً على العاشر
+            document.getElementById('fourthResult').innerHTML = `
+                <div style="font-size: 36px; color: ${fourthZodiac.zodiac.color};">
+                    <span class="degrees-display">${fourthZodiac.degrees}</span>
+                    <span style="color: #d4af37;">جه</span>
+                    <span class="zodiac-name">${fourthZodiac.zodiac.name}</span>
+                </div>
+                <div style="font-size: 18px; color: #e0e0e0; margin-top: 15px;">
+                    التناظر الكامل: العاشر + 6 أبراج (180 درجة) = الرابع<br>
+                    ${tenthZodiac.degrees} جه ${tenthZodiac.zodiac.name} → ${fourthZodiac.degrees} جه ${fourthZodiac.zodiac.name}
+                </div>
+            `;
+            
+            document.getElementById('fourthSteps').innerHTML = `
+                <div class="step" style="background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.05);">
+                    <span><span class="step-number">1</span> العاشر (وتد السماء)</span>
+                    <span class="step-value">${tenthZodiac.degrees} جه ${tenthZodiac.zodiac.name}</span>
+                </div>
+                <div class="step" style="background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.05);">
+                    <span><span class="step-number">2</span> إضافة 6 أبراج بالضبط</span>
+                    <span class="step-value">${fourthZodiac.degrees} جه ${fourthZodiac.zodiac.name}</span>
+                </div>
+                <div class="step" style="background: linear-gradient(135deg, rgba(39, 174, 96, 0.15), rgba(46, 204, 113, 0.1)); border-right-color: #27ae60;">
+                    <span><span class="step-number">3</span> الرابع (وتد الأرض)</span>
+                    <span class="step-value">${fourthZodiac.degrees} جه ${fourthZodiac.zodiac.name}</span>
+                </div>
+            `;
+            
+            showNotification('✅ تم حساب جميع الأوتاد بنجاح بالتناظر الكامل', 'success');
+        }
+
+        function displaySunLengthResults(copticDate, elapsedDays, totalDaysWithAs, zodiacResult) {
+            const totalDays = zodiacResult.totalDays;
+            const adjustedDays = zodiacResult.adjustedDays;
+            const use31Degrees = zodiacResult.use31Degrees;
+            
+            document.getElementById('sunLengthResult').innerHTML = `
+                <div style="font-size: 36px; color: #f4d03f;">
+                    <span class="degrees-display">${zodiacResult.degrees}</span>
+                    <span style="color: #d4af37;">جه</span>
+                    <span class="zodiac-name">${zodiacResult.zodiac.name}</span>
+                </div>
+                <div style="font-size: 18px; color: #e0e0e0; margin-top: 15px;">
+                    مجموع الأيام: ${totalDays.toLocaleString('ar-EG')} يوم (بعد آس الشمس)<br>
+                    ${use31Degrees ? 'بعد طرح 360 + توزيع 31/30 درجة' : 'توزيع 30 درجة لكل برج'}<br>
+                    الناتج: ${adjustedDays} يوم
+                </div>
+            `;
+            
+            let stepsHtml = `
+                <div class="step">
+                    <span><span class="step-number">1</span> ما مضى من السنة القبطية</span>
+                    <span class="step-value">${elapsedDays.toLocaleString('ar-EG')} يوم</span>
+                </div>
+                <div class="step">
+                    <span><span class="step-number">2</span> إضافة آس الشمس (5 شهور + 18 يوم)</span>
+                    <span class="step-value">+ 168 يوم</span>
+                </div>
+                <div class="step">
+                    <span><span class="step-number">3</span> المجموع الكلي</span>
+                    <span class="step-value">${totalDays.toLocaleString('ar-EG')} يوم</span>
+                </div>`;
+            
+            if (use31Degrees) {
+                stepsHtml += `
+                    <div class="step">
+                        <span><span class="step-number">4</span> طرح 360 لتصحيح الدورة</span>
+                        <span class="step-value">${adjustedDays} يوم</span>
+                    </div>
+                    <div class="step">
+                        <span><span class="step-number">5</span> توزيع الدرجات: 31 للشمالية، 30 للجنوبية</span>
+                        <span class="step-value">${zodiacResult.degrees} جه ${zodiacResult.zodiac.name}</span>
+                    </div>`;
+            } else {
+                stepsHtml += `
+                    <div class="step">
+                        <span><span class="step-number">4</span> توزيع الدرجات: 30 درجة لكل برج</span>
+                        <span class="step-value">${zodiacResult.degrees} جه ${zodiacResult.zodiac.name}</span>
+                    </div>`;
+            }
+            
+            stepsHtml += `
+                <div class="step" style="background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(39, 174, 96, 0.1)); border-right-color: #2ecc71;">
+                    <span><span class="step-number">✓</span> طالع اليوم</span>
+                    <span class="step-value">${zodiacResult.degrees} جه ${zodiacResult.zodiac.name}</span>
+                </div>`;
+            
+            document.getElementById('calculationSteps').innerHTML = stepsHtml;
+            
+            document.getElementById('copticDateDisplay').innerHTML = `
+                <div style="font-size: 22px;">
+                    📅 ${copticDate.day} ${copticDate.monthName} ${copticDate.year} هـ قبطي
+                    ${copticDate.isLeapYear ? '<span style="color: #e74c3c; font-weight: 900;">(سنة مكبوسة)</span>' : ''}
+                </div>
+            `;
+        }
+
+        function displayHourlyZodiacResults(hourlyZodiac, sunriseTime, queryTime, dailyZodiac, resultId, stepsId, title = 'طالع الساعة') {
+            document.getElementById(resultId).innerHTML = `
+                <div style="font-size: 36px; color: ${hourlyZodiac.zodiac.color};">
+                    <span class="degrees-display">${hourlyZodiac.degrees}</span>
+                    <span style="color: #d4af37;">جه</span>
+                    <span class="zodiac-name">${hourlyZodiac.zodiac.name}</span>
+                </div>
+                <div style="font-size: 18px; color: #e0e0e0; margin-top: 15px;">
+                    الفرق الزمني: ${Math.floor(hourlyZodiac.timeDifference / 60)} س ${hourlyZodiac.timeDifference % 60} د
+                </div>
+            `;
+            
+            const remainingHours = Math.floor(hourlyZodiac.balance / 60);
+            const remainingMins = hourlyZodiac.balance % 60;
+            
+            let stepsHtml = `
+                <div class="step">
+                    <span><span class="step-number">1</span> الفرق بين لحظة السؤال و${title.includes('وتد') ? 'الزوال' : 'الشروق'}</span>
+                    <span class="step-value">${Math.floor(hourlyZodiac.timeDifference / 60)}:${(hourlyZodiac.timeDifference % 60).toString().padStart(2, '0')}</span>
+                </div>
+                <div class="step">
+                    <span><span class="step-number">2</span> ما تبقى من برج اليوم (${dailyZodiac.zodiac.name})</span>
+                    <span class="step-value">${hourlyZodiac.remainingDegrees} درجة</span>
+                </div>
+                <div class="step">
+                    <span><span class="step-number">3</span> خصم مدد الأبراج حتى ${hourlyZodiac.zodiac.name}</span>
+                    <span class="step-value">تبقى ${remainingHours} س ${remainingMins} د</span>
+                </div>
+                <div class="step" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(41, 128, 185, 0.1)); border-right-color: #3498db;">
+                    <span><span class="step-number">4</span> ${title}</span>
+                    <span class="step-value">${hourlyZodiac.degrees} جه ${hourlyZodiac.zodiac.name}</span>
+                </div>`;
+            
+            document.getElementById(stepsId).innerHTML = stepsHtml;
+        }
+
+        function showMonthDetails() {
+            let html = '<h3 style="color: #f4d03f; margin-bottom: 30px; font-size: 32px; font-family: Tajawal, Calibri, sans-serif !important;">📜 التفاصيل الكاملة للشهور القبطية والحكم الشعبية</h3>';
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">';
+            
+            copticMonths.forEach(month => {
+                html += `
+                    <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.06)); padding: 25px; border-radius: 12px; border: 2px solid rgba(212, 175, 55, 0.4);">
+                        <h4 style="color: ${month.name === 'نسيء' ? '#e74c3c' : '#f4d03f'}; font-size: 24px; margin-bottom: 15px; font-weight: 900;">
+                            ${month.symbol || '📅'} ${month.name}
+                        </h4>
+                        <div style="margin-bottom: 10px; font-weight: 900;">
+                            <strong style="color: #3498db;">المدة:</strong> ${month.days} يوم
+                        </div>
+                        <div style="margin-bottom: 10px; font-weight: 900;">
+                            <strong style="color: #3498db;">الميلادي:</strong> ${month.gregorian}
+                        </div>
+                        <div style="margin-bottom: 10px; font-weight: 900;">
+                            <strong style="color: #3498db;">الاسم الدارج:</strong> ${month.modern}
+                        </div>
+                        <div style="margin-bottom: 15px; font-weight: 900;">
+                            <strong style="color: #3498db;">الموسم:</strong> 
+                            <span class="season-badge season-${month.season}">
+                                ${month.season === 'flood' ? 'الفيضان 🌊' : month.season === 'growth' ? 'النمو 🌱' : 'الحصاد 🌾'}
+                            </span>
+                        </div>
+                        <div style="background: rgba(30, 40, 70, 0.6); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                            <div style="font-size: 14px; color: #f4d03f; margin-bottom: 8px;">
+                                <strong>📖 الأمثال الشعبية:</strong>
+                            </div>
+                            ${month.proverbs.map((proverb, i) => `
+                                <div style="font-size: 13px; margin-bottom: 5px; padding: 6px; background: ${i === 0 ? 'rgba(46, 204, 113, 0.1)' : 'rgba(212, 175, 55, 0.05)'}; border-radius: 4px;">
+                                    <strong style="color: ${i === 0 ? '#2ecc71' : '#f4d03f'};">${i + 1}.</strong> "${proverb}"
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="font-size: 13px; font-style: italic; color: #bdc3c7; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                            <strong>🏛️ القصة التاريخية:</strong><br>
+                            ${month.story}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            document.getElementById('detailsContent').innerHTML = html;
+            document.getElementById('detailsModal').style.display = 'block';
+        }
+
+        function showMidheavenInfo() {
+            let html = `
+                <h3 style="color: #f4d03f; margin-bottom: 20px; font-size: 32px;">
+                    <i class="fas fa-satellite-dish"></i> المطالع الفلكية المستقيمة (كبد السماء)
+                </h3>
+                <div style="background: linear-gradient(135deg, rgba(30, 40, 70, 0.9), rgba(20, 30, 50, 0.8)); padding: 25px; border-radius: 12px; border: 2px solid rgba(212, 175, 55, 0.4); font-size: 18px; line-height: 2;">
+                    <p><strong style="color: #f4d03f;">🌌 المطالع الفلكية:</strong> لا تتأثر بدوائر عرض الراصد، بل هي ثابتة في النظام الإحداثي البروجي.</p>
+                    <p><strong style="color: #f4d03f;">📐 طريقة الحساب:</strong> من لحظة الزوال (وسط السماء) إلى لحظة السؤال، مع خصم مدد مكوث الأبراج في كبد السماء.</p>
+                    <p><strong style="color: #f4d03f;">🔧 التطبيق:</strong> تستخدم لحساب العاشر (وتد السماء) والرابع (وتد الأرض) بالتناظر الكامل.</p>
+                    <p><strong style="color: #f4d03f;">✅ المجموع:</strong> يجب أن يكون 24:00 تماماً كما في المطالع البلدية.</p>
+                </div>
+            `;
+            
+            document.getElementById('detailsContent').innerHTML = html;
+            document.getElementById('detailsModal').style.display = 'block';
+        }
+
+        function showDetailsModal() {
+            const gregorianDate = document.getElementById('gregorianDate').value;
+            if (!gregorianDate) {
+                showNotification('❌ الرجاء اختيار تاريخ أولاً', 'error');
+                return;
+            }
+            
+            const copticDate = gregorianToCoptic(gregorianDate);
+            const elapsedDays = calculateElapsedDays(copticDate);
+            const totalDaysWithAs = addAsElShams(elapsedDays);
+            const zodiacResult = determineZodiacAdvanced(totalDaysWithAs);
+            
+            let html = `
+                <h4 style="color: #f4d03f; font-size: 32px; margin-bottom: 25px;">📊 التفاصيل الفلكية القبطية الكاملة</h4>
+                <div style="background: linear-gradient(135deg, rgba(30, 40, 70, 0.9), rgba(20, 30, 50, 0.8)); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                    <h5 style="color: #f4d03f; font-size: 22px; margin-bottom: 15px;">
+                        <i class="fas fa-calculator"></i> خوارزمية الحساب بالتفصيل
+                    </h5>
+                    <div style="background: linear-gradient(135deg, rgba(30, 40, 70, 0.95), rgba(20, 30, 50, 0.9)); padding: 20px; border-radius: 10px; font-family: Tajawal, Calibri, sans-serif !important; font-size: 18px; line-height: 2; border: 2px solid rgba(212, 175, 55, 0.5);">
+                        <div style="font-family: Tajawal, Calibri, sans-serif !important;">
+                            <strong style="color: #f4d03f;">الخطوات:</strong><br>
+                            1. ما مضى من السنة القبطية = ${elapsedDays} يوم<br>
+                            2. إضافة آس الشمس = ${elapsedDays} + 168 يوم = ${totalDaysWithAs} يوم<br>
+                            ${zodiacResult.use31Degrees ? `3. طرح 360 = ${totalDaysWithAs} - 360 = ${zodiacResult.adjustedDays} يوم<br>4. توزيع الدرجات: 31 للأبراج الشمالية، 30 للأبراج الجنوبية<br>` : '3. توزيع الدرجات: 30 درجة لكل برج<br>'}
+                            5. النتيجة النهائية: ${zodiacResult.degrees} جه ${zodiacResult.zodiac.name}
+                        </div>
+                    </div>
+                </div>
+                <div style="background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.08)); padding: 25px; border-radius: 12px;">
+                    <h4 style="color: #e74c3c; font-size: 22px; margin-bottom: 15px;">
+                        <i class="fas fa-book"></i> المصادر التاريخية الموثوقة
+                    </h4>
+                    <ul style="padding-right: 25px; font-size: 16px; line-height: 2;">
+                        <li>📚 <strong>التقويم القبطي المصري الأصيل</strong> - موسوعة التراث القبطي</li>
+                        <li>🌅 <strong>طريقة آس الشمس (5 شهور + 18 يوم)</strong> - مرجع الفلكيين القبط</li>
+                        <li>♈ <strong>التوزيع الجديد: 31/30 درجة</strong> - لاحتواء النسيء المكبوس</li>
+                        <li>🏛️ <strong>مدد مكوث الأبراج لراصد القاهرة</strong> - المطالع البلدية</li>
+                        <li>⭐ <strong>مدد كبد السماء (العاشر)</strong> - المطالع الفلكية المستقيمة</li>
+                        <li>🌟 <strong>الأوتاد الأربعة</strong> - شرق، غرب، سماء، أرض بالتناظر الكامل</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('detailsContent').innerHTML = html;
+            document.getElementById('detailsModal').style.display = 'block';
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
+        function shareResults() {
+            const text = `طول الشمس: ${document.getElementById('sunLengthResult').textContent} | الطالع: ${document.getElementById('zodiacResult').textContent} | الغارب: ${document.getElementById('garbResult').textContent} | العاشر: ${document.getElementById('tenthResult').textContent} | الرابع: ${document.getElementById('fourthResult').textContent}`;
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✅ تم نسخ النتائج للمشاركة', 'success');
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+            notification.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 500);
+            }, 5000);
+        }
+
+        window.onload = function() {
+            flatpickr("#gregorianDate", {
+                locale: "ar",
+                dateFormat: "Y-m-d",
+                defaultDate: new Date().toISOString().split('T')[0],
+                theme: "dark"
+            });
+            
+            populateCopticMonths();
+            populateZodiacInputs();
+            populateMidheavenInputs();
+            
+            document.getElementById('gregorianDate').addEventListener('change', function() {
+                const copticDate = gregorianToCoptic(this.value);
+                document.getElementById('copticDateDisplay').innerHTML = `
+                    <div style="font-size: 22px;">
+                        📅 ${copticDate.day} ${copticDate.monthName} ${copticDate.year} هـ قبطي
+                        ${copticDate.isLeapYear ? '<span style="color: #e74c3c; font-weight: 900;">(سنة مكبوسة)</span>' : ''}
+                    </div>
+                `;
+            });
+            
+            document.getElementById('gregorianDate').dispatchEvent(new Event('change'));
+            
+            window.onclick = function(event) {
+                const modal = document.getElementById('detailsModal');
+                if (event.target === modal) {
+                    closeDetailsModal();
+                }
+            };
+
+            setTimeout(() => {
+                showNotification('🌟 مرحباً بك في الحاسبة الفلكية القبطية المصرية الأصيلة v8.1 - بفضل الله وتوفيقه', 'success');
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

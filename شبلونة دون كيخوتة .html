@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دون كيخوتة دي لا مانتشا - نظام كتابة السيناريو الاحترافي | Snowflake Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c2d12 50%, #f59e0b 100%);
+            background-attachment: fixed;
+            color: #fef3c7;
+        }
+        .glass-panel {
+            background: rgba(30, 58, 138, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+        .catchphrase-box {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px solid #fbbf24;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+        .catchphrase-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fef3c7;
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 1px;
+        }
+        .character-card {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(124, 45, 18, 0.9) 100%);
+            border: 2px solid #f59e0b;
+            transition: all 0.3s ease;
+        }
+        .character-card:hover {
+            transform: translateY(-5px);
+            border-color: #dc2626;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+        .beat-sheet {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(124, 45, 18, 0.9) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .mosaic-piece {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(124, 45, 18, 0.9) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .mosaic-piece::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #dc2626, #f59e0b);
+        }
+        .snowflake-step {
+            border-right: 3px solid #dc2626;
+            padding-right: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        @keyframes tilt {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .don-quixote-icon {
+            animation: tilt 3s ease-in-out infinite;
+        }
+        @media print {
+            body { background: white; color: black; }
+            .no-print { display: none; }
+            .glass-panel { background: white; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header -->
+    <header class="glass-panel sticky top-0 z-50 border-b border-amber-700/30 no-print">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center text-2xl don-quixote-icon">
+                        🗡️
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">دون كيخوتة</h1>
+                        <p class="text-xs text-amber-400">دراما كوميدية - روحانية - 30 حلقة</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="printScript()" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition text-white">
+                        <i class="fas fa-print ml-2"></i>طباعة
+                    </button>
+                    <button onclick="exportPDF()" class="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 transition text-white font-bold">
+                        <i class="fas fa-file-pdf ml-2"></i>تصدير PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="glass-panel sticky top-16 z-40 border-b border-amber-700/30 no-print">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto gap-2 py-2 text-sm font-semibold">
+                <button onclick="showTab('summary')" id="tab-summary" class="tab-btn tab-active px-6 py-3 rounded-lg transition-all whitespace-nowrap">
+                    <i class="fas fa-home ml-2"></i>الملخص
+                </button>
+                <button onclick="showTab('snowflake')" id="tab-snowflake" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-snowflake ml-2"></i>رقاقة الثلج
+                </button>
+                <button onclick="showTab('characters')" id="tab-characters" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-users ml-2"></i>الشخصيات
+                </button>
+                <button onclick="showTab('archetypes')" id="tab-archetypes" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-masks ml-2"></i>الأنماط
+                </button>
+                <button onclick="showTab('structure')" id="tab-structure" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-project-diagram ml-2"></i>بنية سنايدر
+                </button>
+                <button onclick="showTab('twists')" id="tab-twists" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-bolt ml-2"></i>الانعطافات
+                </button>
+                <button onclick="showTab('cervantes')" id="tab-cervantes" class="tab-btn px-6 py-3 rounded-lg bg-stone-800 hover:bg-stone-700 transition-all whitespace-nowrap">
+                    <i class="fas fa-book-open ml-2"></i>سيرفانتس
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 pb-32">
+
+        <!-- Tab: Summary -->
+        <div id="content-summary" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-black mb-4 bg-gradient-to-r from-red-500 via-amber-500 to-blue-500 bg-clip-text text-transparent">
+                        دون كيخوتة دي لا مانتشا
+                    </h1>
+                    <p class="text-xl text-stone-300 mb-2">مسلسل درامي كوميدي روحاني - 30 حلقة</p>
+                    <div class="flex justify-center gap-4 text-sm text-stone-400">
+                        <span><i class="fas fa-clock ml-1"></i>30 حلقة</span>
+                        <span><i class="fas fa-star ml-1"></i>بطولة دور مزدوج</span>
+                        <span><i class="fas fa-map-marker-alt ml-1"></i>إسبانيا القرن السابع عشر</span>
+                    </div>
+                </div>
+
+                <div class="catchphrase-box">
+                    <p class="catchphrase-text">"الجنون هو أن تبقى عاقلاً في عالم فقد عقله"</p>
+                    <p class="text-amber-100 text-sm mt-2">حكمة دون كيخوتة التي يكتشفها ألونسو كيخانو</p>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-8 mb-8 border border-amber-500/30">
+                    <h2 class="text-2xl font-bold text-amber-400 mb-4">التريتمنت الرئيسي</h2>
+                    <div class="prose prose-invert max-w-none leading-relaxed text-stone-200">
+                        <p class="mb-4 text-lg">
+                            <span class="text-amber-400">ألونسو كيخانو</span> (50 سنة) - نبيل إسباني يقرأ كثيراً في كتب الفروسية حتى يصاب بـ <span class="text-red-400">"سيل الدماغ"</span> (الهوس بالقراءة). يقرر أن يصبح فارساً ظلالياً يطارد العفاريت وينقذ العذارى.
+                        </p>
+                        <p class="mb-4">
+                            <strong class="text-white">الرحلة التحولية:</strong> عبر رحلته مع <span class="text-amber-400">سانشو بنزا</span> (45 سنة) - فلاح عملي يصبح حامل رايته - يكتشف دون كيخوتة أن <span class="text-teal-400">"الحقيقة والخيال وجهان لعملة واحدة"</span>. الجنون ليس في رؤية الجنيات، بل في رؤية العالم بلا روح.
+                        </p>
+                        <p class="mb-4">
+                            <strong class="text-white">العودة والسقوط:</strong> يعود دون كيخوتة لقريته بعد الهزيمة الأخيرة ضد فارس من الضوء (الشمس)، لكنه يصاب بالـ <span class="text-red-400">"الوعي المأساوي"</span> - يدرك أنه ليس فارساً، ويتنكر لدون كيخوتة، ويموت عاقلاً.
+                        </p>
+                        <p class="mb-4">
+                            <strong class="text-white">الحبكة الرومانسية:</strong> <span class="text-amber-400">دولسينيا ديل توبوسو</span> (30 سنة) - الفلاحة ألدونصا لورنزو التي تحولها خياله لأميرة عظيمة. في الحلقة 20، يلتقيها حقيقةً، لكنه يرفض رؤيتها إلا من خلال <span class="text-teal-400">عدسات الحب</span>.
+                        </p>
+                        <p class="mb-4">
+                            <strong class="text-white">النهاية التراجيدية:</strong> يموت دون كيخوتة <span class="text-red-400">عاقلاً</span>، منكراً لدون كيخوتة، وهذا ما يمثل <span class="text-amber-400">"أعظم هزيمة للخيال في تاريخ الأدب"</span>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="glass-panel rounded-xl p-6 text-center">
+                        <i class="fas fa-brain text-4xl text-red-500 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">سيل الدماغ</h3>
+                        <p class="text-sm text-stone-300">الهوس بالقراءة يتحول لجنون مقدس - رؤية العالم بعيون القلب</p>
+                    </div>
+                    <div class="glass-panel rounded-xl p-6 text-center">
+                        <i class="fas fa-horse text-4xl text-amber-500 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">روسينانتي</h3>
+                        <p class="text-sm text-stone-300">الحصان النحيل الذي يحمل النبل المتهاك والحلم المتجسد</p>
+                    </div>
+                    <div class="glass-panel rounded-xl p-6 text-center">
+                        <i class="fas fa-wind text-4xl text-teal-500 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">الطواحين العملاقة</h3>
+                        <p class="text-sm text-stone-300">الرمز الأشهر - ما يظنه عملاقاً هو طاحونة، وما يظنه طاحونة قد يكون عملاقاً</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 border-l-4 border-amber-500">
+                    <h3 class="font-bold text-xl mb-3 text-amber-400">النقطة الفريدة (USP)</h3>
+                    <p class="text-stone-200">
+                        أول مسلسل يُعيد قراءة <span class="text-white font-bold">دون كيخوتة</span> كـ <span class="text-amber-400">دراما روحانية</span> وليس مجرد كوميديا سوداء. حيث <span class="text-teal-400">دون كيخوتة ليس مجنوناً، بل آخر النبلاء</span> في عالم فقد نبله. <span class="text-amber-400">سانشو</span> ليس مجرد حمق، بل <span class="text-teal-400">الحكيم الحقيقي</span> الذي يتعلم من "سيده". <span class="text-amber-400">الطواحين</span> تظهر أحياناً كـ <span class="text-teal-400">عملاقة حقيقية</span> (منظور سحري واقعي). <span class="text-red-400">النهاية</span> ليست هزيمة، بل <span class="text-amber-400">انتصار مأساوي</span> للواقع على الخيال.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Snowflake Method -->
+        <div id="content-snowflake" class="tab-content hidden">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-amber-400">طريقة رقاقة الثلج (The Snowflake Method)</h2>
+                
+                <div class="space-y-6">
+                    <!-- Step 1 -->
+                    <div class="glass-panel rounded-xl p-6 snowflake-step">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-bold text-xl shrink-0">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">الجملة الواحدة (One Sentence)</h3>
+                                <p class="text-stone-200 text-lg">
+                                    نبيل إسباني يصاب بالهوس بالقراءة فيقرر أن يصبح فارساً ظلالياً، فيكتشف عبر رحلته مع فلاحه أن الجنون ليس في رؤية الجنيات بل في رؤية العالم بلا روح، ليموت في النهاية عاقلاً منكراً لأحلامه.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass-panel rounded-xl p-6 snowflake-step">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-bold text-xl shrink-0">2</div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-3">الفقرة الخماسية</h3>
+                                <div class="space-y-2 text-stone-200">
+                                    <p><span class="text-amber-400">(الخلفية)</span> ألونسو كيخانو، نبيل إسباني يقرأ كثيراً في كتب الفروسية حتى يقرر أن يصبح دون كيخوتة، ويجد دابة (روسينانتي)، ويختار فلاحاً (سانشو) حامل راية.</p>
+                                    <p><span class="text-amber-400">(الكارثة)</span> يهاجم طاحونة هوائية ظناً أنها عملاق، فيُلقى عن فرسه. أول هزيمة للوهم، لكنه يصر على استكمال الرحلة.</p>
+                                    <p><span class="text-amber-400">(الرحلة)</span> مغامرات متتالية: فنادق يظنها قلاع، رعاة يظنهم جنود، حملان يظنها جيوش. سانشو يتنقل بين الإيمان والشك.</p>
+                                    <p><span class="text-amber-400">(العودة)</span> الهزيمة الأخيرة ضد فارس من الضوء (الشمس)، يعود دون كيخوتة مريضاً. يصاب بـ "الوعي المأساوي".</p>
+                                    <p><span class="text-amber-400">(النهاية)</span> يتنكر لدون كيخوتة، يموت ألونسو كيخانو. سانشو يصرخ: "لا تموت يا سيدي، فالحياة بلا جنون لا تُحتمل!"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass-panel rounded-xl p-6 snowflake-step">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-bold text-xl shrink-0">3</div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-white mb-3">شخصيات الورق</h3>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-red-500">
+                                        <h4 class="font-bold text-red-400 mb-2">دون كيخوتة (البطل)</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• نبيل مهووس، 50 سنة</li>
+                                            <li>• يرى العالم عبر عدسات الفروسية</li>
+                                            <li>• يتحول من "مجنون" لـ "أكثر الناس وعياً"</li>
+                                            <li>• يموت عاقلاً (التراجيديا)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-amber-500">
+                                        <h4 class="font-bold text-amber-400 mb-2">سانشو بنزا</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• الفلاح العملي، 45 سنة</li>
+                                            <li>• يتنقل بين الجشع والإخلاص</li>
+                                            <li>• يصبح "حاكماً" على جزيرة (في خياله/حقيقة)</li>
+                                            <li>• يمثل العقل المادي</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-teal-500">
+                                        <h4 class="font-bold text-teal-400 mb-2">دولسينيا ديل توبوسو</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• الفلاحة ألدونصا لورنزو</li>
+                                            <li>• الوجهان المتناقضان للمرأة</li>
+                                            <li>• في خياله: أميرة عظيمة</li>
+                                            <li>• في الواقع: فلاحة ترفضه</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-blue-500">
+                                        <h4 class="font-bold text-blue-400 mb-2">القس/الباربر</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• يحاول "شفاء" دون كيخوتة</li>
+                                            <li>• لكنه يكتشف أن الجنون قد يكون دواءً</li>
+                                            <li>• يمثل السلطة الدينية المتناقضة</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-purple-500">
+                                        <h4 class="font-bold text-purple-400 mb-2">الدوق والدوقة</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• يستضيفان دون كيخوتة ليسخروا منه</li>
+                                            <li>• لكنهما يكتشفان أنهما الأسيران في قصرهما</li>
+                                            <li>• يمثلان الفجوة بين المظهر والحقيقة</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-stone-800/50 p-4 rounded-lg border-2 border-green-500">
+                                        <h4 class="font-bold text-green-400 mb-2">روسينانتي</h4>
+                                        <ul class="text-sm text-stone-300 space-y-1">
+                                            <li>• الحصان النحيل المتهاك</li>
+                                            <li>• رمز النبل المتجسد</li>
+                                            <li>• يبقى معه حتى النهاية</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Characters -->
+        <div id="content-characters" class="tab-content hidden">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-amber-400">دراسة البيرسونا والكاستنج</h2>
+                
+                <!-- Main Characters -->
+                <div class="grid lg:grid-cols-2 gap-6 mb-12">
+                    <!-- Don Quixote -->
+                    <div class="character-card rounded-2xl overflow-hidden border-2 border-red-500">
+                        <div class="h-32 bg-gradient-to-r from-red-600 to-red-800 relative">
+                            <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-stone-700 rounded-full border-4 border-stone-800 flex items-center justify-center text-2xl don-quixote-icon">
+                                🗡️
+                            </div>
+                        </div>
+                        <div class="pt-16 pb-6 px-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">دون كيخوتة</h3>
+                            <p class="text-red-400 text-sm mb-4">البطل/الفارس الظلالي - 50 سنة</p>
+                            
+                            <div class="text-right space-y-3 text-sm">
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-red-400 font-bold">الشخصية:</span>
+                                    <span class="text-stone-300">نبيل مهووس بكتب الفروسية، يرى العالم عبر عدسات "النبل" و"الشرف"</span>
+                                </div>
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-red-400 font-bold">التحول:</span>
+                                    <span class="text-stone-300">من "مجنون" يهاجم الطواحين لـ "أكثر الناس وعياً" بفقدان العالم لروحه</span>
+                                </div>
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-red-400 font-bold">النهاية:</span>
+                                    <span class="text-stone-300">يموت عاقلاً، منكراً لدون كيخوتة - "أعظم هزيمة للخيال في تاريخ الأدب"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sancho Panza -->
+                    <div class="character-card rounded-2xl overflow-hidden border-2 border-amber-500">
+                        <div class="h-32 bg-gradient-to-r from-amber-600 to-amber-800 relative">
+                            <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-stone-700 rounded-full border-4 border-stone-800 flex items-center justify-center text-2xl">
+                                🍷
+                            </div>
+                        </div>
+                        <div class="pt-16 pb-6 px-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">سانشو بنزا</h3>
+                            <p class="text-amber-400 text-sm mb-4">الحامل الراية/الحكيم العملي - 45 سنة</p>
+                            
+                            <div class="text-right space-y-3 text-sm">
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-amber-400 font-bold">الشخصية:</span>
+                                    <span class="text-stone-300">فلاح عملي، يتنقل بين الجشع والإخلاص، يمثل "العقل المادي"</span>
+                                </div>
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-amber-400 font-bold">التحول:</span>
+                                    <span class="text-stone-300">يصبح "حاكماً" على جزيرة (في خياله/حقيقة)، يتعلم من "سيده" أكثر مما يعلمه</span>
+                                </div>
+                                <div class="bg-stone-800/50 p-3 rounded-lg">
+                                    <span class="text-amber-400 font-bold">النهاية:</span>
+                                    <span class="text-stone-300">يبقى مؤمناً بالجنون حتى بعد موت سيده: "الحياة بلا جنون لا تُحتمل!"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Archetypes Grid -->
+                <h3 class="text-2xl font-bold text-white mb-6 text-center">الأنماط الدرامية</h3>
+                
+                <div class="grid md:grid-cols-3 gap-4 mb-12">
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-red-400 mb-2"><i class="fas fa-crown ml-2"></i>دون كيخوتة: الجنون المقدس</h4>
+                        <p class="text-sm text-stone-300 mb-2">النبل المتجسد</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• آخر النبلاء في عالم فقد نبله</li>
+                            <li>• يرى الجنيات لأن العالم فقد روحه</li>
+                            <li>• "أكثر الناس وعياً" بالفوضى</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-amber-400 mb-2"><i class="fas fa-balance-scale ml-2"></i>سانشو: العقل المادي</h4>
+                        <p class="text-sm text-stone-300 mb-2">الحكيم الحقيقي</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• يتعلم من "سيده" فنون الحكم</li>
+                            <li>• يتنقل بين الإيمان والشك</li>
+                            <li>• يصبح حاكماً في خياله/حقيقته</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-teal-400 mb-2"><i class="fas fa-heart ml-2"></i>دولسينيا: الوجهان</h4>
+                        <p class="text-sm text-stone-300 mb-2">المرأة المتناقضة</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• في الخيال: أميرة عظيمة</li>
+                            <li>• في الواقع: فلاحة ترفضه</li>
+                            <li>• الحب أقوى من الواقع</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-blue-400 mb-2"><i class="fas fa-church ml-2"></i>القس/الباربر</h4>
+                        <p class="text-sm text-stone-300 mb-2">السلطة المتناقضة</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• يحاول "شفاء" دون كيخوتة</li>
+                            <li>• يكتشف أن الجنون دواء</li>
+                            <li>• يمثل الفجوة الدينية</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-purple-400 mb-2"><i class="fas fa-chess-queen ml-2"></i>الدوق والدوقة</h4>
+                        <p class="text-sm text-stone-300 mb-2">السجينان في القصر</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• يستضيفانه ليسخروا منه</li>
+                            <li>• يكتشفان أنهما الأسيران</li>
+                            <li>• الفجوة بين المظهر والحقيقة</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mosaic-piece">
+                        <h4 class="font-bold text-green-400 mb-2"><i class="fas fa-horse ml-2"></i>روسينانتي</h4>
+                        <p class="text-sm text-stone-300 mb-2">الوفاء المطلق</p>
+                        <ul class="text-xs text-stone-400 space-y-1">
+                            <li>• الحصان النحيل المتهاك</li>
+                            <li>• رمز النبل المتجسد</li>
+                            <li>• يبقى حتى النهاية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Archetypes -->
+        <div id="content-archetypes" class="tab-content hidden">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-amber-400">الأنماط الدرامية والتوازي</h2>
+                
+                <div class="glass-panel rounded-2xl p-8 mb-8 border border-amber-500/30">
+                    <h3 class="text-2xl font-bold text-amber-400 mb-6 text-center">التوازي الدرامي: دون كيخوتة × سانشو</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-b from-red-900/50 to-stone-900 p-6 rounded-xl border border-red-500/30">
+                            <h4 class="text-xl font-bold text-red-400 mb-4 text-center">دون كيخوتة</h4>
+                            <ul class="space-y-3 text-stone-300 text-sm">
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-crown text-red-400"></i>
+                                    <span>النبل المتجسد</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-brain text-red-400"></i>
+                                    <span>الخيال المطلق</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-eye text-red-400"></i>
+                                    <span>يرى الجنيات (الحقيقة الروحية)</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-book text-red-400"></i>
+                                    <span>يتعلم الواقع</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-skull text-red-400"></i>
+                                    <span>يموت عاقلاً (الهزيمة)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gradient-to-b from-amber-900/50 to-stone-900 p-6 rounded-xl border border-amber-500/30">
+                            <h4 class="text-xl font-bold text-amber-400 mb-4 text-center">سانشو بنزا</h4>
+                            <ul class="space-y-3 text-stone-300 text-sm">
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-seedling text-amber-400"></i>
+                                    <span>الفلاح العملي</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-balance-scale text-amber-400"></i>
+                                    <span>العقل المادي</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-eye-slash text-amber-400"></i>
+                                    <span>يرى الطواحين (الواقع المادي)</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-graduation-cap text-amber-400"></i>
+                                    <span>يتعلم الحكمة</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <i class="fas fa-heart text-amber-400"></i>
+                                    <span>يبقى مؤمناً (الانتصار)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-stone-800/50 rounded-xl border-r-4 border-teal-500">
+                        <h4 class="font-bold text-teal-400 mb-2">الخلاصة الدرامية</h4>
+                        <p class="text-stone-300 text-sm">
+                            <span class="text-red-400">دون كيخوتة</span> يبدأ "مجنوناً" وينتهي "عاقلاً" (هزيمة). <span class="text-amber-400">سانشو</span> يبدأ "عاقلاً" وينتهي "مؤمناً بالجنون" (انتصار). التبادل الدرامي: كل يتعلم من الآخر، والجنون والعقل وجهان لعملة واحدة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Structure -->
+        <div id="content-structure" class="tab-content hidden">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-amber-400">بنية بليك سنايدر (Save the Cat! Beat Sheet)</h2>
+
+                <div class="space-y-4">
+                    <div class="beat-sheet border-r-4 border-red-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-red-400">الصورة الافتتاحية</h3>
+                            <span class="text-sm text-stone-400">الحلقات 1-2</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            ألونسو كيخانو يقرأ كثيراً في كتب الفروسية. يقرر أن يصبح دون كيخوتة. يختار روسينانتي، يجد سانشو. <span class="text-amber-400">الجنون يولد</span>.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-orange-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-orange-400">الدعوة للمغامرة</h3>
+                            <span class="text-sm text-stone-400">نهاية الحلقة 3</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الكارثة:</strong> يهاجم أول طاحونة (العملاق الأول). الهزيمة والإصرار.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-teal-500 bg-teal-900/20">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-teal-400">الاختراق في القصة</h3>
+                            <span class="text-sm text-stone-400">نهاية الحلقة 5</span>
+                        </div>
+                        <p class="text-stone-300 text-sm font-bold">
+                            يُلقى في معركة حقيقية، لكنه يرى "نصراً أخلاقياً". سانشو يبدأ بالإيمان.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-amber-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-amber-600">لعبة الوعد</h3>
+                            <span class="text-sm text-stone-400">الحلقات 6-15</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الوعد:</strong> المغامرات: الفندق القلعة، المسيحيين المحررين، معركة الحليب. سانشو يتنقل بين الإيمان والشك.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-white bg-white/10">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-white">منتصف الفيلم</h3>
+                            <span class="text-sm text-stone-400">نهاية الحلقة 15</span>
+                        </div>
+                        <p class="text-stone-300 text-sm font-bold">
+                            <strong>الاكتشاف المزدوج:</strong> لقاء دولسينيا الحقيقية (ألدونصا). يختار رؤيتها أميرة. سانشو يصبح حاكماً.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-red-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-red-400">الوحوش تقترب</h3>
+                            <span class="text-sm text-stone-400">الحلقات 16-22</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            الدوق والدوقة يسخران منه. يدرك أن العالم يراه مجنوناً. بداية الشك.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-red-700 bg-red-900/30">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-red-500">الظلام المطلق</h3>
+                            <span class="text-sm text-stone-400">الحلقة 23</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الموت الوهمي:</strong> الهزيمة ضد فارس الضوء (الشمس). يعود مريضاً. يفقد الإيمان.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-teal-500 bg-teal-900/20">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-teal-400">الاختراق في الثالث</h3>
+                            <span class="text-sm text-stone-400">الحلقة 24</span>
+                        </div>
+                        <p class="text-stone-300 text-sm font-bold">
+                            يصاب بالوعي المأساوي. يدرك أنه ليس فارساً. يتنكر لدون كيخوتة.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-amber-600">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-amber-500">النهاية</h3>
+                            <span class="text-sm text-stone-400">الحلقات 25-29</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الحصار:</strong> المرض، النكران، الموت العاقل. سانشو يحاول إعادة الجنون.
+                        </p>
+                    </div>
+
+                    <div class="beat-sheet border-r-4 border-amber-400">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-amber-400">الصورة الختامية</h3>
+                            <span class="text-sm text-stone-400">الحلقة 30</span>
+                        </div>
+                        <p class="text-stone-300 text-sm">
+                            موت ألونسو كيخانو. سانشو يبكي: <span class="text-amber-400">"لا تموت يا سيدي، فالحياة بلا جنون لا تُحتمل!"</span>. روسينانتي واقفاً.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Twists -->
+        <div id="content-twists" class="tab-content hidden">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-amber-400">الانعطافات والالتواءات</h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-red-500">
+                        <h3 class="text-xl font-bold text-red-400 mb-3">1. الطاحونة العملاقة</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> طاحونة هوائية عادية.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> عملاق حقيقي في عقل دون كيخوتة.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الانعطاف:</strong> الهزيمة تُثبت الإيمان لا تُبطله.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-amber-500">
+                        <h3 class="text-xl font-bold text-amber-400 mb-3">2. دولسينيا الأمراء</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> أميرة عظيمة في إلبرو.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> ألدونصا لورنزو، فلاحة ترفضه.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الانعطاف:</strong> يرفض رؤيتها إلا من خلال "عدسات الحب".
+                        </p>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-teal-500">
+                        <h3 class="text-xl font-bold text-teal-400 mb-3">3. جزيرة سانشو</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> خدعة من الدوق.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> سانشو يحكم بحكمة فعلية.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الانعطاف:</strong> الجنون يولد الحكمة.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-blue-500">
+                        <h3 class="text-xl font-bold text-blue-400 mb-3">4. القس "الشافي"</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> يريد إعادة دون كيخوتة للعقل.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> يكتشف أن الجنون قد يكون دواءً.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الانعطاف:</strong> السلطة الدينية تتعلم من "المجنون".
+                        </p>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-purple-500">
+                        <h3 class="text-xl font-bold text-purple-400 mb-3">5. فارس الضوء</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> فارس من الضوء (الشمس) ينافسه.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> طالب من قرية مجاورة.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الانعطاف:</strong> الهزيمة تؤدي للوعي المأساوي.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-6 border-r-4 border-amber-600 md:col-span-2">
+                        <h3 class="text-xl font-bold text-amber-600 mb-3">6. النهاية المفتوحة</h3>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الظاهر:</strong> دون كيخوتة يهزم ويعود عاقلاً.
+                        </p>
+                        <p class="text-stone-300 text-sm mb-2">
+                            <strong>الحقيقة:</strong> الموت العاقل هو أعظم هزيمة للخيال.
+                        </p>
+                        <p class="text-stone-300 text-sm">
+                            <strong>الرمزية:</strong> سانشو يبقى مؤمناً، وروسينانتي واقفاً - استمرار الحلم رغم موت الحالم.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Cervantes -->
+        <div id="content-cervantes" class="tab-content hidden">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-black mb-4 bg-gradient-to-r from-red-600 via-amber-600 to-blue-600 bg-clip-text text-transparent">
+                        ميغيل دي سيرفانتس
+                    </h1>
+                    <p class="text-xl text-stone-300 mb-2">أبو الرواية الإسبانية وأول روائي عالمي</p>
+                    <div class="flex justify-center gap-4 text-sm text-stone-400">
+                        <span><i class="fas fa-book ml-1"></i>1547-1616</span>
+                        <span><i class="fas fa-award ml-1"></i>دون كيخوتة (1605-1615)</span>
+                        <span><i class="fas fa-map-marker-alt ml-1"></i>إسبانيا</span>
+                    </div>
+                </div>
+
+                <!-- Philosophy Connection -->
+                <div class="glass-panel rounded-2xl p-8 mb-8 border border-teal-500/30">
+                    <h2 class="text-2xl font-bold text-teal-500 mb-6 text-center">فلسفة سيرفانتس في العمل</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-stone-800/50 p-6 rounded-xl border-r-4 border-teal-500">
+                            <h3 class="text-xl font-bold text-teal-400 mb-3">"الوعي المأساوي"</h3>
+                            <p class="text-stone-300 text-sm leading-relaxed">
+                                مفهوم سيرفانتس المركزي: <span class="text-amber-400">لحظة الاستيقاظ المؤلمة</span> عندما يدرك البطل أن كل شيء كان وهمًا. لكن السؤال: هل الوهم أقل حقيقة من الواقع؟
+                            </p>
+                        </div>
+                        <div class="bg-stone-800/50 p-6 rounded-xl border-r-4 border-amber-500">
+                            <h3 class="text-xl font-bold text-amber-400 mb-3">التوازي بين الجنون والعقل</h3>
+                            <p class="text-stone-300 text-sm leading-relaxed">
+                                سيرفانتس يطرح <span class="text-teal-400">سؤالًا فلسفيًا عميقًا</span>: من الأكثر جنونًا؟ من يرى الجنيات في عالم فقد سحره، أم من يرى العالم بلا روح ويفتخر بـ "عقله"؟
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="catchphrase-box mb-6">
+                        <p class="catchphrase-text">"العاقل الذي يموت عاقلًا، هو أكبر المجانين"</p>
+                        <p class="text-amber-100 text-sm mt-2">تفسير سرفانتسي للنهاية التراجيدية</p>
+                    </div>
+                </div>
+
+                <!-- Key Themes -->
+                <div class="glass-panel rounded-2xl p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-amber-500 mb-6">المفاهيم الفلسفية في العمل</h2>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start p-4 bg-stone-800/30 rounded-xl">
+                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center text-2xl shrink-0">🎭</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-red-400 mb-2">الرواية داخل الرواية</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    سيرفانتس يخترع <span class="text-amber-400">الميتافيكشن</span> قبل قرون من الأدب الحديث. دون كيخوتة يقرأ روايات عن نفسه، والقارئ يقرأ عن دون كيخوتة الذي يقرأ عن نفسه. <strong>طبقات الواقع تتداخل</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 items-start p-4 bg-stone-800/30 rounded-xl">
+                            <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-full flex items-center justify-center text-2xl shrink-0">🪞</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-amber-400 mb-2">الواقع والخيال</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    سيرفانتس لا يقول إن الخيال أفضل من الواقع، بل يقول إن <span class="text-teal-400">الفصل بينهما مستحيل</span>. دون كيخوتة يصنع واقعه بالخيال، وسانشو يصنع خياله بالواقع. كلاهما "صحيح".
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 items-start p-4 bg-stone-800/30 rounded-xl">
+                            <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center text-2xl shrink-0">⚔️</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-teal-400 mb-2">نهاية الفروسية</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    دون كيخوتة يمثل <span class="text-amber-400">نهاية عصر</span>. الفروسية لم تعد مجدية في عصر البارود والطباعة. لكن سيرفانتس يسأل: <strong>ماذا فقدنا مع الفروسية؟</strong> الشرف، النبل، الإيمان بالمثالية؟
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 items-start p-4 bg-stone-800/30 rounded-xl">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-2xl shrink-0">📚</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-blue-400 mb-2">سيل الدماغ</h3>
+                                <p class="text-stone-300 text-sm leading-relaxed">
+                                    مفهوم <span class="text-amber-400">"القراءة المفرطة"</span> كمرض. لكن سيرفانتس - وهو كاتب - يدافع عن القراءة أيضًا. الرسالة: ليست الكتب تُمرض، بل <strong>العالم الذي يجعلنا نهرب إليها</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Section -->
+                <div class="glass-panel rounded-2xl p-8 border border-amber-500/30">
+                    <h2 class="text-2xl font-bold text-amber-500 mb-6 text-center">مقولة ختامية</h2>
+                    <div class="text-center">
+                        <blockquote class="text-2xl font-bold text-stone-200 mb-4 leading-relaxed">
+                            "إن الجنون هو أن تبقى عاقلاً في عالم فقد عقله"
+                        </blockquote>
+                        <cite class="text-teal-400 font-bold">— دون كيخوتة (إعادة صياغة)</cite>
+                    </div>
+                    <p class="text-stone-400 text-sm mt-6 text-center">
+                        هذه المقولة تلخص فلسفة العمل: دون كيخوتة "المجنون" كان الأكثر وعيًا بفقدان العالم لروحه. موته "عاقلًا" ليس انتصارًا للعقل، بل <span class="text-amber-400">هزيمة للروح</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Controls -->
+    <footer class="glass-panel fixed bottom-0 left-0 right-0 border-t border-amber-700/30 no-print z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex gap-4 text-stone-400">
+                    <span><i class="fas fa-theater-masks ml-1"></i> دراما كوميدية روحانية</span>
+                    <span><i class="fas fa-map ml-1"></i> إسبانيا القرن 17</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="changeFontSize(1)" class="px-3 py-1 bg-stone-700 rounded hover:bg-stone-600">+</button>
+                    <span class="px-3 py-1 text-stone-400">حجم الخط</span>
+                    <button onclick="changeFontSize(-1)" class="px-3 py-1 bg-stone-700 rounded hover:bg-stone-600">-</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('bg-stone-800');
+            });
+            document.getElementById('content-' + tabName).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tabName);
+            activeBtn.classList.add('tab-active');
+            activeBtn.classList.remove('bg-stone-800');
+            window.scrollTo(0, 0);
+        }
+
+        function printScript() {
+            window.print();
+        }
+
+        function exportPDF() {
+            alert('جاري إعداد ملف دون كيخوتة الكامل للتصدير...\n\nالمميزات:\n- بطولة دور مزدوج (دون كيخوتة/ألونسو كيخانو)\n- 30 حلقة دراما كوميدية روحانية\n- سيل الدماغ كرمز\n- روسينانتي والطواحين العملاقة\n- النهاية التراجيدية العاقلة');
+        }
+
+        let currentFontSize = 16;
+        function changeFontSize(delta) {
+            currentFontSize += delta;
+            if (currentFontSize < 12) currentFontSize = 12;
+            if (currentFontSize > 24) currentFontSize = 24;
+            document.body.style.fontSize = currentFontSize + 'px';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab' && e.ctrlKey) {
+                e.preventDefault();
+                const tabs = ['summary', 'snowflake', 'characters', 'archetypes', 'structure', 'twists', 'cervantes'];
+                const currentTab = document.querySelector('.tab-active').id.replace('tab-', '');
+                const currentIndex = tabs.indexOf(currentTab);
+                const nextIndex = (currentIndex + 1) % tabs.length;
+                showTab(tabs[nextIndex]);
+            }
+        });
+    </script>
+</body>
+</html>

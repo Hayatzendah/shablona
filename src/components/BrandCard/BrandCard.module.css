@@ -1,0 +1,161 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 30px 25px;
+  border-top: 4px solid var(--brand-color);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--brand-color) 8%, transparent), transparent 40%);
+  pointer-events: none;
+  transition: opacity var(--transition-speed);
+  opacity: 0;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px color-mix(in srgb, var(--brand-color) 25%, transparent);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.cardTop {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--brand-color);
+  background: color-mix(in srgb, var(--brand-color) 12%, transparent);
+  border: 2px solid color-mix(in srgb, var(--brand-color) 30%, transparent);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover .iconWrapper {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--brand-color) 30%, transparent);
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.metaItem i {
+  color: var(--brand-color);
+  font-size: 0.7rem;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0 0 20px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--brand-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+  transition: gap var(--transition-speed);
+}
+
+.card:hover .cta {
+  gap: 12px;
+}
+
+.cta i {
+  font-size: 0.8rem;
+  transition: transform var(--transition-speed);
+}
+
+.card:hover .cta i {
+  transform: translateX(-4px);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 24px 20px;
+  }
+
+  .iconWrapper {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .name {
+    font-size: 1.1rem;
+  }
+
+  .meta {
+    gap: 6px;
+  }
+
+  .metaItem {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+}

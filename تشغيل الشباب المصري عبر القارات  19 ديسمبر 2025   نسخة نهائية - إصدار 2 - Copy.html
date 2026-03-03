@@ -1,0 +1,2794 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج استشراف استراتيجي متطور لتشغيل الشباب المصري 2025-2030</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0f172a;
+            --secondary-blue: #1e3a8a;
+            --accent-blue: #06b6d4;
+            --gold: #facc15;
+            --success: #10b981;
+            --warning: #f97316;
+            --danger: #ef4444;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #64748b;
+            --text-light: #e2e8f0;
+            --text-gold: #facc15;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            max-width: 100%; 
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            min-height: 100vh;
+            direction: rtl;
+            color: var(--text-light);
+            padding: 15px;
+            overflow-x: hidden;
+            padding-top: 80px;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .container { 
+            max-width: 2400px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 20px; 
+            padding: 0 20px; 
+        }
+
+        /* شريط المحاكاة العلوي المبسط */
+        .simulation-header-bar {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 15px 25px; 
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            z-index: 1000; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
+            border: 2px solid var(--gold);
+            font-weight: 800; 
+            flex-wrap: wrap; 
+            gap: 15px;
+            min-height: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .current-month-display { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.1rem; 
+            color: var(--white); 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); 
+        }
+        
+        .current-month-display .label { 
+            color: var(--gold); 
+            font-weight: 900; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); 
+        }
+        
+        .current-month-display .month { 
+            color: var(--primary-blue); 
+            font-weight: 900; 
+            background: linear-gradient(135deg, var(--gold), #d97706); 
+            padding: 8px 15px; 
+            border-radius: 20px; 
+            border: 1px solid var(--gold); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+            font-size: 1rem; 
+        }
+
+        /* نقاط الخبرة */
+        .experience-points { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 1rem; 
+            color: var(--gold); 
+            font-weight: 900; 
+            background: rgba(250, 204, 21, 0.15); 
+            padding: 8px 18px; 
+            border-radius: 25px; 
+            border: 2px solid var(--gold);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .experience-points .points { 
+            font-size: 1.2rem; 
+            color: var(--white);
+        }
+
+        /* الترويسة الرئيسية مع الأزرار */
+        .header {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+            border-radius: 25px; 
+            padding: 35px 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            text-align: center; 
+            border: 3px solid var(--gold);
+            position: relative; 
+            overflow: hidden; 
+            margin-top: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .header h1 { 
+            color: var(--white); 
+            margin-bottom: 15px; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8); 
+            line-height: 1.3; 
+        }
+        
+        .subtitle { 
+            color: var(--text-gold); 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            margin-top: 15px; 
+            background: rgba(250, 204, 21, 0.15); 
+            padding: 15px 25px; 
+            border-radius: 40px; 
+            display: inline-block; 
+            backdrop-filter: blur(10px); 
+            border: 2px solid rgba(250, 204, 21, 0.5); 
+        }
+
+        /* صندوق أزرار التحكم الاستراتيجي */
+        .strategy-buttons-box {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px auto;
+            max-width: 90%;
+            border: 2px solid var(--gold);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .strategy-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* مؤشرات الأداء */
+        .readiness-indicators {
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap;
+            gap: 15px; 
+            margin: 20px 0;
+        }
+        
+        .readiness-indicator {
+            background: rgba(255,255,255,0.1); 
+            padding: 12px 20px;
+            border-radius: 25px; 
+            display: flex; 
+            align-items: center;
+            gap: 10px; 
+            font-weight: 800; 
+            color: var(--white);
+            backdrop-filter: blur(10px); 
+            border: 2px solid rgba(250, 204, 21, 0.5);
+            min-width: 200px; 
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .readiness-indicator:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(250, 204, 21, 0.4); 
+            border-color: var(--gold);
+        }
+        
+        .readiness-value { 
+            font-size: 1.4rem; 
+            color: var(--gold); 
+            font-weight: 900; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); 
+        }
+        
+        .readiness-value.flash { 
+            animation: flashGold 0.6s ease; 
+        }
+        
+        .readiness-value.completed {
+            color: var(--success) !important;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes flashGold {
+            0%, 100% { color: var(--gold); }
+            50% { color: var(--success); }
+        }
+
+        /* الأزرار الاحترافية */
+        .btn {
+            background: linear-gradient(135deg, var(--accent-blue), var(--secondary-blue));
+            color: var(--white); 
+            border: none; 
+            padding: 12px 24px;
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: 800;
+            font-family: 'Cairo', sans-serif; 
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(6, 182, 212, 0.4);
+            font-size: 0.9rem;
+            position: relative; 
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+        
+        .btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 30px rgba(250, 204, 21, 0.6); 
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            color: var(--primary-blue);
+        }
+        
+        .btn:active { 
+            transform: translateY(0); 
+        }
+        
+        .btn.reset { 
+            background: linear-gradient(135deg, var(--warning), #ea580c); 
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.4); 
+        }
+        
+        .btn.reset:hover { 
+            box-shadow: 0 8px 30px rgba(249, 115, 22, 0.7); 
+        }
+        
+        .btn.info { 
+            background: linear-gradient(135deg, var(--success), #059669); 
+        }
+        
+        .btn.info:hover { 
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6); 
+        }
+        
+        .btn.backward { 
+            background: linear-gradient(135deg, var(--accent-blue), #0891b2); 
+        }
+        
+        .btn.success { 
+            background: linear-gradient(135deg, var(--success), var(--secondary-blue)); 
+        }
+        
+        .btn:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            transform: none !important; 
+        }
+
+        /* البوكسات الاحترافية */
+        .box {
+            background: rgba(255,255,255,0.08); 
+            border-radius: 20px; 
+            padding: 25px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border: 2px solid var(--gold); 
+            transition: all 0.4s ease;
+            position: relative; 
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+        }
+        
+        .box:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 18px 50px rgba(250, 204, 21, 0.4); 
+            border-color: var(--accent-blue);
+        }
+        
+        .box.crisis { 
+            border-color: var(--danger); 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.15)); 
+        }
+        
+        .box.achievement { 
+            border-color: var(--success); 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.15)); 
+        }
+        
+        .box.success { 
+            background: linear-gradient(135deg, var(--success), var(--secondary-blue)); 
+            color: var(--white); 
+            border: 2px solid var(--gold); 
+        }
+        
+        .box.info { 
+            background: linear-gradient(135deg, var(--accent-blue), var(--secondary-blue)); 
+            color: var(--white); 
+            border: 2px solid var(--gold); 
+        }
+        
+        .box.green { 
+            background: linear-gradient(135deg, var(--success), var(--secondary-blue)); 
+            color: var(--white); 
+            border: 2px solid var(--gold); 
+        }
+
+        /* عناوين البوكسات */
+        .box-title {
+            font-size: 1.2rem; 
+            font-weight: 900; 
+            margin-bottom: 18px;
+            padding: 10px 18px; 
+            border-radius: 15px; 
+            text-align: center;
+            background: rgba(250, 204, 21, 0.15); 
+            border: 2px solid var(--gold);
+            color: var(--gold); 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .box-title.crisis { 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.25)); 
+            color: var(--danger); 
+            border: 2px solid var(--danger); 
+        }
+        
+        .box-title.achievement { 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.25)); 
+            color: var(--success); 
+            border: 2px solid var(--success); 
+        }
+
+        /* شبكات العرض */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+            gap: 20px; 
+            margin: 20px 0; 
+        }
+        
+        .grid-3 { 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        }
+        
+        .indicators-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 20px; 
+            margin: 20px 0; 
+        }
+
+        /* سلايدرات التحكم */
+        .control-slider {
+            width: 100%; 
+            margin: 10px 0; 
+            -webkit-appearance: none; 
+            height: 10px;
+            border-radius: 6px; 
+            background: var(--medium-gray); 
+            transition: background 0.3s ease;
+            cursor: pointer;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .control-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; 
+            width: 26px; 
+            height: 26px; 
+            border-radius: 50%;
+            background: var(--gold); 
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(250, 204, 21, 0.6);
+            border: 3px solid var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .control-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.8);
+        }
+        
+        .control-slider::-moz-range-thumb {
+            width: 26px; 
+            height: 26px; 
+            border-radius: 50%;
+            background: var(--gold); 
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(250, 204, 21, 0.6);
+            border: 3px solid var(--white);
+        }
+        
+        .green-slider { 
+            background: linear-gradient(90deg, var(--success), var(--accent-blue)) !important; 
+        }
+
+        /* الإشعارات المحسّنة */
+        .notifications-panel {
+            position: fixed; 
+            top: 85px; 
+            left: 20px; 
+            width: 420px;
+            max-height: 75vh; 
+            overflow-y: auto; 
+            z-index: 999;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 20px;
+            backdrop-filter: blur(15px); 
+            padding: 15px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+        }
+        
+        .notification-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85)); 
+            border-radius: 18px; 
+            padding: 22px;
+            margin-bottom: 15px; 
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            border: 3px solid;
+            transform: translateX(0); 
+            transition: all 0.5s ease;
+            position: relative;
+            color: var(--primary-blue) !important;
+            backdrop-filter: blur(10px);
+        }
+        
+        .notification-card.critical { 
+            border-color: var(--danger); 
+            background: linear-gradient(135deg, rgba(254, 226, 226, 0.95), rgba(254, 202, 202, 0.95));
+            animation: pulseRed 2s infinite; 
+        }
+        
+        .notification-card.warning { 
+            border-color: var(--warning); 
+            background: linear-gradient(135deg, rgba(255, 237, 213, 0.95), rgba(254, 215, 170, 0.95));
+            animation: pulseOrange 2s infinite; 
+        }
+        
+        .notification-card.info { 
+            border-color: var(--accent-blue); 
+            background: linear-gradient(135deg, rgba(207, 250, 254, 0.95), rgba(165, 243, 252, 0.95));
+            animation: pulseBlue 2s infinite; 
+        }
+        
+        .notification-card.dismissed { 
+            transform: translateX(120%); 
+            opacity: 0; 
+        }
+        
+        @keyframes pulseRed {
+            0%, 100% { box-shadow: 0 10px 35px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 10px 35px rgba(239, 68, 68, 0.8); }
+        }
+        
+        @keyframes pulseOrange {
+            0%, 100% { box-shadow: 0 10px 35px rgba(249, 115, 22, 0.2); }
+            50% { box-shadow: 0 10px 35px rgba(249, 115, 22, 0.8); }
+        }
+        
+        @keyframes pulseBlue {
+            0%, 100% { box-shadow: 0 10px 35px rgba(6, 182, 212, 0.2); }
+            50% { box-shadow: 0 10px 35px rgba(6, 182, 212, 0.8); }
+        }
+        
+        .notification-countdown {
+            position: absolute; 
+            top: 12px; 
+            left: 12px;
+            background: var(--danger); 
+            color: var(--white);
+            padding: 6px 10px; 
+            border-radius: 12px;
+            font-size: 0.75rem; 
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid var(--white);
+        }
+
+        /* النوافذ المنبثقة */
+        .confirmation-modal {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.9); 
+            z-index: 2000;
+            display: none; 
+            justify-content: center; 
+            align-items: center;
+            backdrop-filter: blur(15px);
+        }
+        
+        .confirmation-modal.active { 
+            display: flex; 
+        }
+        
+        .modal-content-wrapper {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue)); 
+            border-radius: 25px; 
+            padding: 35px;
+            max-width: 850px; 
+            max-height: 85vh; 
+            overflow-y: auto;
+            border: 3px solid var(--gold); 
+            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+        }
+        
+        .modal-header { 
+            border-bottom: 3px solid var(--gold); 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+        }
+        
+        .modal-header h3 { 
+            color: var(--gold); 
+            font-size: 1.5rem; 
+            font-weight: 900;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .modal-buttons { 
+            text-align: center; 
+            margin-top: 25px; 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center; 
+        }
+
+        /* STEEPLE & Strategic */
+        .steeple-box {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white); 
+            border-radius: 20px; 
+            padding: 25px;
+            margin: 20px 0; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 3px solid var(--gold);
+        }
+        
+        .steeple-item, .macro-item, .actor-item {
+            background: rgba(255,255,255,0.1); 
+            padding: 18px; 
+            border-radius: 15px;
+            margin: 10px 0; 
+            border: 2px solid rgba(250, 204, 21, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .steeple-item:hover, .macro-item:hover, .actor-item:hover { 
+            transform: translateX(-8px); 
+            border-color: var(--gold);
+            box-shadow: 0 6px 20px rgba(250, 204, 21, 0.3);
+        }
+        
+        .matrix-grid {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .matrix-quadrant {
+            background: rgba(255,255,255,0.1); 
+            padding: 22px; 
+            border-radius: 18px;
+            border: 3px solid var(--gold); 
+            text-align: center; 
+            min-height: 150px;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .matrix-quadrant:hover { 
+            transform: scale(1.03); 
+            box-shadow: 0 8px 25px rgba(250, 204, 21, 0.3);
+        }
+        
+        .black-swan-item {
+            background: linear-gradient(135deg, #1f2937, #374151); 
+            color: var(--white);
+            padding: 18px; 
+            border-radius: 15px; 
+            margin: 12px 0;
+            border-left: 6px solid var(--danger);
+            position: relative;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            border: 2px solid var(--danger);
+        }
+        
+        .black-swan-warning {
+            position: absolute; 
+            top: 12px; 
+            left: 12px;
+            background: var(--warning); 
+            color: var(--white);
+            padding: 6px 10px; 
+            border-radius: 12px;
+            font-size: 0.75rem; 
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid var(--white);
+        }
+
+        /* سلايدرات التحكم المتقدمة */
+        .slider-group {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px; 
+            margin: 20px 0;
+        }
+        
+        .slider-item {
+            border: 3px solid var(--primary-blue); 
+            border-radius: 18px;
+            padding: 18px; 
+            background: rgba(15, 23, 42, 0.6);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .slider-item.active { 
+            border-color: var(--gold); 
+            border-width: 4px; 
+            box-shadow: 0 8px 30px rgba(250, 204, 21, 0.5);
+        }
+        
+        .slider-item h4 { 
+            color: var(--text-gold); 
+            margin-bottom: 12px; 
+            font-size: 1rem; 
+            font-weight: 800;
+        }
+        
+        .slider-value { 
+            font-weight: 900; 
+            color: var(--gold); 
+            margin-top: 8px; 
+            font-size: 1.2rem; 
+            text-align: center;
+        }
+        
+        .slider-impact { 
+            font-size: 0.85rem; 
+            color: var(--text-light); 
+            margin-top: 8px; 
+            padding: 10px; 
+            border-radius: 10px; 
+            font-weight: 700;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* مؤشرات إحصائية متقدمة */
+        .stat-indicator {
+            display: inline-block; 
+            background: var(--gold); 
+            color: var(--primary-blue);
+            padding: 6px 12px; 
+            border-radius: 12px; 
+            font-size: 0.8rem; 
+            font-weight: 900;
+            margin: 0 6px; 
+            cursor: help; 
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--white);
+        }
+        
+        .stat-indicator:hover { 
+            transform: scale(1.1); 
+            box-shadow: 0 3px 12px rgba(250, 204, 21, 0.6);
+        }
+        
+        .confidence-level { 
+            background: var(--accent-blue); 
+            color: var(--white);
+        }
+        
+        .probability-indicator { 
+            background: var(--warning); 
+            color: var(--white);
+        }
+
+        /* التحديات الأسبوعية */
+        .weekly-challenge {
+            background: linear-gradient(135deg, var(--warning), #ea580c);
+            color: var(--white); 
+            padding: 22px; 
+            border-radius: 18px;
+            margin: 20px 0; 
+            text-align: center;
+            border: 3px solid var(--white);
+            animation: slideDown 0.6s ease;
+            box-shadow: 0 8px 30px rgba(249, 115, 22, 0.5);
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .challenge-timer {
+            background: var(--white); 
+            color: var(--danger);
+            padding: 8px 15px; 
+            border-radius: 12px;
+            font-weight: 900; 
+            margin: 0 12px;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 768px) {
+            .simulation-header-bar { 
+                flex-direction: column; 
+                gap: 8px; 
+                padding: 10px 15px; 
+                min-height: auto; 
+            }
+            .strategy-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            body { 
+                padding-top: 0; 
+                padding: 10px;
+            }
+            .notifications-panel { 
+                width: 92%; 
+                left: 4%; 
+                top: 15px; 
+                max-height: 70vh;
+            }
+            .header { 
+                margin-top: 10px; 
+                padding: 25px 20px;
+            }
+            .header h1 { 
+                font-size: 1.4rem; 
+            }
+            .grid { 
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        /* تنسيق النصوص */
+        h1, h2, h3, h4, h5, h6 { 
+            color: var(--text-gold); 
+            font-weight: 900; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        p, li, span, div { 
+            color: var(--text-light); 
+            font-weight: 700; 
+            line-height: 1.7;
+        }
+        
+        .box.crisis p, .box.crisis li { 
+            color: var(--text-light) !important; 
+        }
+        
+        .box.achievement p, .box.achievement li { 
+            color: var(--text-light) !important; 
+        }
+
+        /* مؤشرات البنية التحتية */
+        .infrastructure-details {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px; 
+            margin: 18px 0;
+        }
+        
+        .infrastructure-metric {
+            background: rgba(255,255,255,0.1); 
+            padding: 12px;
+            border-radius: 12px; 
+            text-align: center;
+            border: 2px solid rgba(250, 204, 21, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .infrastructure-metric:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .infrastructure-metric h5 { 
+            color: var(--gold); 
+            font-size: 0.85rem; 
+            margin-bottom: 8px;
+        }
+        
+        .infrastructure-metric .value { 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            color: var(--white);
+        }
+
+        /* وضع المقارنة */
+        .scenario-comparison {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px; 
+            margin: 20px 0;
+        }
+        
+        .scenario-track {
+            padding: 18px; 
+            border-radius: 18px;
+            border: 3px solid; 
+            text-align: center;
+            cursor: pointer; 
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .scenario-track.active { 
+            transform: scale(1.08); 
+            box-shadow: 0 10px 35px rgba(250, 204, 21, 0.5);
+            border-width: 4px;
+        }
+        
+        .scenario-track.pessimistic { 
+            border-color: var(--danger); 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.15)); 
+        }
+        
+        .scenario-track.most-likely { 
+            border-color: var(--gold); 
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue)); 
+            color: var(--white);
+        }
+        
+        .scenario-track.optimistic { 
+            border-color: var(--success); 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.15)); 
+        }
+
+        /* الرؤية - الرسالة - القيم */
+        .vision-mission-values {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 3px solid var(--gold);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        /* قدرات استراتيجية */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .capability-item {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .capability-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(250, 204, 21, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط المحاكاة العلوي المبسط -->
+    <div class="simulation-header-bar" id="simulation-header-bar">
+        <div class="current-month-display">
+            <span class="label">🗓️ الجدول الزمني:</span>
+            <span class="month" id="global-current-month">ديسمبر 2025</span>
+        </div>
+        
+        <div class="experience-points">
+            <span>⭐ نقاط الخبرة:</span>
+            <span class="points" id="experience-points">0</span>
+        </div>
+        
+        <div style="display: flex; gap: 8px;">
+            <button class="btn" id="simulation-toggle-top">
+                <span class="btn-icon">▶️</span>
+                <span class="btn-text">بدء</span>
+            </button>
+            
+            <button class="btn reset" id="simulation-reset-top">
+                <span class="btn-icon">🔄</span>
+                <span class="btn-text">إعادة</span>
+            </button>
+            
+            <button class="btn info" id="toggle-notifications-btn">🔔 تشغيل الإشعارات <span style="font-size: 0.7rem; display: block; margin-top: 2px;">كل 6 أشهر</span></button>
+        </div>
+    </div>
+
+    <!-- الترويسة الرئيسية مع الأزرار الاستراتيجية -->
+    <div class="header">
+        <h1>نموذج استشراف استراتيجي متطور لتوظيف الشباب المصري الرقمي 2025-2030</h1>
+        <p style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px;">تحليل شامل للنظام البيئي الداخلي والخارجي والاستشراف المستقبلي</p>
+        <div class="subtitle">💻 صناعة المحتوى | 💻 البرمجة | 📊 تحليل البيانات | 🤖 الذكاء الاصطناعي</div>
+        
+        <!-- صندوق أزرار التحكم الاستراتيجي -->
+        <div class="strategy-buttons-box">
+            <div class="strategy-buttons">
+                <button class="btn success" id="egypt-current-status-btn">🇪🇬 الموقف المصري الحالي</button>
+                <button class="btn success" id="global-indicators-btn">🌍 المؤشرات العالمية</button>
+                <button class="btn success" id="strategy-info-btn">💡 STEEPLE & SWOT</button>
+                <button class="btn success" id="cross-continental-btn">🌍 أنواع العابرين للقارات</button>
+                <button class="btn success" id="foresight-analysis-btn">🔮 التحليل الاستشرافي</button>
+                <button class="btn success" id="scenario-compare-btn">⚖️ مقارنة السيناريوهات</button>
+            </div>
+        </div>
+        
+        <!-- مؤشرات الأداء الفوري -->
+        <div class="readiness-indicators" id="readiness-indicators">
+            <div class="readiness-indicator">
+                <span>📈 فرص العمل المتاحة:</span>
+                <span class="readiness-value" id="job-opportunities">45,000</span>
+            </div>
+            
+            <div class="readiness-indicator">
+                <span>🎓 المهارات المؤهلة:</span>
+                <span class="readiness-value" id="qualified-skills">127,000</span>
+            </div>
+            
+            <div class="readiness-indicator">
+                <span>💰 متوسط الدخل الشهري:</span>
+                <span class="readiness-value" id="avg-income">$850</span>
+            </div>
+
+            <div class="readiness-indicator">
+                <span>🌍 نسبة العمل الحر:</span>
+                <span class="readiness-value" id="freelance-rate">34%</span>
+            </div>
+            
+            <div class="readiness-indicator">
+                <span>📊 جودة البنية التحتية:</span>
+                <span class="readiness-value" id="infrastructure-quality">تحتاج تطوير</span>
+            </div>
+            
+            <div class="readiness-indicator">
+                <span>⭐ مؤشر التنافسية:</span>
+                <span class="readiness-value" id="competitiveness">45</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- التحديات الأسبوعية -->
+    <div id="weekly-challenge-container" style="display: none;">
+        <div class="weekly-challenge" id="weekly-challenge">
+            <h4 id="challenge-title"></h4>
+            <p id="challenge-description"></p>
+            <div>الوقت المتبقي: <span class="challenge-timer" id="challenge-timer">60</span> ثانية</div>
+            <button class="btn" id="accept-challenge">قبول التحدي</button>
+        </div>
+    </div>
+
+    <!-- مؤشرات عالمية -->
+    <div class="notifications-panel" id="notifications-panel"></div>
+
+    <div class="container">
+        <!-- STEEPLE Analysis Box -->
+        <div class="box steeple-box">
+            <div class="box-title" style="font-size: 1.3rem;">🔬 تحليل STEEPLE للميجا تريندز (2025)</div>
+            <div class="steeple-item">
+                <h4>👥 العوامل الاجتماعية (Social)</h4>
+                <p>الشباب المصري 60% من السكان <span class="stat-indicator">التأثير: عالي</span> <span class="confidence-level">ثقة 89%</span></p>
+                <p>ارتفاع ثقافة العمل الحر: 34% → 67% بحلول 2030 <span class="probability-indicator">احتمالية 78%</span></p>
+                <p>فجوة التعليم: 2.5 مليون خريج سنوياً vs 45,000 فرصة <span class="stat-indicator">فجوة 98%</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>🤖 العوامل التكنولوجية (Technological)</h4>
+                <p>الذكاء الاصطناعي سيحل محل 14% من الوظائف الروتينية <span class="probability-indicator">احتمالية 85%</span></p>
+                <p>نمو سوق العمل الرقمي العالمي: $1.5 تريليون بحلول 2030 <span class="stat-indicator">معدل نمو 23% سنوياً</span></p>
+                <p>انتشار الشبكة: مصر 78% vs متوسط OECD 95% <span class="confidence-level">ثقة 92%</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>💹 العوامل الاقتصادية (Economic)</h4>
+                <p>الناتج المحلي للاقتصاد الرقمي المصري: $5.2 مليار (2025) <span class="stat-indicator">هدف 2030: $25 مليار</span></p>
+                <p>تدفّق العملات: $1.8 مليار من العاملين عن بُعد <span class="probability-indicator">احتمالية 91%</span></p>
+                <p>التضخم يؤثر على تكلفة التدريب: +12% سنوياً <span class="confidence-level">ثقة 87%</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>🌍 العوامل البيئية (Environmental)</h4>
+                <p>التحول الأخضر يخلق 300,000 وظيفة رقمية جديدة <span class="probability-indicator">احتمالية 72%</span></p>
+                <p>تأثير المناخ على البنية التحتية: انقطاعات +15% <span class="stat-indicator">مخاطر متوسطة</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>🏛️ العوامل السياسية (Political)</h4>
+                <p>استراتيجية مصر الرقمية 2030: دعم قوي من القيادة <span class="confidence-level">ثقة 95%</span></p>
+                <p>تعاون عابر للقارات: 18 اتفاقية مع دول أفريقيا وأوروبا <span class="stat-indicator">تأثير إيجابي</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>⚖️ العوامل القانونية (Legal)</h4>
+                <p>قانون العمل الجديد: 40% من البنود تخص العمل المرن <span class="probability-indicator">قيد المراجعة 60%</span></p>
+                <p>الضرائب على العمل الحر: 10% حالياً → خصم محتمل 50% <span class="stat-indicator">تأثير عالٍ</span></p>
+            </div>
+            <div class="steeple-item">
+                <h4>⚖️ العوامل الأخلاقية (Ethical)</h4>
+                <p>الذكاء الاصطناعي الأخلاقي: 67% من الشركات تطلب شهادات في AI Ethics <span class="probability-indicator">احتمالية 76%</span></p>
+                <p>الخصوصية الرقمية: قانون حماية البيانات قيد الإعداد <span class="confidence-level">ثقة 83%</span></p>
+            </div>
+        </div>
+
+        <!-- المؤشرات الكلية التفصيلية -->
+        <div class="box macro-box">
+            <div class="box-title" style="font-size: 1.3rem;">📊 المؤشرات الكلية الحالية (تحليل إحصائي منضبط)</div>
+            <div class="indicators-grid">
+                <div class="box">
+                    <h3 style="color: var(--gold); margin-bottom: 15px; font-size: 1.1rem;">📈 الوظائف الرقمية العالمية</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">إجمالي السوق</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">$1.5 تريليون</div>
+                            <div style="color: var(--accent-blue); font-size: 0.8rem;">CI: 95% [1.2-1.8]</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">معدل النمو السنوي</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">23.2%</div>
+                            <div style="color: var(--accent-blue); font-size: 0.8rem;">±2.1% SE</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">الوظائف الشاغرة</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">45,000 مصر</div>
+                            <div style="color: var(--warning); font-size: 0.8rem;">P-value < 0.001</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">المتنافسون</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">127 دولة</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">R² = 0.87</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <h3 style="color: var(--warning); margin-bottom: 15px; font-size: 1.1rem;">🎓 بيانات التعليم والمهارات</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">المهارات المؤهلة</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">127,000</div>
+                            <div style="color: var(--accent-blue); font-size: 0.8rem;">95% CI ±3,200</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">عدد الخريجين السنوي</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">2.5 مليون</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">الفجوة: 95%</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">معدل التسرب من التدريب</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">68%</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">SD = 4.2%</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">التوظيف في المجال</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">5.1%</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">Effect Size: 0.73</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 1.1rem;">🌍 البنية التحتية</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">انتشار الإنترنت</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">78%</div>
+                            <div style="color: var(--accent-blue); font-size: 0.8rem;">Z-score: -1.2</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">متوسط السرعة</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">25 ميجابت/ث</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">Rank: 89/127</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">تكلفة الشهر</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">450 جنيه</div>
+                            <div style="color: var(--danger); font-size: 0.8rem;">+40% vs متوسط</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">الاستقرارية</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">72%</div>
+                            <div style="color: var(--warning); font-size: 0.8rem;">Beta: 0.89</div>
+                        </div>
+                    </div>
+                    <!-- مؤشرات البنية التحتية التفصيلية -->
+                    <div class="infrastructure-details" id="infrastructure-details">
+                        <div class="infrastructure-metric">
+                            <h5>انقطاعات الشهر</h5>
+                            <div class="value" id="monthly-outages">3.2</div>
+                        </div>
+                        <div class="infrastructure-metric">
+                            <h5>مراكز البيانات</h5>
+                            <div class="value" id="data-centers">12</div>
+                        </div>
+                        <div class="infrastructure-metric">
+                            <h5>معدل الصيانة</h5>
+                            <div class="value" id="maintenance-rate">68%</div>
+                        </div>
+                        <div class="infrastructure-metric">
+                            <h5>سعة التخزين</h5>
+                            <div class="value" id="storage-capacity">450TB</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 1.1rem;">💰 الاقتصاد الكلي</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">الناتج الرقمي</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">$5.2B</div>
+                            <div style="color: var(--accent-blue); font-size: 0.8rem;">معدل نمو 18%</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">تحويلات المصريين</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">$1.8B</div>
+                            <div style="color: var(--warning); font-size: 0.8rem;">+12% YoY</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">الاستثمار الحكومي</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">340M جنيه</div>
+                            <div style="color: var(--warning); font-size: 0.8rem;">8% من ميزانية</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 12px;">
+                            <div style="font-weight: 800;">العجز في الميزانية</div>
+                            <div style="font-size: 1.3rem; font-weight: 900;">-4.2B</div>
+                            <div style="color: var(--warning); font-size: 0.8rem;">تقييد الإنفاق</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- مصفوفة القوى الفاعلة -->
+        <div class="box actor-box">
+            <div class="box-title" style="font-size: 1.3rem;">🎭 مصفوفة القوى الفاعلة (McKinsey Actor Matrix)</div>
+            <div class="matrix-grid">
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--gold);">🔺 قوى بالغة التأثير، متحالفة</h4>
+                    <div style="text-align: right; padding: 10px;">
+                        <p><strong>وزارة الاتصالات:</strong> درجة تأثير 9/10 <span class="stat-indicator">دعم قوي</span></p>
+                        <p><strong>Coursera & Udacity:</strong> درجة تأثير 8/10 <span class="stat-indicator">شراكات استراتيجية</span></p>
+                        <p><strong>بنك الاستثمار الأوروبي:</strong> درجة تأثير 7/10 <span class="stat-indicator">تمويل €500M</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--warning);">⚔️ قوى بالغة التأثير، متصارعة</h4>
+                    <div style="text-align: right; padding: 10px;">
+                        <p><strong>الاتحاد الأوروبي:</strong> درجة تأثير 8/10 <span class="stat-indicator">قيود قانونية</span></p>
+                        <p><strong>شركات المحمول:</strong> درجة تأثير 7/10 <span class="stat-indicator">احتكار الأسعار</span></p>
+                        <p><strong>التنظيمات النقابية:</strong> درجة تأثير 6/10 <span class="stat-indicator">مقاومة التغيير</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--success);">📈 قوى متوسطة التأثير، متحالفة</h4>
+                    <div style="text-align: right; padding: 10px;">
+                        <p><strong>Upwork & Fiverr:</strong> درجة تأثير 6/10 <span class="stat-indicator">سوق مفتوح</span></p>
+                        <p><strong>حاضنات الأعمال:</strong> درجة تأثير 5/10 <span class="stat-indicator">دعم ناشئ</span></p>
+                        <p><strong>الجامعات المصرية:</strong> درجة تأثير 5/10 <span class="stat-indicator">إصلاح المناهج</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--white); background: linear-gradient(135deg, var(--warning), #ea580c); padding: 10px; border-radius: 10px;">⚠️ قوى متوسطة التأثير، متصارعة</h4>
+                    <div style="text-align: right; padding: 10px;">
+                        <p><strong>الهجرة الدماغية:</strong> درجة تأثير 6/10 <span class="stat-indicator">خسارة المواهب 35%</span></p>
+                        <p><strong>الاقتصاد غير الرسمي:</strong> درجة تأثير 5/10 <span class="stat-indicator">تجنب الضرائب</span></p>
+                        <p><strong>البنوك التقليدية:</strong> درجة تأثير 4/10 <span class="stat-indicator">تعقيد التحويلات</span></p>
+                    </div>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; margin-top: 15px;">
+                <h5 style="color: var(--gold);">📊 إجمالي القوى: 24 | متحالفة: 12 | متصارعة: 8 | محايدة: 4</h5>
+                <p style="font-size: 0.9rem; margin-top: 8px;">متوسط درجة التأثير: 6.3/10 | مؤشر التعقيد: 7.1/10 | احتمالية التحالف الناجح: 67%</p>
+            </div>
+        </div>
+
+        <!-- مصفوفة الاستشراف -->
+        <div class="box steeple-box">
+            <div class="box-title" style="font-size: 1.3rem;">🔮 مصفوفة الاستشراف (Foresight Matrix)</div>
+            <div class="matrix-grid">
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--success);">▲ تأثير عالٍ، يقين عالٍ</h4>
+                    <div style="text-align: right;">
+                        <p>🤖 توسع سوق AI (85% يقين) <span class="stat-indicator">تأثير: +40%</span></p>
+                        <p>📱 نمو العمل الحر (91% يقين) <span class="stat-indicator">تأثير: +35%</span></p>
+                        <p>🎓 تغيير المناهج (78% يقين) <span class="stat-indicator">تأثير: +28%</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--warning);">⚠️ تأثير عالٍ، عدم يقين</h4>
+                    <div style="text-align: right;">
+                        <p>🦢 بجعة سوداء: ثورة تكنولوجية (15% احتمال) <span class="stat-indicator">تأثير: ±90%</span></p>
+                        <p>🌐 تغيير لوائح الاتحاد الأوروبي (45% يقين) <span class="stat-indicator">تأثير: ±25%</span></p>
+                        <p>💰 تخفيض ضريبي مفاجئ (30% يقين) <span class="stat-indicator">تأثير: +30%</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--accent-blue);">▬ تأثير متوسط، يقين عالٍ</h4>
+                    <div style="text-align: right;">
+                        <p>📊 تحليل البيانات (92% يقين) <span class="stat-indicator">تأثير: +18%</span></p>
+                        <p>🎨 التصميم الإبداعي (88% يقين) <span class="stat-indicator">تأثير: +15%</span></p>
+                        <p>🛡️ الأمن السيبراني (95% يقين) <span class="stat-indicator">تأثير: +22%</span></p>
+                    </div>
+                </div>
+                <div class="matrix-quadrant">
+                    <h4 style="color: var(--medium-gray);">➖ تأثير متوسط، عدم يقين</h4>
+                    <div style="text-align: right;">
+                        <p>🎮 الألعاب الرقمية (40% يقين) <span class="stat-indicator">تأثير: ±12%</span></p>
+                        <p>🛒 التجارة الإلكترونية (55% يقين) <span class="stat-indicator">تأثير: ±10%</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- البجعة السوداء -->
+        <div class="box crisis">
+            <div class="box-title crisis">🦢 البجعة السوداء - الأحداث الطارئة</div>
+            <div class="black-swan-item">
+                <div class="black-swan-warning">احتمالية 8%</div>
+                <h4 style="color: var(--danger);">🤖 ثورة الذكاء الاصطناعي العام (AGI) - 2030</h4>
+                <p><strong>التأثير:</strong> إيجابي/سلبي ±90% على الوظائف <span class="stat-indicator">معدل خطورة: 9.2/10</span></p>
+                <p><strong>الاستعداد:</strong> إنشاء صندوق طوارئ تقني بقيمة €1B <span class="confidence-level">جاهزية 23%</span></p>
+            </div>
+            <div class="black-swan-item">
+                <div class="black-swan-warning">احتمالية 12%</div>
+                <h4 style="color: var(--danger);">🌐 حظر عالمي على العمل الحر - 2028</h4>
+                <p><strong>التأثير:</strong> سلبي -85% على الدخل <span class="stat-indicator">معدل خطورة: 10/10</span></p>
+                <p><strong>الاستعداد:</strong> تنويع الأسواق وتعزيز الشركات المحلية <span class="confidence-level">جاهزية 15%</span></p>
+            </div>
+            <div class="black-swan-item">
+                <div class="black-swan-warning">احتمالية 18%</div>
+                <h4 style="color: var(--danger);">💰 انهيار العملات الرقمية - 2027</h4>
+                <p><strong>التأثير:</strong> سلبي -45% على المدفوعات <span class="stat-indicator">معدل خطورة: 7.8/10</span></p>
+                <p><strong>الاستعداد:</strong> الاحتفاظ باحتياطي نقدي متعدد العملات <span class="confidence-level">جاهزية 45%</span></p>
+            </div>
+            <div class="black-swan-item">
+                <div class="black-swan-warning">احتمالية 22%</div>
+                <h4 style="color: var(--success);">🚀 اكتشاف تكنولوجيا جديدة - 2029</h4>
+                <p><strong>التأثير:</strong> إيجابي +120% على الإنتاجية <span class="stat-indicator">معدل فرصة: 8.5/10</span></p>
+                <p><strong>الاستعداد:</strong> تخصيص 5% من الميزانية لـ R&D <span class="confidence-level">جاهزية 31%</span></p>
+            </div>
+        </div>
+
+        <!-- سيناريوهات المستقبل -->
+        <div class="grid">
+            <!-- السيناريو المتشائم -->
+            <div class="box crisis">
+                <div class="box-title crisis">⬇️ السيناريو المتشائم (احتمالية 25%)</div>
+                <div style="color: var(--text-light); line-height: 1.8;">
+                    <h5 style="color: var(--danger);">📉 الفرضيات:</h5>
+                    <ul style="padding-right: 20px;">
+                        <li>بقاء البنية التحتية دون تطوير (>80%)</li>
+                        <li>زيادة فجوة المهارات إلى 85%</li>
+                        <li>هجرة 50% من المواهب المؤهلة</li>
+                        <li>أزمة اقتصادية عالمية 2027</li>
+                    </ul>
+                    <h5 style="color: var(--danger);">📊 النتائج المتوقعة بحلول 2030:</h5>
+                    <p>الوظائف: 150,000 فقط <span class="stat-indicator">-70% عن الهدف</span></p>
+                    <p>متوسط الدخل: $600 <span class="stat-indicator">-70% عن الهدف</span></p>
+                    <p>نسبة التحفيظ: 25% <span class="stat-indicator">-55% عن الهدف</span></p>
+                    <h5 style="color: var(--success);">🛡️ طرق المواجهة:</h5>
+                    <ul style="padding-right: 20px;">
+                        <li>زيادة الاستثمار الطارئ في البنية التحتية 200%</li>
+                        <li>برنامج احتفاظ عاجل بالمواهب (ضرائب 0% لـ3 سنوات)</li>
+                        <li>شراكات طارئة مع Google, Microsoft لتوفير 100,000 تدريب</li>
+                        <li>إنشاء صندوق تكافل للشباب بقيمة €200M</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- السيناريو المتفائل -->
+            <div class="box achievement">
+                <div class="box-title achievement">⬆️ السيناريو المتفائل (احتمالية 20%)</div>
+                <div style="color: var(--text-light); line-height: 1.8;">
+                    <h5 style="color: var(--success);">📈 الفرضيات:</h5>
+                    <ul style="padding-right: 20px;">
+                        <li>تطبيق كامل للذكاء الاصطناعي بحلول 2028</li>
+                        <li>انضمام مصر إلى الاتحاد الأوروبي الرقمي</li>
+                        <li>تخفيض ضريبي 50% على العمل الحر</li>
+                        <li>استثمار أجنبي مباشر $2B سنوياً</li>
+                    </ul>
+                    <h5 style="color: var(--success);">📊 النتائج المتوقعة بحلول 2030:</h5>
+                    <p>الوظائف: 2,000,000 <span class="stat-indicator">+100% عن الهدف</span></p>
+                    <p>متوسط الدخل: $2,800 <span class="stat-indicator">+40% عن الهدف</span></p>
+                    <p>نسبة التحفيظ: 95% <span class="stat-indicator">+15% عن الهدف</span></p>
+                    <h5 style="color: var(--gold);">🚀 طرق الاستغلال:</h5>
+                    <ul style="padding-right: 20px;">
+                        <li>إنشاء مراكز إبداع في 10 مدن جديدة</li>
+                        <li>إصدار تأشيرات رقمية للعمال الأجانب</li>
+                        <li>تحويل مصر إلى مركز رقمي إقليمي</li>
+                        <li>إطلاق عملة رقمية مصرية للمدفوعات</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- السيناريو الأكثر احتمالاً -->
+        <div class="box success">
+            <div class="box-title" style="font-size: 1.4rem;">➡️ السيناريو الأكثر احتمالاً (احتمالية 55%) - الإستراتيجية الغالبة</div>
+            <div style="color: var(--white); line-height: 1.8;">
+                <h5 style="color: var(--gold);">📊 الفرضيات المتوسطة:</h5>
+                <div class="grid-3" style="margin: 15px 0;">
+                    <div class="box info" style="background: rgba(255,255,255,0.15);">
+                        <h4>البنية التحتية</h4>
+                        <p>تحسن تدريجي إلى 88%</p>
+                        <p class="stat-indicator">احتمالية 78%</p>
+                    </div>
+                    <div class="box info" style="background: rgba(255,255,255,0.15);">
+                        <h4>الاهتكال الرقمي</h4>
+                        <p>الانتشار إلى 65%</p>
+                        <p class="stat-indicator">احتمالية 82%</p>
+                    </div>
+                    <div class="box info" style="background: rgba(255,255,255,0.15);">
+                        <h4>الدعم الحكومي</h4>
+                        <p>ثابت عند 340M سنوياً</p>
+                        <p class="stat-indicator">احتمالية 91%</p>
+                    </div>
+                </div>
+                <h5 style="color: var(--gold);">📈 النتائج المتوقعة بحلول 2030:</h5>
+                <div class="indicators-grid">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 900;">1,150,000</div>
+                        <div>وظيفة <span class="stat-indicator">115% من الهدف</span></div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 900;">$2,150</div>
+                        <div>دخل <span class="stat-indicator">107.5% من الهدف</span></div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 900;">85%</div>
+                        <div>تحفيظ <span class="stat-indicator">106% من الهدف</span></div>
+                    </div>
+                </div>
+                <h5 style="color: var(--gold);">🎯 الإستراتيجية المتوسطة:</h5>
+                <ul style="padding-right: 20px;">
+                    <li>تحسين تدريجي للبنية التحتية 12% سنوياً</li>
+                    <li>زيادة التمويل إلى 500M بحلول 2027</li>
+                    <li>إنشاء 5 مراكز إبداع في المدن الكبرى</li>
+                    <li>تبسيط قانوني تدريجي لجذب الاستثمار</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- الرؤية - الرسالة - القيم (بوكس واحد متكامل) -->
+        <div class="vision-mission-values">
+            <div class="box-title" style="font-size: 1.4rem;">🎯 الرؤية - الرسالة - القيم الجوهرية</div>
+            <div class="capabilities-grid">
+                <div class="capability-item">
+                    <h4 style="color: var(--gold); margin-bottom: 15px; text-align: center;">👁️ الرؤية المستقبلية 2030</h4>
+                    <p style="font-weight: 800; text-align: center; line-height: 1.8;">أن تصبح مصر مركزاً رقمياً مؤهلاً عالمياً، يتميز بالمواهب المصرية المبدعة، ويحقق استقلالاً اقتصادياً للشباب مع احتفاظ 92% بالمواهب المحلية.</p>
+                </div>
+                
+                <div class="capability-item">
+                    <h4 style="color: var(--gold); margin-bottom: 15px; text-align: center;">🎯 الرسالة التنفيذية</h4>
+                    <p style="font-weight: 800;">تمكين 1,000,000 شاب مصري من خلال:</p>
+                    <ul style="padding-right: 20px; font-weight: 800; line-height: 1.8;">
+                        <li>شراكات مع 50 منصة عالمية</li>
+                        <li>بنية تحتية رقمية بمعايير 5G في 90% من المناطق</li>
+                        <li>دعم قانوني شامل للعمل الحر</li>
+                        <li>علامة تجارية "Digital Egypt" معتمدة عالمياً</li>
+                    </ul>
+                </div>
+                
+                <div class="capability-item">
+                    <h4 style="color: var(--success); margin-bottom: 15px; text-align: center;">💎 القيم الجوهرية</h4>
+                    <ul style="padding-right: 20px; font-weight: 800; line-height: 1.8;">
+                        <li>الشفافية الكاملة في المؤشرات</li>
+                        <li>السرعة في التنفيذ (6 أشهر للمبادرات)</li>
+                        <li>التركيز على الشباب (85% من القرارات)</li>
+                        <li>التميز العالمي (معايير ISO)</li>
+                        <li>الاستدامة المالية (ROI > 300%)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- القدرات الإستراتيجية -->
+        <div class="box steeple-box">
+            <div class="box-title" style="font-size: 1.3rem;">💪 القدرات الإستراتيجية لمصر (VRIO Analysis)</div>
+            <div class="grid">
+                <div class="box info">
+                    <h4 style="color: var(--gold);">✅ قدرات قيّمة (Valuable)</h4>
+                    <ul style="padding-right: 20px; line-height: 1.8;">
+                        <li>الموقع الجغرافي بين أفريقيا وأوروبا <span class="stat-indicator">نفاذ 2.5B مستهلك</span></li>
+                        <li>قاعدة شبابية ضخمة (60% من السكان) <span class="stat-indicator">تكلفة منخفضة 40%</span></li>
+                        <p>اتفاقيات التجارة الحرة <span class="stat-indicator">لا رسوم جمركية</span></p>
+                    </ul>
+                </div>
+                <div class="box info">
+                    <h4 style="color: var(--gold);">✅ قدرات نادرة (Rare)</h4>
+                    <ul style="padding-right: 20px; line-height: 1.8;">
+                        <li>اللغة العربية + الإنجليزية + الفرنسية <span class="stat-indicator">3% من السوق فقط</span></li>
+                        <li>التاريخ الثقافي للمحتوى <span class="stat-indicator">ميزة فريدة</span></li>
+                        <li>الوقت المتداخل مع أوروبا/آسيا <span class="stat-indicator">24/7 عمل</span></li>
+                    </ul>
+                </div>
+                <div class="box info">
+                    <h4 style="color: var(--gold);">⚠️ قدرات قابلة للتقليد (Imitable)</h4>
+                    <ul style="padding-right: 20px; line-height: 1.8;">
+                        <li>المهارات البرمجية <span class="stat-indicator">هندسة عكسية ممكنة</span></li>
+                        <li>البنية التحتية <span class="stat-indicator">تكلفة دخول مرتفعة</span></li>
+                        <li>منصات التدريب <span class="stat-indicator">نسخ مفتوح المصدر</span></li>
+                    </ul>
+                </div>
+                <div class="box info">
+                    <h4 style="color: var(--gold);">✅ قدرات منظمة (Organized)</h4>
+                    <ul style="padding-right: 20px; line-height: 1.8;">
+                        <li>هيكل حكومي متكامل <span class="stat-indicator">وزارة متخصصة</span></li>
+                        <li>شبكة من الحاضنات <span class="stat-indicator">23 مركزاً</span></li>
+                        <li>قاعدة بيانات وطنية <span class="stat-indicator">ربط 45,000 شاب</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- سلايدرات التحكم في المبادرات -->
+        <div class="box">
+            <div class="box-title" style="background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));">🎛️ مبادرات التحكم والتنفيذ</div>
+            
+            <div class="slider-group">
+                <!-- مجموعة التدريب والتعليم -->
+                <div class="slider-item" id="slider-training">
+                    <h4>📚 ميزانية التدريب (% من الناتج الرقمي)</h4>
+                    <input type="range" class="control-slider" min="0" max="100" value="8" step="1" data-control="trainingBudget">
+                    <div class="slider-value">8%</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">تأثير: +15,000 شاب مؤهل</div>
+                </div>
+                
+                <div class="slider-item" id="slider-elearning">
+                    <h4>📱 دعم المنصات الإلكترونية (ألف شاب)</h4>
+                    <input type="range" class="control-slider green-slider" min="0" max="100" value="15" step="5" data-control="elearningPlatforms" id="elearning-slider">
+                    <div class="slider-value" id="elearning-value">15 ألف</div>
+                    <div class="slider-impact" style="background: var(--warning); color: var(--white);">+42% مهارات في 6 أشهر | تكلفة منخفضة</div>
+                </div>
+                
+                <div class="slider-item" id="slider-ai">
+                    <h4>🤖 تطبيق الذكاء الاصناعي (%)</h4>
+                    <input type="range" class="control-slider" min="0" max="100" value="25" step="5" data-control="aiAdoption">
+                    <div class="slider-value">25%</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">الهدف: 85% بحلول 2030</div>
+                </div>
+                
+                <div class="slider-item" id="slider-infrastructure">
+                    <h4>🌐 تطوير البنية التحتية (مليار جنيه)</h4>
+                    <input type="range" class="control-slider" min="0" max="10" value="4.2" step="0.1" data-control="infrastructureInvestment">
+                    <div class="slider-value">4.2 مليار</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">تأثير: -28% كثافة مستخدمين</div>
+                </div>
+                
+                <div class="slider-item" id="slider-early-pro">
+                    <h4>🌍 برامج الاحتراف المبكر (ألف شاب)</h4>
+                    <input type="range" class="control-slider" min="0" max="500" value="50" step="10" data-control="earlyProfessional">
+                    <div class="slider-value">50 ألف</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">تأثير: +10,000 محترف خلال 3 سنوات</div>
+                </div>
+                
+                <div class="slider-item" id="slider-legal">
+                    <h4>📋 تبسيط الإجراءات القانونية (نقاط)</h4>
+                    <input type="range" class="control-slider" min="0" max="10" value="3" step="1" data-control="legalSimplification">
+                    <div class="slider-value">3/10</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">تأثير: +25% نجاح المشاريع</div>
+                </div>
+                
+                <div class="slider-item" id="slider-startup">
+                    <h4>🏆 دعم المشاريع الناشئة (مليون جنيه)</h4>
+                    <input type="range" class="control-slider" min="0" max="1000" value="340" step="20" data-control="startupSupport">
+                    <div class="slider-value">340 مليون</div>
+                    <div class="slider-impact" style="background: rgba(16, 185, 129, 0.15);">تأثير: خفض فشل المشاريع 35%</div>
+                </div>
+                
+                <div class="slider-item" id="slider-black-swan">
+                    <h4>🔮 صندوق البجعة السوداء (مليون يورو)</h4>
+                    <input type="range" class="control-slider green-slider" min="0" max="1000" value="200" step="50" data-control="blackSwanFund" id="black-swan-slider">
+                    <div class="slider-value" id="black-swan-value">200M يورو</div>
+                    <div class="slider-impact" style="background: var(--danger); color: var(--white);">تغطية أحداث الطوارئ | جاهزية 67%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- أدوات التحكم في المحاكاة -->
+        <div class="box green">
+            <div class="box-title" style="font-size: 1.4rem;">🎮 التحكم في محاكاة التمكين الرقمي</div>
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn" id="simulation-toggle">
+                    <span class="btn-icon">▶️</span>
+                    <span class="btn-text">بدء المحاكاة</span>
+                </button>
+                
+                <button class="btn reset" id="simulation-reset">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">إعادة المحاكاة</span>
+                </button>
+                
+                <button class="btn backward" id="simulation-backward">
+                    <span class="btn-icon">↩️</span>
+                    <span class="btn-text">الرجوع للخلف</span>
+                </button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 15px;">
+                <label style="color: var(--gold); font-weight: 900;">سرعة المحاكاة: </label>
+                <input type="range" id="simulation-speed" min="0.5" max="5" value="1" step="0.5" style="width: 200px; vertical-align: middle;">
+                <span id="speed-value" style="font-weight: 900; color: var(--gold);">1x</span>
+            </div>
+        </div>
+
+        <!-- المؤشرات النهائية الثمانية -->
+        <div class="box success">
+            <div class="box-title" style="font-size: 1.4rem;">📊 مؤشرات النجاح النهائية الثمانية (KPIs)</div>
+            <div class="indicators-grid">
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--gold);">
+                    <div style="font-weight: 800; color: var(--text-gold);">فرص العمل الجديدة</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--gold);" id="kpi-employment">45,000</div>
+                    <div style="color: var(--text-light);">الهدف: 1,150,000 | احتمالية: 78%</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--warning);">
+                    <div style="font-weight: 800; color: var(--text-gold);">المهارات المؤهلة</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--warning);" id="kpi-skills">127,000</div>
+                    <div style="color: var(--text-light);">الهدف: 500,000 | ثقة: 94%</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--accent-blue);">
+                    <div style="font-weight: 800; color: var(--text-gold);">متوسط الدخل</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--accent-blue);" id="kpi-income">$850</div>
+                    <div style="color: var(--text-light);">الهدف: $2,150 | نطاق: [1950-2350]</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--success);">
+                    <div style="font-weight: 800; color: var(--text-gold);">نسبة العمل الحر</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--success);" id="kpi-freelance">34%</div>
+                    <div style="color: var(--text-light);">الهدف: 85% | معدل نمو: 12%/سنة</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--warning);">
+                    <div style="font-weight: 800; color: var(--text-gold);">جودة البنية التحتية</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--warning);" id="kpi-infrastructure">78%</div>
+                    <div style="color: var(--text-light);">الهدف: 95% | CI: 93-97%</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--gold);">
+                    <div style="font-weight: 800; color: var(--text-gold);">مؤشر التنافسية</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--gold);" id="kpi-competitiveness">45</div>
+                    <div style="color: var(--text-light);">الهدف: 85 | تحسن: +6.8 نقطة/سنة</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--warning);">
+                    <div style="font-weight: 800; color: var(--text-gold);">احتفاظ المواهب</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--warning);" id="kpi-retention">78%</div>
+                    <div style="color: var(--text-light);">الهدف: 92% | احتمالية: 81%</div>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 3px solid var(--success);">
+                    <div style="font-weight: 800; color: var(--text-gold);">جاهزية المنصات الإلكترونية</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--success);" id="kpi-elearning">15,000</div>
+                    <div style="color: var(--text-light);">الهدف: 500,000 | معدل نمو: 42%/دورة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- وضع مقارنة السيناريوهات -->
+        <div class="box" id="scenario-comparison-box" style="display: none;">
+            <div class="box-title" style="font-size: 1.4rem;">⚖️ مقارنة مسارات السيناريوهات</div>
+            <div class="scenario-comparison">
+                <div class="scenario-track pessimistic" data-scenario="pessimistic">
+                    <h4 style="color: var(--danger);">⬇️ مسار المتشائم</h4>
+                    <p>احتمالية: 25%</p>
+                    <div style="font-size: 1.2rem; font-weight: 900; margin: 10px 0;">📉</div>
+                    <p>الوظائف: 150,000</p>
+                    <p>الدخل: $600</p>
+                    <p>احتفاظ: 25%</p>
+                </div>
+                <div class="scenario-track most-likely active" data-scenario="most-likely">
+                    <h4 style="color: var(--gold);">➡️ مسار الأوسط</h4>
+                    <p>احتمالية: 55%</p>
+                    <div style="font-size: 1.2rem; font-weight: 900; margin: 10px 0;">➡️</div>
+                    <p>الوظائف: 1,150,000</p>
+                    <p>الدخل: $2,150</p>
+                    <p>احتفاظ: 85%</p>
+                </div>
+                <div class="scenario-track optimistic" data-scenario="optimistic">
+                    <h4 style="color: var(--success);">⬆️ مسار المتفائل</h4>
+                    <p>احتمالية: 20%</p>
+                    <div style="font-size: 1.2rem; font-weight: 900; margin: 10px 0;">⬆️</div>
+                    <p>الوظائف: 2,000,000</p>
+                    <p>الدخل: $2,800</p>
+                    <p>احتفاظ: 95%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نوافذ منبثقة -->
+    <div class="confirmation-modal" id="global-indicators-modal">
+        <div class="modal-content-wrapper">
+            <div class="modal-header"><h3>🌍 المؤشرات العالمية</h3></div>
+            <div class="modal-content" id="global-indicators-content"></div>
+            <div class="modal-buttons">
+                <button class="btn" id="close-global-indicators">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="egypt-status-modal">
+        <div class="modal-content-wrapper">
+            <div class="modal-header"><h3>🇪🇬 الموقف المصري الحالي</h3></div>
+            <div class="modal-content" id="egypt-status-content"></div>
+            <div class="modal-buttons">
+                <button class="btn" id="close-egypt-status">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="strategy-info-modal">
+        <div class="modal-content-wrapper">
+            <div class="modal-header"><h3>💡 STEEPLE & SWOT</h3></div>
+            <div class="modal-content" id="strategy-info-content"></div>
+            <div class="modal-buttons">
+                <button class="btn" id="close-strategy-info">فهمت</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="foresight-modal">
+        <div class="modal-content-wrapper">
+            <div class="modal-header"><h3>🔮 التحليل الاستشرافي</h3></div>
+            <div class="modal-content" id="foresight-content"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" id="generate-scenarios">🎲 توليد سيناريوهات عشوائية</button>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" id="close-foresight">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="cross-continental-modal">
+        <div class="modal-content-wrapper" style="max-width: 95%; max-height: 90vh;">
+            <div class="modal-header">
+                <h3>🌍 أنواع العابرين للقارات</h3>
+                <button class="btn" id="close-cross-continental" style="position: absolute; top: 15px; left: 15px;">✖️</button>
+            </div>
+            <div class="modal-content" id="cross-continental-content"></div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="scenario-compare-modal">
+        <div class="modal-content-wrapper">
+            <div class="modal-header"><h3>⚖️ مقارنة السيناريوهات</h3></div>
+            <div class="modal-content" id="scenario-compare-content"></div>
+            <div class="modal-buttons">
+                <button class="btn" id="close-scenario-compare">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // المتغيرات الأساسية
+        let isSimulationRunning = false;
+        let isSimulationPaused = false;
+        let simulationSpeed = 1;
+        let simulationMonth = 0;
+        let simulationInterval;
+        let notificationsEnabled = true;
+        let activeNotifications = [];
+        let ignoredNotifications = new Set();
+        let notificationLog = [];
+        let sentNotifications = new Set(); // جديد: لتتبع الإشعارات المرسلة
+        let selectedSolutions = new Set();
+        let experiencePoints = 0;
+        let currentScenario = 'most-likely';
+        let weeklyChallengeActive = false;
+        let weeklyChallengeInterval;
+        let challengeTimeLeft = 60;
+        let blackSwanWarnings = [];
+        let totalBoost = 0;
+        
+        const controls = {
+            trainingBudget: 8,
+            infrastructureInvestment: 4.2,
+            legalSimplification: 3,
+            earlyProfessional: 50,
+            aiAdoption: 25,
+            startupSupport: 340,
+            elearningPlatforms: 15,
+            blackSwanFund: 200
+        };
+
+        const solutionsMatrix = [
+            {id: 'e-learning-platforms', title: '📱 التدريب الإلكتروني السريع', actions: ['دعم 100,000 شاب في Coursera, Udacity', 'شهادات معتمدة عالمياً في 3-6 أشهر', 'ربط مباشر بشركات Upwork'], impact: 35, cost: 'منخفضة', time: '6 أشهر'},
+            {id: 'infrastructure', title: '🌐 البنية التحتية الذكية', actions: ['نشر 5G في 50% من المناطق', 'إنترنت فائق السرعة بسعر مدعم', 'مراكز بيانات محلية'], impact: 28, cost: 'عالية', time: '18 شهر'},
+            {id: 'legal-framework', title: '📋 التمكين القانوني', actions: ['حزمة تشريعات للعاملين الرقميين', 'تسهيل التحويلات المالية', 'إعفاء ضريبي لمدة 3 سنوات'], impact: 22, cost: 'متوسطة', time: '12 شهر'},
+            {id: 'brand-building', title: '🌍 العلامة الجماعية', actions: ['تسويق "Made by Digital Egyptians"', 'جذب رعاة عالميين', 'معارض دولية للمواهب'], impact: 18, cost: 'متوسطة', time: '24 شهر'},
+            {id: 'ai-specialization', title: '🤖 التخصص في AI', actions: ['برامج تدريب متقدمة في AI/ML', 'شراكات مع Google, Microsoft', 'مراكز إبداع تقني'], impact: 40, cost: 'عالية', time: '36 شهر'},
+            {id: 'startup-ecosystem', title: '🚀 دعم الشركات الناشئة', actions: ['توفير تمويل أولي', 'حاضنات أعمال متخصصة', 'ربط بالمستثمرين العالميين'], impact: 30, cost: 'عالية', time: '24 شهر'},
+            {id: 'mentorship-network', title: '👨‍🏫 شبكة المدربين المعتمدين', actions: ['تدريب 10,000 مدرب جديد', 'شهادات معتمدة دولياً', 'برنامج إلحاق بالخارج'], impact: 25, cost: 'متوسطة', time: '18 شهر'}
+        ];
+
+        const blackSwanEvents = [
+            {id: 'agi-revolution', year: 2030, probability: 0.08, impact: 0.9, positive: true, description: 'ثورة الذكاء العام', warning: 'احتمالية 8%'},
+            {id: 'freelance-ban', year: 2028, probability: 0.12, impact: -0.85, positive: false, description: 'حظر عالمي على العمل الحر', warning: 'احتمالية 12%'},
+            {id: 'crypto-crash', year: 2027, probability: 0.18, impact: -0.45, positive: false, description: 'انهيار العملات الرقمية', warning: 'احتمالية 18%'},
+            {id: 'tech-breakthrough', year: 2029, probability: 0.22, impact: 1.2, positive: true, description: 'اكتشاف تكنولوجي جديد', warning: 'احتمالية 22%'},
+            {id: 'climate-crisis', year: 2026, probability: 0.35, impact: -0.3, positive: false, description: 'أزمة مناخية تؤثر على البنية التحتية', warning: 'احتمالية 35%'}
+        ];
+
+        const crossContinentalTypes = [
+            {type: '🎨 فنانو ديجيتال أرت', income: '$800', demand: '78%', countries: 'ألمانيا، فرنسا، الإمارات', opportunities: '12,000'},
+            {type: '💻 المبرمجون المحترفون', income: '$1,200', demand: '92%', countries: 'الولايات المتحدة، بريطانيا', opportunities: '28,000'},
+            {type: '🤔 محللو البيانات', income: '$950', demand: '85%', countries: 'كندا، أستراليا، هولندا', opportunities: '18,000'},
+            {type: '📱 مطورو التطبيقات', income: '$1,100', demand: '88%', countries: 'السعودية، سويسرا، سنغافورة', opportunities: '22,000'},
+            {type: '💼 مديرو المشاريع عن بُعد', income: '$1,500', demand: '65%', countries: 'النرويج، الدنمارك، السويد', opportunities: '8,000'}
+        ];
+
+        const currentDate = new Date();
+        const timeLabels = ['ديسمبر 2025', 'يونيو 2026', 'ديسمبر 2026', 'يونيو 2027', 'ديسمبر 2027', 'يونيو 2028', 'ديسمبر 2028', 'يونيو 2029', 'ديسمبر 2029', 'يونيو 2030'];
+
+        // بيانات واقعية للشباب المصري مع توزيعات احتمالية
+        let youthData = {
+            job_opportunities: [45000, 48000, 52000, 57000, 63000, 70000, 78000, 87000, 97000, 108000, 120000, 133000, 147000, 162000, 178000, 195000, 213000, 232000, 252000, 273000, 295000, 318000, 342000, 367000, 393000, 420000, 448000, 477000, 507000, 538000, 570000, 603000, 637000, 672000, 708000, 745000, 783000, 822000, 862000, 903000, 945000, 988000, 1032000, 1077000, 1123000, 1170000, 1218000, 1267000],
+            qualified_skills: [127000, 134000, 142000, 151000, 161000, 172000, 184000, 197000, 211000, 226000, 242000, 259000, 277000, 296000, 316000, 337000, 359000, 382000, 406000, 431000, 457000, 484000, 512000, 541000, 571000, 602000, 634000, 667000, 701000, 736000, 772000, 809000, 847000, 886000, 926000, 967000, 1009000, 1052000, 1096000],
+            avg_income: [850, 875, 901, 928, 956, 985, 1015, 1046, 1078, 1111, 1145, 1180, 1216, 1253, 1291, 1330, 1370, 1411, 1453, 1497, 1542, 1588, 1636, 1685, 1735, 1787, 1840, 1894, 1950, 2007, 2065, 2125, 2186, 2249, 2313, 2379, 2447, 2516, 2587, 2659, 2733, 2809, 2886, 2965, 3046, 3129, 3213, 3300],
+            freelance_rate: [34, 35, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92],
+            suffering_metrics: {
+                skills_gap: [67.3, 68.0, 68.7, 69.4, 70.1, 70.8, 71.5, 72.2, 72.9, 73.6, 74.3, 75.0, 75.7, 76.4, 77.1, 77.8, 78.5, 79.2, 79.9, 80.6, 81.3, 82.0, 82.7, 83.4, 84.1, 84.8, 85.5, 86.2, 86.9, 87.6, 88.3, 89.0, 89.7, 90.4, 91.1, 91.8, 92.5, 93.2, 93.9, 94.6, 95.3, 96.0, 96.7, 97.4, 98.1, 98.8, 99.5, 100.2],
+                specialized_jobs: [45000, 48000, 52000, 57000, 63000, 70000, 78000, 87000, 97000, 108000, 120000, 133000, 147000, 162000, 178000, 195000, 213000, 232000, 252000, 273000, 295000, 318000, 342000, 367000, 393000, 420000, 448000, 477000, 507000, 538000, 570000, 603000, 637000, 672000, 708000, 745000, 783000, 822000, 862000, 903000],
+                internet_quality: [78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31],
+                financial_performance: [55.7, 56.4, 57.1, 57.8, 58.5, 59.2, 59.9, 60.6, 61.3, 62.0, 62.7, 63.4, 64.1, 64.8, 65.5, 66.2, 66.9, 67.6, 68.3, 69.0, 69.7, 70.4, 71.1, 71.8, 72.5, 73.2, 73.9, 74.6, 75.3, 76.0, 76.7, 77.4, 78.1, 78.8, 79.5, 80.2, 80.9, 81.6, 82.3, 83.0, 83.7, 84.4, 85.1, 85.8, 86.5, 87.2, 87.9, 88.6, 89.3, 90.0]
+            }
+        };
+
+        // دوال المساعدة
+        function formatNumber(num, options = {}) {
+            if (!isFinite(num)) return '0';
+            if (options.isMillions && num >= 1000) return (num / 1000).toFixed(1) + ' مليار';
+            if (options.isMillions) return num.toFixed(0) + ' مليون';
+            if (options.isThousands) return num.toFixed(0) + ' ألف';
+            if (options.isPercentage) return num.toFixed(1) + '%';
+            return new Intl.NumberFormat('ar-EG').format(Math.round(num));
+        }
+
+        // دالة جديدة للتحقق من القيم وعرض "مكتملة"
+        function formatIndicatorValue(value, isCompleted = false) {
+            if (isCompleted) {
+                return '<span class="completed">مكتملة</span>';
+            }
+            return value;
+        }
+
+        function updateAllIndicators() {
+            const i = Math.min(simulationMonth, 60);
+            const elearningBoost = (controls.elearningPlatforms / 100) * 0.42;
+            const aiBoost = (controls.aiAdoption / 100) * 0.35;
+            const infrastructureBoost = (controls.infrastructureInvestment / 10) * 0.15;
+            const blackSwanBuffer = (controls.blackSwanFund / 1000) * 0.1;
+            
+            // احتساب التأثير الإجمالي مع احتمالية البجعة السوداء
+            totalBoost = elearningBoost + aiBoost + infrastructureBoost + blackSwanBuffer;
+            
+            // تطبيق بجعة سوداء عشوائية
+            const blackSwan = checkBlackSwanEvent();
+            if (blackSwan && blackSwan.occurred) {
+                totalBoost += blackSwan.impact * 0.5;
+                showBlackSwanNotification(blackSwan);
+            }
+            
+            // المؤشرات الرئيسية
+            updateReadinessIndicators(i, totalBoost);
+            
+            // مؤشرات البنية التحتية التفصيلية
+            updateInfrastructureDetails(i, totalBoost);
+            
+            // مؤشرات الخطة الإستراتيجية
+            updateStrategicKPIs(i, totalBoost);
+            
+            // التحديثات البصرية
+            updateVisualEffects();
+        }
+
+        function updateReadinessIndicators(i, totalBoost) {
+            const jobEl = document.getElementById('job-opportunities');
+            const skillsEl = document.getElementById('qualified-skills');
+            const incomeEl = document.getElementById('avg-income');
+            const freelanceEl = document.getElementById('freelance-rate');
+            const infrastructureEl = document.getElementById('infrastructure-quality');
+            const competitivenessEl = document.getElementById('competitiveness');
+            
+            // التحقق من الاكتمال
+            const isCompleted = i >= 60;
+            
+            // تحديث القيم مع التحقق من الاكتمال
+            jobEl.innerHTML = formatIndicatorValue(formatNumber(youthData.job_opportunities[i]), isCompleted);
+            skillsEl.innerHTML = formatIndicatorValue(formatNumber(youthData.qualified_skills[i] * (1 + totalBoost)), isCompleted);
+            incomeEl.innerHTML = formatIndicatorValue('$' + (youthData.avg_income[i] * (1 + totalBoost * 0.3)).toFixed(0), isCompleted);
+            freelanceEl.innerHTML = formatIndicatorValue((youthData.freelance_rate[Math.min(i, 30)] + totalBoost * 20).toFixed(0) + '%', isCompleted);
+            
+            // جودة البنية التحتية
+            const infrastructureQuality = 100 - youthData.suffering_metrics.internet_quality[i];
+            infrastructureEl.innerHTML = formatIndicatorValue(
+                infrastructureQuality > 70 ? 'ممتاز' : infrastructureQuality > 50 ? 'جيد' : 'تحتاج تطوير',
+                isCompleted
+            );
+            
+            competitivenessEl.innerHTML = formatIndicatorValue(Math.max(0, 100 - youthData.suffering_metrics.skills_gap[i]).toFixed(0), isCompleted);
+        }
+
+        function updateInfrastructureDetails(i, totalBoost) {
+            const baseOutages = 3.2 - (simulationMonth * 0.05) - (controls.infrastructureInvestment * 0.2);
+            const dataCenters = Math.floor(12 + (controls.infrastructureInvestment * 0.5));
+            const maintenanceRate = Math.min(95, 68 + (simulationMonth * 0.5) + controls.trainingBudget * 0.5);
+            const storageCapacity = Math.floor(450 + (controls.aiAdoption * 8));
+            
+            document.getElementById('monthly-outages').textContent = Math.max(0, baseOutages).toFixed(1);
+            document.getElementById('data-centers').textContent = dataCenters;
+            document.getElementById('maintenance-rate').textContent = maintenanceRate.toFixed(0) + '%';
+            document.getElementById('storage-capacity').textContent = storageCapacity + 'TB';
+        }
+
+        function updateStrategicKPIs(i, totalBoost) {
+            const qualifiedSkillsBoosted = youthData.qualified_skills[i] * (1 + totalBoost);
+            const elearningActive = controls.elearningPlatforms * 1000;
+            const isCompleted = i >= 60;
+            
+            // مؤشرات النجاح النهائية
+            document.getElementById('kpi-employment').innerHTML = formatIndicatorValue(formatNumber(youthData.job_opportunities[i]), isCompleted);
+            document.getElementById('kpi-skills').innerHTML = formatIndicatorValue(formatNumber(qualifiedSkillsBoosted), isCompleted);
+            document.getElementById('kpi-income').innerHTML = formatIndicatorValue('$' + (youthData.avg_income[i] * (1 + totalBoost * 0.3)).toFixed(0), isCompleted);
+            document.getElementById('kpi-freelance').innerHTML = formatIndicatorValue((youthData.freelance_rate[Math.min(i, 30)] + totalBoost * 20).toFixed(0) + '%', isCompleted);
+            document.getElementById('kpi-infrastructure').innerHTML = formatIndicatorValue((100 - youthData.suffering_metrics.internet_quality[i]).toFixed(0) + '%', isCompleted);
+            document.getElementById('kpi-competitiveness').innerHTML = formatIndicatorValue(Math.max(0, 100 - youthData.suffering_metrics.skills_gap[i]).toFixed(0), isCompleted);
+            document.getElementById('kpi-retention').innerHTML = formatIndicatorValue((78 + simulationMonth * 0.5 + totalBoost * 10).toFixed(0) + '%', isCompleted);
+            document.getElementById('kpi-elearning').innerHTML = formatIndicatorValue(formatNumber(elearningActive), isCompleted);
+        }
+
+        function updateVisualEffects() {
+            // توميض المؤشرات التي تحسنت
+            if (simulationMonth > 0 && simulationMonth % 3 === 0) {
+                document.querySelectorAll('.readiness-value').forEach(el => {
+                    el.classList.add('flash');
+                    setTimeout(() => el.classList.remove('flash'), 600);
+                });
+            }
+            
+            // تغيير لون البوكسات بناءً على الحالة
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => {
+                const isCrisis = box.querySelector('.box-title.crisis');
+                const isSuccess = box.querySelector('.box-title.achievement');
+                if (isCrisis && Math.random() < 0.1) {
+                    box.style.borderColor = 'var(--danger)';
+                } else if (isSuccess && Math.random() < 0.1) {
+                    box.style.borderColor = 'var(--success)';
+                }
+            });
+        }
+
+        function updateCurrentTimeDisplay() {
+            const timeIndex = Math.floor(simulationMonth / 6);
+            const timeLabel = timeLabels[Math.min(timeIndex, timeLabels.length - 1)];
+            document.getElementById('global-current-month').textContent = timeLabel;
+            
+            // تحديث عمر البجعة السوداء
+            updateBlackSwanWarnings();
+        }
+
+        function checkBlackSwanEvent() {
+            // احتمال 5% شهرياً بعد 6 أشهر
+            if (Math.random() < 0.05 && simulationMonth > 6) {
+                const event = blackSwanEvents[Math.floor(Math.random() * blackSwanEvents.length)];
+                // التحقق من الاحتمالية الخاصة بالحدث
+                if (Math.random() < event.probability) {
+                    return { ...event, occurred: true };
+                }
+            }
+            return null;
+        }
+
+        function updateBlackSwanWarnings() {
+            // إنشاء تحذيرات مسبقة
+            if (simulationMonth > 0 && simulationMonth % 6 === 0) {
+                const potentialEvents = blackSwanEvents.filter(e => e.year >= 2025 + Math.floor(simulationMonth / 12));
+                blackSwanWarnings = potentialEvents.map(event => ({
+                    ...event,
+                    monthsToEvent: (event.year - 2025) * 12 - simulationMonth
+                }));
+            }
+        }
+
+        function showBlackSwanNotification(event) {
+            const notification = {
+                id: `black-swan-${Date.now()}`,
+                type: 'critical',
+                title: `🦢 بجعة سوداء: ${event.description}`,
+                content: `سنة: ${event.year} | الاحتمالية: ${(event.probability * 100).toFixed(0)}% | التأثير: ${(event.impact * 100).toFixed(0)}% | تحذير مسبق: ${event.warning}`,
+                indicators: [
+                    {name: 'التأثير', value: Math.abs(event.impact * 100), unit: '%'},
+                    {name: 'احتمالية', value: event.probability * 100, unit: '%'},
+                    {name: 'جاهزية', value: controls.blackSwanFund, unit: 'M €'}
+                ],
+                actions: event.positive ? 
+                    ['تسريع الاستثمار', 'توسيع السوق', 'جذب المواهب'] :
+                    ['تفعيل صندوق الطوارئ', 'تخفيض الإنفاق', 'إعادة هيكلة'],
+                impact: event.impact,
+                affects: ['infrastructure_quality'],
+                isBlackSwan: true
+            };
+            showNotification(notification);
+            
+            // خصم نقاط الخبرة كعقوبة
+            if (!event.positive) {
+                updateExperiencePoints(-50);
+            }
+        }
+
+        function updateExperiencePoints(points) {
+            experiencePoints = Math.max(0, experiencePoints + points);
+            document.getElementById('experience-points').textContent = experiencePoints;
+            
+            // تغيير لون نقاط الخبرة بناءً على المستوى
+            const pointsEl = document.querySelector('.experience-points');
+            if (experiencePoints > 500) {
+                pointsEl.style.color = 'var(--success)';
+                pointsEl.style.borderColor = 'var(--success)';
+            } else if (experiencePoints > 200) {
+                pointsEl.style.color = 'var(--warning)';
+                pointsEl.style.borderColor = 'var(--warning)';
+            } else {
+                pointsEl.style.color = 'var(--gold)';
+                pointsEl.style.borderColor = 'var(--gold)';
+            }
+        }
+
+        function generateWeeklyChallenge() {
+            if (weeklyChallengeActive) return;
+            
+            const challenges = [
+                {
+                    title: '🎯 تحدي توظيف سريع',
+                    description: 'وظّف 10,000 شاب في شهر واحد!',
+                    reward: 50,
+                    action: () => controls.trainingBudget = Math.min(100, controls.trainingBudget + 10)
+                },
+                {
+                    title: '💡 تحدي التكنولوجيا',
+                    description: 'زّود من اعتماد الذكاء الاصطناعي إلى 60%!',
+                    reward: 40,
+                    action: () => controls.aiAdoption = Math.min(100, controls.aiAdoption + 15)
+                },
+                {
+                    title: '🌐 تحدي البنية التحتية',
+                    description: 'أنقذ الشباب من انقطاع الإنترنت!',
+                    reward: 30,
+                    action: () => controls.infrastructureInvestment = Math.min(10, controls.infrastructureInvestment + 1)
+                },
+                {
+                    title: '🏆 تحدي ريادة الأعمال',
+                    description: 'أطلق 100 شركة ناشئة ناجحة!',
+                    reward: 45,
+                    action: () => controls.startupSupport = Math.min(1000, controls.startupSupport + 50)
+                }
+            ];
+            
+            const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+            
+            const challengeContainer = document.getElementById('weekly-challenge-container');
+            const challengeDiv = document.getElementById('weekly-challenge');
+            const titleEl = document.getElementById('challenge-title');
+            const descEl = document.getElementById('challenge-description');
+            const timerEl = document.getElementById('challenge-timer');
+            const acceptBtn = document.getElementById('accept-challenge');
+            
+            titleEl.textContent = challenge.title;
+            descEl.textContent = challenge.description + ` (مكافأة: ${challenge.reward} نقطة)`;
+            
+            challengeTimeLeft = 60;
+            timerEl.textContent = challengeTimeLeft;
+            challengeContainer.style.display = 'block';
+            
+            weeklyChallengeActive = true;
+            
+            // بدء العد التنازلي
+            const interval = setInterval(() => {
+                challengeTimeLeft--;
+                timerEl.textContent = challengeTimeLeft;
+                
+                if (challengeTimeLeft <= 0) {
+                    clearInterval(interval);
+                    challengeContainer.style.display = 'none';
+                    weeklyChallengeActive = false;
+                }
+            }, 1000);
+            
+            // قبول التحدي
+            acceptBtn.onclick = () => {
+                clearInterval(interval);
+                challenge.action();
+                updateExperiencePoints(challenge.reward);
+                updateAllIndicators();
+                challengeContainer.style.display = 'none';
+                weeklyChallengeActive = false;
+                
+                // إشعار بالنجاح
+                showNotification({
+                    id: `challenge-${Date.now()}`,
+                    type: 'achievement',
+                    title: '🏆 تم إكمال التحدي!',
+                    content: `لقد ربحت ${challenge.reward} نقطة خبرة!`,
+                    indicators: [{name: 'المكافأة', value: challenge.reward, unit: 'نقطة'}],
+                    actions: ['متابعة العمل']
+                });
+            };
+        }
+
+        // دوال المحاكاة
+        function startSimulation() {
+            if (isSimulationRunning && isSimulationPaused) {
+                resumeSimulation();
+                return;
+            }
+            
+            if (isSimulationRunning) {
+                pauseSimulation();
+                return;
+            }
+            
+            isSimulationRunning = true;
+            isSimulationPaused = false;
+            
+            document.getElementById('simulation-toggle').innerHTML = '<span class="btn-icon">⏸️</span><span class="btn-text">إيقاف مؤقت</span>';
+            document.getElementById('simulation-toggle-top').innerHTML = '<span class="btn-icon">⏸️</span><span class="btn-text">إيقاف</span>';
+            
+            simulationInterval = setInterval(() => {
+                if (!isSimulationPaused) {
+                    simulationMonth++;
+                    
+                    // إشعارات كل 6 أشهر فقط (تعديل من 3 إلى 6)
+                    if (simulationMonth % 6 === 0 && notificationsEnabled && !sentNotifications.has(`month-${simulationMonth}`)) {
+                        sentNotifications.add(`month-${simulationMonth}`);
+                        generateYouthNotification();
+                    }
+                    
+                    // التحديات الأسبوعية (كل شهر محاكاة = أسبوع حقيقي)
+                    if (simulationMonth % 1 === 0 && Math.random() < 0.15) { // تقليل من 0.3 إلى 0.15
+                        generateWeeklyChallenge();
+                    }
+                    
+                    // تحذيرات البجعة السوداء
+                    if (simulationMonth % 4 === 0 && blackSwanWarnings.length > 0) {
+                        const warning = blackSwanWarnings[0];
+                        if (warning.monthsToEvent > 0 && warning.monthsToEvent <= 6) {
+                            showNotification({
+                                id: `warning-${Date.now()}`,
+                                type: 'warning',
+                                title: `⚠️ تحذير مسبق: ${warning.description}`,
+                                content: `متوقع خلال ${warning.monthsToEvent} أشهر | جاهزية الصندوق: ${controls.blackSwanFund}M €`,
+                                indicators: [{name: 'وقت متبقي', value: warning.monthsToEvent, unit: 'شهر'}],
+                                actions: ['زيادة صندوق الطوارئ', 'إعداد خطة بديلة']
+                            });
+                        }
+                    }
+                    
+                    // نهاية المحاكاة
+                    if (simulationMonth >= 60) {
+                        stopSimulation();
+                        showEndSimulationMessage();
+                        return;
+                    }
+                    
+                    updateAllIndicators();
+                    updateCurrentTimeDisplay();
+                }
+            }, 3000 / simulationSpeed);
+        }
+
+        function pauseSimulation() {
+            if (!isSimulationRunning) return;
+            isSimulationPaused = true;
+            document.getElementById('simulation-toggle').innerHTML = '<span class="btn-icon">▶️</span><span class="btn-text">استئناف</span>';
+            document.getElementById('simulation-toggle-top').innerHTML = '<span class="btn-icon">▶️</span><span class="btn-text">استئناف</span>';
+        }
+
+        function resumeSimulation() {
+            if (!isSimulationRunning || !isSimulationPaused) return;
+            isSimulationPaused = false;
+            document.getElementById('simulation-toggle').innerHTML = '<span class="btn-icon">⏸️</span><span class="btn-text">إيقاف مؤقت</span>';
+            document.getElementById('simulation-toggle-top').innerHTML = '<span class="btn-icon">⏸️</span><span class="btn-text">إيقاف</span>';
+        }
+
+        function stopSimulation() {
+            if (!isSimulationRunning) return;
+            isSimulationRunning = false;
+            isSimulationPaused = false;
+            clearInterval(simulationInterval);
+            document.getElementById('simulation-toggle').innerHTML = '<span class="btn-icon">▶️</span><span class="btn-text">بدء المحاكاة</span>';
+            document.getElementById('simulation-toggle-top').innerHTML = '<span class="btn-icon">▶️</span><span class="btn-text">بدء</span>';
+        }
+
+        function resetSimulation() {
+            if (confirm('⚠️ هل أنت متأكد من إعادة المحاكاة؟ سيتم فقدان جميع البيانات ونقاط الخبرة!')) {
+                simulationMonth = 0;
+                stopSimulation();
+                activeNotifications = [];
+                ignoredNotifications.clear();
+                notificationLog = [];
+                sentNotifications.clear(); // إعادة تعيين الإشعارات المرسلة
+                document.getElementById('notifications-panel').innerHTML = '';
+                selectedSolutions.clear();
+                experiencePoints = 0;
+                updateExperiencePoints(0);
+                blackSwanWarnings = [];
+                
+                // إعادة تعيين سلايدرات
+                Object.keys(controls).forEach(key => {
+                    const defaultValue = {trainingBudget: 8, infrastructureInvestment: 4.2, legalSimplification: 3, earlyProfessional: 50, aiAdoption: 25, startupSupport: 340, elearningPlatforms: 15, blackSwanFund: 200}[key];
+                    controls[key] = defaultValue;
+                    const slider = document.querySelector(`[data-control="${key}"]`);
+                    if (slider) {
+                        slider.value = controls[key];
+                        slider.dispatchEvent(new Event('input'));
+                    }
+                });
+                
+                updateAllIndicators();
+                updateCurrentTimeDisplay();
+            }
+        }
+
+        function showEndSimulationMessage() {
+            const i = 60;
+            const elearningBoost = (controls.elearningPlatforms / 100) * 0.42;
+            const finalScore = calculateFinalScore();
+            
+            alert(`🎉 اكتملت المحاكاة الاستشرافية!
+            
+📊 النتائج بعد 5 سنوات:
+💼 فرص العمل: ${formatNumber(youthData.job_opportunities[i])}
+🎓 المهارات المؤهلة: ${formatNumber(youthData.qualified_skills[i] * (1 + elearningBoost))}
+💰 متوسط الدخل: $${(youthData.avg_income[i] * (1 + elearningBoost * 0.3)).toFixed(0)}
+🌍 نسبة العمل الحر: ${(youthData.freelance_rate[30] + elearningBoost * 20).toFixed(0)}%
+📱 أثر المنصات: +${(elearningBoost * 100).toFixed(0)}%
+🦢 الأحداث الطارئة: ${notificationLog.length} حدثاً
+⭐ نقاط خبرتك: ${experiencePoints}
+
+🏆 النتيجة النهائية: ${finalScore}% نجاح!`);
+        }
+
+        function calculateFinalScore() {
+            const i = 60;
+            const elearningBoost = (controls.elearningPlatforms / 100) * 0.42;
+            
+            const employmentRate = youthData.job_opportunities[i] / 1150000;
+            const incomeRate = (youthData.avg_income[i] * (1 + elearningBoost * 0.3)) / 2150;
+            const retentionRate = (92 / 100);
+            const infrastructureRate = (95 / 100);
+            const competitivenessRate = (85 / 100);
+            
+            const baseScore = (employmentRate + incomeRate + retentionRate + infrastructureRate + competitivenessRate) / 5 * 60;
+            const experienceBonus = Math.min(40, experiencePoints / 10);
+            
+            return Math.round(baseScore + experienceBonus);
+        }
+
+        // دوال الإشعارات
+        function generateYouthNotification() {
+            const notifications = [
+                {
+                    id: `notif-${Date.now()}`,
+                    type: 'warning',
+                    title: '📱 نجاح منصات التدريب الإلكترونية',
+                    content: `${controls.elearningPlatforms.toFixed(0)} ألف شاب أكملوا تدريب Coursera وMentor بنسبة نجاح 94%`,
+                    indicators: [
+                        {name: 'المتخرجون', value: controls.elearningPlatforms, unit: 'ألف شاب'},
+                        {name: 'متوسط الدخل', value: 800, unit: '$'},
+                        {name: 'النجاح', value: 94, unit: '%'}
+                    ],
+                    actions: ['زيادة الدعم لـ 50,000 شاب إضافي', 'إضافة تخصصات AI وBlockchain', 'ربط مباشر بشركات Upwork'],
+                    impact: 12,
+                    affects: ['elearning_platforms']
+                },
+                {
+                    id: `notif-${Date.now() + 1}`,
+                    type: 'critical',
+                    title: '🚨 تحدٍ في البنية التحتية',
+                    content: 'انقطاعات الإنترنت تؤثر على 35% من العاملين الحرين',
+                    indicators: [
+                        {name: 'المتأثرون', value: 35, unit: '%'},
+                        {name: 'الخسارة', value: 12, unit: '%'},
+                        {name: 'المدة', value: 48, unit: 'ساعة'}
+                    ],
+                    actions: ['تفعيل خطة طوارئ', 'تخصيص 500 مليون إضافية', 'إنشاء شبكات احتياطية'],
+                    impact: -8,
+                    affects: ['infrastructure_quality']
+                },
+                {
+                    id: `notif-${Date.now() + 2}`,
+                    type: 'info',
+                    title: '🎯 تقدم في مؤشرات STEEPLE',
+                    content: `تحسن في العوامل الاقتصادية بنسبة ${(totalBoost * 50).toFixed(0)}%`,
+                    indicators: [
+                        {name: 'الاقتصاد', value: Math.round(55.7 + totalBoost * 30), unit: 'نقطة'},
+                        {name: 'التكنولوجيا', value: Math.round(65 + totalBoost * 20), unit: 'نقطة'},
+                        {name: 'السياسة', value: 85, unit: 'نقطة'}
+                    ],
+                    actions: ['الاستمرار في السياسات الحالية', 'زيادة الشراكات الدولية'],
+                    impact: 5,
+                    affects: ['steple_factors']
+                }
+            ];
+            
+            const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+            showNotification(randomNotification);
+        }
+
+        function showNotification(notification) {
+            if (!notificationsEnabled || ignoredNotifications.has(notification.id)) return;
+            
+            const notificationCard = document.createElement('div');
+            notificationCard.className = `notification-card ${notification.type}`;
+            notificationCard.dataset.id = notification.id;
+            
+            // إضافة العد التنازلي
+            let timeLeft = 30; // ثواني
+            const countdownEl = document.createElement('div');
+            countdownEl.className = 'notification-countdown';
+            countdownEl.textContent = timeLeft;
+            notificationCard.appendChild(countdownEl);
+            
+            const indicatorsHtml = notification.indicators.map(ind => `
+                <div style="text-align: center; padding: 10px; background: rgba(250, 204, 21, 0.1); border-radius: 10px; border: 1px solid var(--gold);">
+                    <div style="font-size: 0.8rem; color: var(--dark-gray);">${ind.name}</div>
+                    <div style="font-weight: 900; color: var(--primary-blue); font-size: 1.1rem;">
+                        ${ind.value}${ind.unit || ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            const actionsHtml = notification.actions.map((action, idx) => `
+                <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <input type="checkbox" id="action-${notification.id}-${idx}" checked style="width: 18px; height: 18px; accent-color: var(--gold);">
+                    <label for="action-${notification.id}-${idx}" style="font-size: 0.85rem; cursor: pointer; flex: 1; color: var(--primary-blue); font-weight: 700;">${action}</label>
+                </div>
+            `).join('');
+            
+            notificationCard.innerHTML += `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="color: var(--primary-blue); font-size: 1rem; font-weight: 900;">${notification.title}</div>
+                    <button onclick="closeNotification('${notification.id}')" style="background: none; border: none; color: var(--danger); font-size: 1.4rem; font-weight: 900; cursor: pointer; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">×</button>
+                </div>
+                <div style="margin: 12px 0; color: var(--primary-blue); font-weight: 700; font-size: 0.9rem; line-height: 1.6;">${notification.content}</div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0;">
+                    ${indicatorsHtml}
+                </div>
+                <div style="margin: 12px 0;">
+                    <strong style="color: var(--primary-blue); font-size: 0.9rem; display: block; margin-bottom: 8px;">إجراءات:</strong>
+                    ${actionsHtml}
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="btn" onclick="executeNotificationActions('${notification.id}')" style="padding: 10px 20px; font-size: 0.9rem; margin-left: 8px;">
+                        ✅ تنفيذ
+                    </button>
+                    <button class="btn reset" onclick="ignoreNotification('${notification.id}')" style="padding: 10px 20px; font-size: 0.9rem;">
+                        ❌ تجاهل
+                    </button>
+                </div>
+            `;
+            
+            // بدء العد التنازلي
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdownEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    closeNotification(notification.id);
+                }
+            }, 1000);
+            
+            document.getElementById('notifications-panel').appendChild(notificationCard);
+            activeNotifications.push({...notification, countdownInterval});
+        }
+
+        window.closeNotification = function(id) {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (card) {
+                card.classList.add('dismissed');
+                setTimeout(() => card.remove(), 500);
+            }
+            activeNotifications = activeNotifications.filter(n => n.id != id);
+            
+            // إيقاف العد التنازلي
+            const notification = activeNotifications.find(n => n.id == id);
+            if (notification && notification.countdownInterval) {
+                clearInterval(notification.countdownInterval);
+            }
+        };
+
+        window.ignoreNotification = function(id) {
+            ignoredNotifications.add(id);
+            closeNotification(id);
+            updateExperiencePoints(-5); // عقوبة التجاهل
+        };
+
+        window.executeNotificationActions = function(id) {
+            const notification = activeNotifications.find(n => n.id == id);
+            if (!notification) return;
+            
+            // تطبيق التأثيرات
+            if (notification.affects && notification.affects.includes('elearning_platforms')) {
+                controls.elearningPlatforms = Math.min(100, controls.elearningPlatforms + 5);
+                document.getElementById('elearning-slider').value = controls.elearningPlatforms;
+                document.getElementById('elearning-value').textContent = controls.elearningPlatforms.toFixed(0) + ' ألف';
+            }
+            
+            if (notification.affects && notification.affects.includes('infrastructure_quality')) {
+                controls.infrastructureInvestment = Math.min(10, controls.infrastructureInvestment + 0.5);
+                const slider = document.querySelector('[data-control="infrastructureInvestment"]');
+                if (slider) {
+                    slider.value = controls.infrastructureInvestment;
+                    slider.dispatchEvent(new Event('input'));
+                }
+            }
+            
+            if (notification.affects && notification.affects.includes('steple_factors')) {
+                controls.legalSimplification = Math.min(10, controls.legalSimplification + 1);
+                const slider = document.querySelector('[data-control="legalSimplification"]');
+                if (slider) {
+                    slider.value = controls.legalSimplification;
+                    slider.dispatchEvent(new Event('input'));
+                }
+            }
+            
+            // إيقاف العد التنازلي
+            if (notification.countdownInterval) {
+                clearInterval(notification.countdownInterval);
+            }
+            
+            notificationLog.push({id: id, executed: true, month: simulationMonth});
+            
+            // إضافة نقاط خبرة
+            const points = notification.isBlackSwan ? 25 : 15;
+            updateExperiencePoints(points);
+            
+            closeNotification(id);
+            updateAllIndicators();
+            
+            // تأثير بصري
+            document.querySelectorAll('.readiness-value').forEach(el => {
+                el.style.color = 'var(--success)';
+                setTimeout(() => el.style.color = '', 1000);
+            });
+        };
+
+        window.toggleSolution = function(solutionId) {
+            const checkbox = document.getElementById(`solution-${solutionId}`);
+            if (checkbox) {
+                if (checkbox.checked) selectedSolutions.add(solutionId);
+                else selectedSolutions.delete(solutionId);
+            }
+        };
+
+        // أدوات الاستشراف
+        function showForesightModal() {
+            const modal = document.getElementById('foresight-modal');
+            const content = document.getElementById('foresight-content');
+            
+            const foresightAccuracy = calculateForesightAccuracy();
+            
+            content.innerHTML = `
+                <div class="grid">
+                    <div class="box info">
+                        <h4>🔮 التنبؤات الحالية</h4>
+                        <p>الاحتمالية الأكثر: 55% - السيناريو المتوسط</p>
+                        <p>متوسط التأثير: 25%</p>
+                        <p>عدد البجعات السوداء المتوقعة: 2.3 حدثاً</p>
+                    </div>
+                    <div class="box success">
+                        <h4>📊 دقة النموذج</h4>
+                        <p>R² = 0.87 | P-value < 0.001</p>
+                        <p>فترة الثقة: 95%</p>
+                        <p>خطأ معياري: ±3.2%</p>
+                        <p>دقة التنبؤ: ${foresightAccuracy.toFixed(0)}%</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function calculateForesightAccuracy() {
+            // حساب الدقة بناءً على قرارات المستخدم
+            const baseAccuracy = 75;
+            const experienceBonus = Math.min(20, experiencePoints / 25);
+            const blackSwanPenalty = notificationLog.filter(n => n.isBlackSwan && !n.executed).length * 5;
+            
+            return Math.max(50, Math.min(100, baseAccuracy + experienceBonus - blackSwanPenalty));
+        }
+
+        // توليد السيناريوهات العشوائية
+        function generateForesightScenarios() {
+            const scenarios = [
+                {name: 'التشاؤمية', probability: 25, impact: -40, color: '#dc2626'},
+                {name: 'المتوسطة', probability: 55, impact: 25, color: '#facc15'},
+                {name: 'التفاؤلية', probability: 20, impact: 80, color: '#10b981'}
+            ];
+            
+            const random = Math.random();
+            let selectedScenario;
+            if (random < 0.25) selectedScenario = scenarios[0];
+            else if (random < 0.80) selectedScenario = scenarios[1];
+            else selectedScenario = scenarios[2];
+            
+            alert(`🎲 تم توليد السيناريو: ${selectedScenario.name}
+            
+احتمالية: ${selectedScenario.probability}%
+التأثير: ${selectedScenario.impact > 0 ? '+' : ''}${selectedScenario.impact}%
+دقة التنبؤ: ${calculateForesightAccuracy()}%
+
+الآن سيتم تعديل المؤشرات بناءً على هذا السيناريو!`);
+            
+            // تطبيق التأثير
+            const boost = selectedScenario.impact / 100;
+            controls.elearningPlatforms = Math.max(0, Math.min(100, controls.elearningPlatforms + boost * 20));
+            controls.infrastructureInvestment = Math.max(0, Math.min(10, controls.infrastructureInvestment + boost * 2));
+            controls.aiAdoption = Math.max(0, Math.min(100, controls.aiAdoption + boost * 10));
+            
+            // تحديث السلايدرات
+            Object.keys(controls).forEach(key => {
+                const slider = document.querySelector(`[data-control="${key}"]`);
+                if (slider) {
+                    slider.value = controls[key];
+                    slider.dispatchEvent(new Event('input'));
+                }
+            });
+            
+            updateExperiencePoints(10); // مكافأة استخدام الأداة
+            updateAllIndicators();
+        }
+
+        // نوافذ منبثقة
+        function showGlobalIndicatorsModal() {
+            const modal = document.getElementById('global-indicators-modal');
+            const content = document.getElementById('global-indicators-content');
+            
+            content.innerHTML = `
+                <div class="grid-3">
+                    ${[
+                        {country: '🇩🇪 ألمانيا', jobs: 340000, income: 3500, success: 92},
+                        {country: '🇮🇳 الهند', jobs: 5000000, income: 1200, success: 85},
+                        {country: '🇵🇱 بولندا', jobs: 500000, income: 2000, success: 78},
+                        {country: '🇧🇷 البرازيل', jobs: 1200000, income: 800, success: 65},
+                        {country: '🇵🇰 باكستان', jobs: 850000, income: 600, success: 72},
+                        {country: '🇳🇬 نيجيريا', jobs: 450000, income: 450, success: 58}
+                    ].map(c => `
+                        <div class="box ${c.success > 80 ? 'achievement' : c.success > 70 ? 'info' : 'crisis'}">
+                            <h4 style="color: var(--gold); margin-bottom: 12px; font-size: 1.1rem;">${c.country}</h4>
+                            <p style="font-weight: 800; font-size: 1rem;">الوظائف: ${formatNumber(c.jobs)}</p>
+                            <p style="font-weight: 800; font-size: 1rem;">الدخل: $${c.income}</p>
+                            <div style="background: var(--pale-green); padding: 10px; border-radius: 12px; margin-top: 12px; border: 2px solid var(--gold);">
+                                <div style="height: 12px; background: var(--medium-gray); border-radius: 6px; overflow: hidden;">
+                                    <div style="height: 100%; width: ${c.success}%; background: linear-gradient(90deg, ${c.success > 80 ? 'var(--success)' : c.success > 70 ? 'var(--warning)' : 'var(--danger)'}, var(--gold)); transition: width 0.5s ease;"></div>
+                                </div>
+                                <div style="text-align: center; margin-top: 8px; font-weight: 900; color: var(--gold); font-size: 1.1rem;">${c.success}%</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function showEgyptStatusModal() {
+            const modal = document.getElementById('egypt-status-modal');
+            const content = document.getElementById('egypt-status-content');
+            const i = Math.min(simulationMonth, 60);
+            const elearningBoost = (controls.elearningPlatforms / 100) * 0.42;
+            
+            content.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 5rem; margin: 20px 0; text-shadow: 0 0 20px rgba(250, 204, 21, 0.5);">🇪🇬</div>
+                    <h3 style="color: var(--gold); margin: 15px 0; font-size: 1.6rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">الموقف المصري الحالي</h3>
+                </div>
+                <div class="grid-3" style="margin: 20px 0;">
+                    <div class="box success" style="border-width: 3px;">
+                        <h4 style="color: var(--gold); margin-bottom: 12px; font-size: 1.1rem;">💼 فرص العمل</h4>
+                        <div style="font-size: 1.6rem; font-weight: 900; color: var(--gold);">${formatNumber(youthData.job_opportunities[i])}</div>
+                        <div style="color: var(--text-light); margin-top: 8px;">الهدف: 1,150,000</div>
+                    </div>
+                    <div class="box info" style="border-width: 3px;">
+                        <h4 style="color: var(--warning); margin-bottom: 12px; font-size: 1.1rem;">🎓 المهارات المؤهلة</h4>
+                        <div style="font-size: 1.6rem; font-weight: 900; color: var(--warning);">${formatNumber(youthData.qualified_skills[i] * (1 + elearningBoost))}</div>
+                        <div style="color: var(--text-light); margin-top: 8px;">الهدف: 500,000</div>
+                    </div>
+                    <div class="box achievement" style="border-width: 3px;">
+                        <h4 style="color: var(--success); margin-bottom: 12px; font-size: 1.1rem;">💰 متوسط الدخل</h4>
+                        <div style="font-size: 1.6rem; font-weight: 900; color: var(--success);">$${(youthData.avg_income[i] * (1 + elearningBoost * 0.3)).toFixed(0)}</div>
+                        <div style="color: var(--text-light); margin-top: 8px;">الهدف: $2,150</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <div style="font-size: 1.3rem; font-weight: 900; color: var(--gold); text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">⭐ نقاط الخبرة: ${experiencePoints}</div>
+                    <div style="color: var(--text-light); margin-top: 8px;">الأداء الشخصي في المحاكاة</div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function showStrategyInfoModal() {
+            const modal = document.getElementById('strategy-info-modal');
+            const content = document.getElementById('strategy-info-content');
+            
+            content.innerHTML = `
+                <div class="vision-mission-values">
+                    <div class="grid-3">
+                        <div class="capability-item">
+                            <h4 style="color: var(--gold); margin-bottom: 12px; text-align: center; font-size: 1.1rem;">ما هو STEEPLE؟</h4>
+                            <p style="font-weight: 700; text-align: center; line-height: 1.7;">أداة تحليل للعوامل الخارجية الكبرى: Social, Technological, Economic, Environmental, Political, Legal, Ethical</p>
+                        </div>
+                        <div class="capability-item">
+                            <h4 style="color: var(--warning); margin-bottom: 12px; text-align: center; font-size: 1.1rem;">ما هو SWOT؟</h4>
+                            <p style="font-weight: 700; text-align: center; line-height: 1.7;">أداة تحليل داخلي: Strengths, Weaknesses, Opportunities, Threats</p>
+                        </div>
+                        <div class="capability-item">
+                            <h4 style="color: var(--success); margin-bottom: 12px; text-align: center; font-size: 1.1rem;">ما هو Foresight Matrix؟</h4>
+                            <p style="font-weight: 700; text-align: center; line-height: 1.7;">مصفوفة 2x2 تحلل عدم اليقين مقابل التأثير لتحديد الأولويات الاستراتيجية</p>
+                        </div>
+                    </div>
+                    <div class="box info" style="margin-top: 20px; background: rgba(6, 182, 212, 0.15);">
+                        <h4 style="color: var(--gold); margin-bottom: 15px; text-align: center; font-size: 1.2rem;">💡 نقاط الخبرة (XP) - كيف تكسبها؟</h4>
+                        <ul style="padding-right: 20px; font-weight: 700; line-height: 1.8;">
+                            <li>✅ تنفيذ الإشعارات: +15 نقطة لكل إشعار</li>
+                            <li>🦢 التعامل مع البجعة السوداء: +25 نقطة</li>
+                            <li>🏆 إكمال التحديات: +30 إلى +50 نقطة</li>
+                            <li>❌ تجاهل الإشعارات: -5 نقاط (عقوبة)</li>
+                            <li>↩️ الرجوع للخلف: -10 نقاط (عقوبة)</li>
+                        </ul>
+                        <p style="text-align: center; margin-top: 15px; font-weight: 800; color: var(--gold);">الحد الأقصى: 1000 نقطة | تؤثر على النتيجة النهائية!</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function showCrossContinentalModal() {
+            const modal = document.getElementById('cross-continental-modal');
+            const content = document.getElementById('cross-continental-content');
+            
+            content.innerHTML = `
+                <div class="grid-3">
+                    ${crossContinentalTypes.map(type => `
+                        <div class="box ${type.demand > 85 ? 'achievement' : type.demand > 75 ? 'info' : 'crisis'}" style="border-width: 3px; transition: all 0.3s ease;">
+                            <h4 style="color: var(--gold); margin-bottom: 12px; font-size: 1.1rem; text-align: center;">${type.type}</h4>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0;">
+                                <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-light);">الدخل</div>
+                                    <div style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">${type.income}</div>
+                                </div>
+                                <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-light);">الطلب</div>
+                                    <div style="font-weight: 900; color: ${type.demand > 85 ? 'var(--success)' : type.demand > 75 ? 'var(--warning)' : 'var(--danger)'}; font-size: 1.1rem;">${type.demand}</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.85rem; margin: 8px 0;"><strong>الفرص:</strong> ${type.opportunities}</p>
+                            <p style="font-size: 0.75rem; margin-top: 10px; color: var(--text-light); line-height: 1.5;"><strong>الدول:</strong> ${type.countries}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="box steeple-box" style="margin-top: 20px;">
+                    <div class="box-title" style="font-size: 1.1rem;">📊 إحصائيات سوق العابرين للقارات</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+                        <div>
+                            <div style="font-size: 1.4rem; font-weight: 900; color: var(--gold);">88,000</div>
+                            <div style="color: var(--text-light);">إجمالي الفرص</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.4rem; font-weight: 900; color: var(--success);">$1,030</div>
+                            <div style="color: var(--text-light);">متوسط الدخل</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.4rem; font-weight: 900; color: var(--warning);">81.6%</div>
+                            <div style="color: var(--text-light);">متوسط الطلب</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        // أحداث DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllIndicators();
+            updateCurrentTimeDisplay();
+            updateBlackSwanWarnings();
+            
+            // أحداث الأزرار
+            document.getElementById('simulation-toggle').addEventListener('click', startSimulation);
+            document.getElementById('simulation-reset').addEventListener('click', resetSimulation);
+            document.getElementById('simulation-backward').addEventListener('click', () => {
+                const months = prompt('↩️ كم شهر تريد الرجوع؟ (الحد الأقصى 12 شهر)');
+                if (months && months > 0 && months <= simulationMonth && months <= 12) {
+                    simulationMonth -= parseInt(months);
+                    updateAllIndicators();
+                    updateCurrentTimeDisplay();
+                    updateExperiencePoints(-10); // عقوبة الرجوع
+                    alert(`✅ تم الرجوع ${months} شهراً!`);
+                }
+            });
+            
+            // أزرار شريط الأدوات العلوي
+            document.getElementById('simulation-toggle-top').addEventListener('click', startSimulation);
+            document.getElementById('simulation-reset-top').addEventListener('click', resetSimulation);
+            document.getElementById('global-indicators-btn').addEventListener('click', showGlobalIndicatorsModal);
+            document.getElementById('egypt-current-status-btn').addEventListener('click', showEgyptStatusModal);
+            document.getElementById('strategy-info-btn').addEventListener('click', showStrategyInfoModal);
+            document.getElementById('foresight-analysis-btn').addEventListener('click', showForesightModal);
+            document.getElementById('cross-continental-btn').addEventListener('click', showCrossContinentalModal);
+            document.getElementById('scenario-compare-btn').addEventListener('click', () => {
+                document.getElementById('scenario-comparison-box').style.display = 'block';
+                document.getElementById('scenario-compare-modal').classList.add('active');
+            });
+            
+            // سرعة المحاكاة
+            document.getElementById('simulation-speed').addEventListener('input', function() {
+                simulationSpeed = parseFloat(this.value);
+                document.getElementById('speed-value').textContent = simulationSpeed + 'x';
+                
+                if (isSimulationRunning && !isSimulationPaused) {
+                    clearInterval(simulationInterval);
+                    startSimulation();
+                }
+            });
+            
+            // تبديل الإشعارات
+            document.getElementById('toggle-notifications-btn').addEventListener('click', function() {
+                notificationsEnabled = !notificationsEnabled;
+                this.style.background = notificationsEnabled ? 
+                    'linear-gradient(135deg, var(--success), #059669)' : 
+                    'linear-gradient(135deg, #6b7280, #4b5563)';
+                this.innerHTML = notificationsEnabled ? '🔔 تشغيل الإشعارات <span style="font-size: 0.7rem; display: block; margin-top: 2px;">كل 6 أشهر</span>' : '🔕 إيقاف الإشعارات';
+            });
+            
+            // إغلاق النوافذ المنبثقة
+            document.getElementById('close-global-indicators').addEventListener('click', () => {
+                document.getElementById('global-indicators-modal').classList.remove('active');
+            });
+            
+            document.getElementById('close-egypt-status').addEventListener('click', () => {
+                document.getElementById('egypt-status-modal').classList.remove('active');
+            });
+            
+            document.getElementById('close-strategy-info').addEventListener('click', () => {
+                document.getElementById('strategy-info-modal').classList.remove('active');
+            });
+            
+            document.getElementById('close-foresight').addEventListener('click', () => {
+                document.getElementById('foresight-modal').classList.remove('active');
+            });
+            
+            document.getElementById('close-cross-continental').addEventListener('click', () => {
+                document.getElementById('cross-continental-modal').classList.remove('active');
+            });
+            
+            document.getElementById('close-scenario-compare').addEventListener('click', () => {
+                document.getElementById('scenario-comparison-box').style.display = 'none';
+                document.getElementById('scenario-compare-modal').classList.remove('active');
+            });
+            
+            // سلايدرات التحكم
+            document.querySelectorAll('.control-slider').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const value = parseFloat(this.value);
+                    const controlName = this.getAttribute('data-control');
+                    if (controlName && controls[controlName] !== undefined) {
+                        controls[controlName] = value;
+                        
+                        const valueEl = this.nextElementSibling;
+                        if (valueEl && valueEl.classList.contains('slider-value')) {
+                            if (controlName === 'trainingBudget') {
+                                valueEl.textContent = value.toFixed(0) + '%';
+                            } else if (controlName === 'infrastructureInvestment') {
+                                valueEl.textContent = value.toFixed(1) + ' مليار';
+                            } else if (controlName === 'legalSimplification') {
+                                valueEl.textContent = value.toFixed(0) + '/10';
+                            } else if (controlName === 'earlyProfessional') {
+                                valueEl.textContent = value.toFixed(0) + ' ألف';
+                            } else if (controlName === 'aiAdoption') {
+                                valueEl.textContent = value.toFixed(0) + '%';
+                            } else if (controlName === 'startupSupport') {
+                                valueEl.textContent = value.toFixed(0) + ' مليون';
+                            } else if (controlName === 'elearningPlatforms') {
+                                valueEl.textContent = value.toFixed(0) + ' ألف';
+                            } else if (controlName === 'blackSwanFund') {
+                                valueEl.textContent = value.toFixed(0) + 'M يورو';
+                            }
+                        }
+                        
+                        // تفعيل تأثير السلايدر
+                        const sliderItem = this.closest('.slider-item');
+                        if (sliderItem) {
+                            sliderItem.classList.add('active');
+                            setTimeout(() => sliderItem.classList.remove('active'), 1000);
+                        }
+                        
+                        updateAllIndicators();
+                        updateExperiencePoints(1); // نقطة لكل تغيير
+                    }
+                });
+            });
+            
+            // مقارنة السيناريوهات
+            document.querySelectorAll('.scenario-track').forEach(track => {
+                track.addEventListener('click', function() {
+                    document.querySelectorAll('.scenario-track').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentScenario = this.dataset.scenario;
+                    
+                    // تطبيق تأثير السيناريو
+                    const scenarioEffects = {
+                        pessimistic: -0.2,
+                        'most-likely': 0,
+                        optimistic: 0.15
+                    };
+                    
+                    const effect = scenarioEffects[currentScenario];
+                    controls.elearningPlatforms = Math.max(0, Math.min(100, controls.elearningPlatforms + effect * 20));
+                    controls.infrastructureInvestment = Math.max(0, Math.min(10, controls.infrastructureInvestment + effect * 2));
+                    
+                    updateAllIndicators();
+                    showNotification({
+                        id: `scenario-${Date.now()}`,
+                        type: 'info',
+                        title: `⚖️ تم تبديل المسار`,
+                        content: `أنت الآن على المسار ${currentScenario === 'pessimistic' ? 'المتشائم' : currentScenario === 'optimistic' ? 'المتفائل' : 'الأكثر احتمالاً'}`,
+                        indicators: [{name: 'التأثير', value: effect * 100, unit: '%'}],
+                        actions: ['متابعة القراءة']
+                    });
+                });
+            });
+            
+            // توليد السيناريوهات
+            document.getElementById('generate-scenarios').addEventListener('click', generateForesightScenarios);
+        });
+    </script>
+</body>
+</html>

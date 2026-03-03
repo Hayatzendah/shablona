@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shabllona.org/sitemap.xml

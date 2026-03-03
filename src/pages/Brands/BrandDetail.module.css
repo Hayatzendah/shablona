@@ -1,0 +1,572 @@
+/* 404 Not Found */
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.notFoundContent {
+  max-width: 500px;
+}
+
+.notFoundCode {
+  font-size: 7rem;
+  font-weight: 900;
+  color: var(--primary-gold);
+  line-height: 1;
+  margin: 0 0 10px;
+  text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+.notFoundTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0 0 15px;
+}
+
+.notFoundDesc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0 0 35px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, var(--primary-gold), #c5a028);
+  color: var(--dark-bg);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  text-decoration: none;
+}
+
+.backButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--navbar-height) + 40px) 20px 60px;
+  overflow: hidden;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 23, 0.4) 0%,
+    rgba(10, 14, 23, 0.5) 40%,
+    rgba(10, 14, 23, 0.75) 100%
+  );
+  z-index: 1;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.85;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: color-mix(in srgb, var(--brand-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-color) 40%, transparent);
+  border-radius: 30px;
+  font-size: 0.95rem;
+  color: var(--brand-color);
+  margin-bottom: 20px;
+}
+
+.heroBadge i {
+  font-size: 1rem;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text-light);
+  margin: 0 0 16px;
+  text-shadow: 0 0 40px color-mix(in srgb, var(--brand-color) 30%, transparent);
+}
+
+.heroSubtitle {
+  font-size: 1.3rem;
+  color: var(--brand-color);
+  margin: 0 0 24px;
+  font-weight: 600;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.heroMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 8px 16px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.heroMetaItem i {
+  color: var(--brand-color);
+}
+
+/* Brand Video */
+.videoSection {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.brandVideo {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* Content */
+.content {
+  padding: 60px 20px 40px;
+}
+
+.section {
+  margin-bottom: 50px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sectionHeader i {
+  font-size: 1.3rem;
+  color: var(--brand-color);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.descriptionText {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 2;
+  margin: 0;
+}
+
+/* Highlight Box (Monte Carlo, Birth of Idea, Astrology, Portfolio) */
+.highlightBox {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 28px 24px;
+  background: color-mix(in srgb, var(--brand-color) 6%, var(--card-bg));
+  border-radius: var(--border-radius);
+  border-right: 4px solid var(--brand-color);
+}
+
+.highlightIcon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--brand-color);
+  background: color-mix(in srgb, var(--brand-color) 15%, transparent);
+}
+
+.highlightTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand-color);
+  margin: 0 0 10px;
+}
+
+.highlightText {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* Precession Box (Stars only) */
+.precessionBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-color) 12%, var(--card-bg)),
+    color-mix(in srgb, var(--brand-color) 4%, var(--card-bg))
+  );
+  border-radius: var(--border-radius);
+  border: 1px solid color-mix(in srgb, var(--brand-color) 25%, transparent);
+  text-align: center;
+  flex-direction: column;
+}
+
+.precessionBox i {
+  font-size: 2rem;
+  color: var(--brand-color);
+}
+
+.precessionText {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Features List */
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.featureItem:hover {
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--brand-color) 15%, transparent);
+}
+
+.featureCheck {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--brand-color) 15%, transparent);
+  color: var(--brand-color);
+  font-size: 0.85rem;
+}
+
+/* CTA Section */
+.ctaSection {
+  max-width: 900px;
+  margin: 0 auto 50px;
+}
+
+.ctaContent {
+  text-align: center;
+  padding: 50px 30px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-color) 10%, var(--card-bg)),
+    color-mix(in srgb, var(--brand-color) 3%, var(--card-bg))
+  );
+  border-radius: var(--border-radius);
+  border: 1px solid color-mix(in srgb, var(--brand-color) 20%, transparent);
+}
+
+.ctaInfo {
+  margin-bottom: 20px;
+}
+
+.ctaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: color-mix(in srgb, var(--brand-color) 15%, transparent);
+  border-radius: 30px;
+  font-size: 0.95rem;
+  color: var(--brand-color);
+  font-weight: 600;
+}
+
+.ctaBadge i {
+  font-size: 1rem;
+}
+
+.ctaTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0 0 10px;
+}
+
+.ctaDesc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin: 0 0 30px;
+}
+
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: #25D366;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+}
+
+.ctaButton i {
+  font-size: 1.3rem;
+}
+
+.ctaButtonSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: transparent;
+  color: var(--brand-color);
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  border: 2px solid color-mix(in srgb, var(--brand-color) 50%, transparent);
+  transition: transform var(--transition-speed), background var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.ctaButtonSecondary:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--brand-color) 10%, transparent);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--brand-color) 20%, transparent);
+}
+
+.ctaButtonSecondary i {
+  font-size: 1.2rem;
+}
+
+/* Back Navigation */
+.backNav {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color var(--transition-speed), gap var(--transition-speed);
+}
+
+.backLink:hover {
+  color: var(--brand-color);
+  gap: 14px;
+}
+
+.backLink i {
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .featuresList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .heroTitle {
+    font-size: 4rem;
+  }
+
+  .content {
+    padding: 80px 20px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 65vh;
+    padding-top: calc(var(--navbar-height) + 30px);
+  }
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .heroMeta {
+    gap: 8px;
+  }
+
+  .heroMetaItem {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .content {
+    padding: 40px 15px 30px;
+  }
+
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+
+  .descriptionText {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .highlightBox {
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 18px;
+  }
+
+  .highlightTitle {
+    font-size: 1.1rem;
+  }
+
+  .highlightText {
+    font-size: 0.95rem;
+  }
+
+  .featureItem {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  .featureCheck {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .ctaContent {
+    padding: 35px 20px;
+  }
+
+  .ctaTitle {
+    font-size: 1.3rem;
+  }
+
+  .ctaButton,
+  .ctaButtonSecondary {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.95rem;
+  }
+
+  .heroBadge {
+    font-size: 0.85rem;
+    padding: 6px 16px;
+  }
+
+  .notFoundCode {
+    font-size: 5rem;
+  }
+
+  .notFoundTitle {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,147 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.stepCard {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 32px 20px;
+  text-align: center;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.stepCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.stepNumber {
+  position: absolute;
+  top: -14px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 28px;
+  height: 28px;
+  background: var(--primary-gold);
+  color: var(--dark-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.iconCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.iconCircle i {
+  font-size: 1.5rem;
+  color: var(--primary-gold);
+}
+
+.stepTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.stepDesc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.connector i {
+  font-size: 1.2rem;
+  color: var(--primary-gold);
+  opacity: 0.6;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .stepCard {
+    padding: 24px 14px;
+  }
+
+  .stepTitle {
+    font-size: 1rem;
+  }
+
+  .stepDesc {
+    font-size: 0.82rem;
+  }
+
+  .iconCircle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .iconCircle i {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile - vertical layout */
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .stepItem {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stepCard {
+    padding: 28px 20px;
+  }
+
+  .connector {
+    padding: 12px 0;
+    transform: rotate(90deg);
+  }
+
+  .iconCircle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .iconCircle i {
+    font-size: 1.4rem;
+  }
+}

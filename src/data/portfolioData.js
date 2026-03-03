@@ -1,0 +1,58 @@
+const portfolioData = [
+  {
+    id: 1,
+    title: 'محاكاة تشغيل الشباب المصري عبر القارات 2025-2030',
+    description: 'نموذج محاكاة تفاعلي يعرض سيناريوهات تشغيل الشباب المصري في مشاريع عبر القارات مع تحليل الجدوى والمخاطر',
+    brand: 'تحتمس الثالث',
+    brandColor: '#C0392B',
+    status: 'عرض علني',
+    image: '/images/portfolio/portfolio-youth-simulation.webp',
+  },
+  {
+    id: 2,
+    title: 'توأم رقمي مصغر لسلسلة مصانع',
+    description: 'نموذج B2B تعريفي يعرض إمكانيات التوأم الرقمي للمصانع مع لوحة تحكم تفاعلية ومؤشرات أداء',
+    brand: 'تحتمس الثالث',
+    brandColor: '#C0392B',
+    status: 'عرض علني (مجاني للتحميل)',
+    image: '/images/portfolio/portfolio-factory-twin.jpg',
+  },
+  {
+    id: 3,
+    title: 'حاسبة طالع اليوم من الحساب القبطي',
+    description: 'حاسبة فلكية تفاعلية تحسب الطالع بناءً على التقويم القبطي مع مراعاة إزاحة دائرة البروج',
+    brand: 'مواقع النجوم',
+    brandColor: '#9932CC',
+    status: 'عرض علني',
+    image: '/images/portfolio/portfolio-coptic-calculator.webp',
+  },
+  {
+    id: 4,
+    title: 'شبلونة دون كيخوتة (سيناريو درامي)',
+    description: 'عرض بصري ديناميكي لقصة دون كيخوتة وفق بنية رحلة البطل ليوسف كامبل',
+    brand: 'كامبل',
+    brandColor: '#1E90FF',
+    status: 'عرض علني (نموذج عمل)',
+    image: '/images/portfolio/portfolio-don-quixote.jpg',
+  },
+  {
+    id: 5,
+    title: 'محاكاة نموذج الاقتصاد الأخضر',
+    description: 'نموذج محاكاة للتحول نحو الاقتصاد الأخضر مع سيناريوهات توفير الطاقة وتقليل الانبعاثات',
+    brand: 'تحتمس الثالث',
+    brandColor: '#C0392B',
+    status: 'عرض علني',
+    image: '/images/portfolio/portfolio-green-economy.webp',
+  },
+  {
+    id: 6,
+    title: 'شبلونة أرسطو للأجسام الأفلاطونية',
+    description: 'عرض مفاهيمي تفاعلي يشرح العلاقة بين الأجسام الأفلاطونية الخمسة والعناصر الكونية وبراندات شبلونة',
+    brand: 'أرسطو',
+    brandColor: '#27ae60',
+    status: 'عرض علني',
+    image: '/images/portfolio/portfolio-platonic-solids.jpg',
+  },
+];
+
+export default portfolioData;

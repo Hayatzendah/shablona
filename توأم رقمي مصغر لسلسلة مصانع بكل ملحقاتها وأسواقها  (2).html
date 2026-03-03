@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توأم رقمي مصغر - محاكاة سلاسل الإمداد والتصنيع v1.0</title>
+    
+    <!-- CDN Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a2a4c;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gold: #ffd700;
+            --shadow: rgba(0, 0, 0, 0.15);
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--glass);
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            font-size: 14px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .cost-summary {
+            background: linear-gradient(45deg, var(--danger), #c0392b);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .module-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow);
+            border-color: var(--gold);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .module-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .module-icon {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .sensor-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--info);
+            transition: all 0.3s ease;
+        }
+
+        .sensor-card.critical {
+            border-color: var(--danger);
+            background: rgba(231, 76, 60, 0.2);
+        }
+
+        .sensor-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .sensor-label {
+            font-size: 12px;
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .control-panel {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid var(--secondary);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--accent), var(--gold));
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--info), #2980b9);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger), #c0392b);
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .prediction-box {
+            background: linear-gradient(135deg, var(--success), #229954);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid var(--gold);
+        }
+
+        .prediction-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .cost-breakdown {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--danger);
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .roi-indicator {
+            background: linear-gradient(45deg, var(--success), var(--info));
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .roi-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            margin: 2% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid var(--accent);
+        }
+
+        .close {
+            color: var(--danger);
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px var(--shadow);
+            z-index: 999;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--glass);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--light);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .efficiency-ring {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .efficiency-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .status-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-industry"></i> توأم رقمي مصغر v1.0
+                </div>
+                <div class="status-bar">
+                    <div class="status-indicator">
+                        <div class="live-dot"></div>
+                        <span>محاكاة مباشرة</span>
+                    </div>
+                    <div class="status-indicator">
+                        <i class="fas fa-microchip"></i>
+                        <span id="sensorCount">12 حساس افتراضي</span>
+                    </div>
+                    <div class="status-indicator">
+                        <i class="fas fa-wifi"></i>
+                        <span id="connectionStatus">متصل</span>
+                    </div>
+                    <div class="cost-summary">
+                        إجمالي التكاليف: <span id="totalCost">$2,450</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- لوحة التحكم الرئيسية -->
+        <div class="module-card">
+            <div class="module-header">
+                <h2 class="module-title">لوحة التحكم المركزية</h2>
+                <i class="fas fa-tachometer-alt module-icon"></i>
+            </div>
+            
+            <div class="control-panel">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('production')">الإنتاج</div>
+                    <div class="tab" onclick="switchTab('supply')">سلسلة الإمداد</div>
+                    <div class="tab" onclick="switchTab('export')">التصدير</div>
+                    <div class="tab" onclick="switchTab('costs')">التكاليف والعائد</div>
+                </div>
+                
+                <div id="production" class="tab-content active">
+                    <button class="btn" onclick="simulateProduction()">محاكاة دورة إنتاج</button>
+                    <button class="btn btn-secondary" onclick="optimizeProduction()">تحسين التوقعات</button>
+                    <button class="btn btn-danger" onclick="emergencyStop()">إيقاف طوارئ</button>
+                </div>
+                
+                <div id="supply" class="tab-content">
+                    <button class="btn" onclick="simulateSupplyChain()">محاكاة سلسلة إمداد</button>
+                    <button class="btn btn-secondary" onclick="predictDisruption()">تنبؤ بالاختلالات</button>
+                </div>
+                
+                <div id="export" class="tab-content">
+                    <button class="btn" onclick="simulateExport()">محاكاة عملية تصدير</button>
+                    <button class="btn btn-secondary" onclick="calculateDuties()">حساب الرسوم الجمركية</button>
+                </div>
+                
+                <div id="costs" class="tab-content">
+                    <button class="btn" onclick="calculateROI()">حساب العائد على الاستثمار</button>
+                    <button class="btn btn-secondary" onclick="generateReport()">تقرير التكاليف الكامل</button>
+                </div>
+            </div>
+
+            <div class="efficiency-ring">
+                <canvas id="efficiencyChart" width="120" height="120"></canvas>
+                <div class="efficiency-text" id="efficiencyValue">87%</div>
+            </div>
+        </div>
+
+        <!-- الموديولات الداخلية -->
+        <div class="main-grid">
+            <!-- خط الإنتاج -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">خط التجميع الرئيسي</h3>
+                    <i class="fas fa-cogs module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="lineSpeed">85%</div>
+                        <div class="sensor-label">سرعة الخط</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="outputRate">1,240</div>
+                        <div class="sensor-label">وحدة/ساعة</div>
+                    </div>
+                    <div class="sensor-card critical">
+                        <div class="sensor-value" id="defectRate">2.3%</div>
+                        <div class="sensor-label">نسبة العيوب</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="oee">78%</div>
+                        <div class="sensor-label">OEE</div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+                    <div class="prediction-title">تنبؤ الصيانة</div>
+                    <div id="maintenancePrediction">ارتفاع درجة حرارة المحرك الرئيسي متوقع خلال 12 ساعة</div>
+                </div>
+            </div>
+
+            <!-- مراقبة الجودة -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">مراقبة الجودة الآنية</h3>
+                    <i class="fas fa-microscope module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="qualityPass">94.2%</div>
+                        <div class="sensor-label">نسبة النجاح</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="sampleSize">50</div>
+                        <div class="sensor-label">عينة/ساعة</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="criticalDefects">3</div>
+                        <div class="sensor-label">عيوب حرجة</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="qualityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- الطاقة والمرافق -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">استهلاك الطاقة</h3>
+                    <i class="fas fa-bolt module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="powerUsage">45.2</div>
+                        <div class="sensor-label">kW</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="costPerHour">$6.78</div>
+                        <div class="sensor-label">تكلفة/ساعة</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="efficiency">91%</div>
+                        <div class="sensor-label">كفاءة</div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+                    <div class="prediction-title">تحسين استهلاك الطاقة</div>
+                    <div>نقل خط التجميع 3 إلى وضع السكون خلال فترة الراحة يوفر $1,240/شهر</div>
+                </div>
+            </div>
+
+            <!-- المخزون -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">إدارة المخزون</h3>
+                    <i class="fas fa-warehouse module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="rawMaterial">15</div>
+                        <div class="sensor-label">يوم مخزون</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="finishedGoods">2,340</div>
+                        <div class="sensor-label">وحدة جاهزة</div>
+                    </div>
+                    <div class="sensor-card critical">
+                        <div class="sensor-value" id="reorderAlert">3</div>
+                        <div class="sensor-label">مواد ناقصة</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="inventoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- العمالة -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">الإنتاجية والعمالة</h3>
+                    <i class="fas fa-users module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="attendance">92%</div>
+                        <div class="sensor-label">الحضور</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="productivity">87%</div>
+                        <div class="sensor-label">الإنتاجية</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="overtime">45</div>
+                        <div class="sensor-label">ساعة إضافية</div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+                    <div class="prediction-title">تنبؤ احتياجات العمالة</div>
+                    <div>زيادة طلبية 30% الأسبوع القادم تتطلب 3 عمال إضافيين</div>
+                </div>
+            </div>
+
+            <!-- البيئة -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">الامتثال البيئي</h3>
+                    <i class="fas fa-leaf module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="co2Level">420</div>
+                        <div class="sensor-label">ppm CO₂</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="wasteRecycled">78%</div>
+                        <div class="sensor-label">نفايات معاد تدويرها</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="waterUsage">12.5</div>
+                        <div class="sensor-label">م³/يوم</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="environmentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- الموديولات الخارجية -->
+        <div class="main-grid">
+            <!-- سلسلة الإمداد -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">سلسلة الإمداد</h3>
+                    <i class="fas fa-truck module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="supplierOnTime">88%</div>
+                        <div class="sensor-label">التسليم في الموعد</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="leadTime">14</div>
+                        <div class="sensor-label">يوم تسليم</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="supplierRisk">LOW</div>
+                        <div class="sensor-label">مخاطر المورد</div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+                    <div class="prediction-title">تنبؤ باختلال سلسلة الإمداد</div>
+                    <div>اضراب ميناء بيروت المتوقع يؤثر على الشحنة القادمة - خطة بديلة: ميناء السخنة</div>
+                </div>
+            </div>
+
+            <!-- التسويق -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">التسويق والمبيعات</h3>
+                    <i class="fas fa-chart-line module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="marketDemand">+15%</div>
+                        <div class="sensor-label">نمو الطلب</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="customerSatisfaction">4.2</div>
+                        <div class="sensor-label">⭐ تقييم العملاء</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="competitorPrice">$45</div>
+                        <div class="sensor-label">سعر المنافس</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- التصدير -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">العمليات التصديرية</h3>
+                    <i class="fas fa-globe module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="exportVolume">5,600</div>
+                        <div class="sensor-label">وحدة/شهر</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="customsDelay">2.3</div>
+                        <div class="sensor-label">أيام تأخير جمارك</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="profitMargin">23%</div>
+                        <div class="sensor-label">هامش الربح</div>
+                    </div>
+                </div>
+
+                <div class="prediction-box">
+                    <div class="prediction-title">تنبؤ بالتكاليف الجمركية</div>
+                    <div>تعديل اتفاقية التجارة مع الاتحاد الأوروبي سيرفع الرسوم بنسبة 5% ابتداءً من يوليو</div>
+                </div>
+            </div>
+
+            <!-- المنافسين -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">تحليل المنافسين</h3>
+                    <i class="fas fa-chess module-icon"></i>
+                </div>
+                
+                <div class="sensor-grid">
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="marketShare">18%</div>
+                        <div class="sensor-label">حصتنا السوقية</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="competitorAdvantage">-5%</div>
+                        <div class="sensor-label">فرق السعر</div>
+                    </div>
+                    <div class="sensor-card">
+                        <div class="sensor-value" id="techGap">MEDIUM</div>
+                        <div class="sensor-label">فجوة التكنولوجيا</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="competitorChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- دراسة التكاليف والعائد -->
+        <div class="module-card">
+            <div class="module-header">
+                <h2 class="module-title">
+                    <i class="fas fa-calculator"></i> دراسة تكلفة التوأم الرقمي المصغر
+                </h2>
+                <i class="fas fa-money-bill-wave module-icon"></i>
+            </div>
+
+            <div class="cost-breakdown">
+                <h3 style="color: var(--gold); margin-bottom: 15px;">تكاليف البنية التحتية الحقيقية:</h3>
+                
+                <div class="cost-item">
+                    <span>📡 حساسات IoT حقيقية (12 وحدة)</span>
+                    <span>$480</span>
+                </div>
+                <div class="cost-item">
+                    <span>🔌 محولات PLC بسيطة (3 وحدات)</span>
+                    <span>$450</span>
+                </div>
+                <div class="cost-item">
+                    <span>📶 جهاز Edge Computing (Raspberry Pi 4)</span>
+                    <span>$120</span>
+                </div>
+                <div class="cost-item">
+                    <span>☁️ اشتراك سحابة AWS/Azure (سنوي)</span>
+                    <span>$600</span>
+                </div>
+                <div class="cost-item">
+                    <span>📱 لوحة تحكم رقمية (شاشة لمس 24")</span>
+                    <span>$350</span>
+                </div>
+                <div class="cost-item">
+                    <span>🌐 إنترنت صناعي (12 شهر)</span>
+                    <span>$240</span>
+                </div>
+                <div class="cost-item">
+                    <span>⚙️ تركيب وبرمجة</span>
+                    <span>$210</span>
+                </div>
+                <div class="cost-item">
+                    <span>💾 التدريب والدعم الفني (3 أشهر)</span>
+                    <span>$180</span>
+                </div>
+                <div class="cost-item" style="color: var(--gold);">
+                    <span>إجمالي التكلفة الأولية</span>
+                    <span style="font-size: 20px;">$2,630</span>
+                </div>
+            </div>
+
+            <div class="roi-indicator">
+                <h3>عائد الاستثمار المتوقع خلال 12 شهر</h3>
+                <div class="roi-value">+247%</div>
+                <p style="font-size: 14px; margin-top: 10px;">توفير سنوي متوقع: <strong>$6,490</strong></p>
+            </div>
+
+            <div class="prediction-box">
+                <div class="prediction-title">نقطة التعادل (Break-even Point)</div>
+                <div>ستسترد تكلفة استثمارك بالكامل خلال <strong>4.8 أشهر</strong> من خلال:<br>
+                • تقليل الهدر بنسبة 23% ($2,400/سنة)<br>
+                • تحسين كفاءة الطاقة بنسبة 17% ($1,800/سنة)<br>
+                • تقليل عيوب المنتج بنسبة 35% ($2,290/سنة)
+                </div>
+            </div>
+        </div>
+
+        <!-- التنبؤات الآنية -->
+        <div class="module-card">
+            <div class="module-header">
+                <h2 class="module-title">
+                    <i class="fas fa-crystal-ball"></i> التنبؤات الآنية والإنذارات المبكرة
+                </h2>
+                <i class="fas fa-exclamation-triangle module-icon" style="color: var(--danger);"></i>
+            </div>
+            
+            <div class="sensor-grid" id="predictionsGrid">
+                <!-- يتم ملؤه ديناميكياً -->
+            </div>
+        </div>
+
+        <!-- أزرار التحكم الإضافية -->
+        <div class="control-panel" style="text-align: center;">
+            <button class="btn" onclick="startSimulation()">
+                <i class="fas fa-play"></i> بدء المحاكاة المباشرة
+            </button>
+            <button class="btn btn-secondary" onclick="pauseSimulation()">
+                <i class="fas fa-pause"></i> إيقاف مؤقت
+            </button>
+            <button class="btn btn-secondary" onclick="exportData()">
+                <i class="fas fa-download"></i> تصدير البيانات
+            </button>
+            <button class="btn" onclick="showFullReport()">
+                <i class="fas fa-file-pdf"></i> تقرير PDF كامل
+            </button>
+        </div>
+    </div>
+
+    <!-- النافذة المنبثقة للتقرير -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reportModal')">&times;</span>
+            <h2 style="color: var(--gold); margin-bottom: 20px;">تقرير التوأم الرقمي المصغر</h2>
+            <div id="modalReportContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // محرك المحاكاة الرئيسي
+        // ============================================
+        
+        class DigitalTwinSimulator {
+            constructor() {
+                this.isRunning = false;
+                this.simulationInterval = null;
+                this.data = {
+                    production: {
+                        lineSpeed: 85,
+                        outputRate: 1240,
+                        defectRate: 2.3,
+                        oee: 78
+                    },
+                    quality: {
+                        passRate: 94.2,
+                        sampleSize: 50,
+                        criticalDefects: 3
+                    },
+                    supply: {
+                        onTime: 88,
+                        leadTime: 14,
+                        risk: 'LOW'
+                    },
+                    costs: {
+                        total: 2630,
+                        monthlySavings: 540
+                    }
+                };
+                
+                this.predictions = [
+                    { title: "صيانة وقائية", desc: "تغيير حزام المحرك خلال 48 ساعة", priority: "high" },
+                    { title: "طلبية عاجلة", desc: "طلبية تصدير 2,000 وحدة لألمانيا خلال 72 ساعة", priority: "medium" },
+                    { title: "تقلبات الطقس", desc: "عاصفة رملية قادمة قد تؤخر التوريدات", priority: "low" }
+                ];
+                
+                this.initializeCharts();
+                this.updatePredictions();
+            }
+            
+            initializeCharts() {
+                // خلفية كفاءة الإنتاج
+                const ctx = document.getElementById('efficiencyChart');
+                if (ctx) {
+                    const canvas = ctx.getContext('2d');
+                    const centerX = 60, centerY = 60, radius = 50;
+                    const efficiency = 87;
+                    const angle = (efficiency / 100) * 2 * Math.PI;
+                    
+                    // دائرة خلفية
+                    canvas.beginPath();
+                    canvas.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    canvas.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    canvas.lineWidth = 10;
+                    canvas.stroke();
+                    
+                    // دائرة التقدم
+                    canvas.beginPath();
+                    canvas.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle);
+                    canvas.strokeStyle = '#f39c12';
+                    canvas.lineWidth = 10;
+                    canvas.lineCap = 'round';
+                    canvas.stroke();
+                }
+                
+                // مخطط الجودة
+                this.createQualityChart();
+                this.createInventoryChart();
+                this.createSalesChart();
+                this.createCompetitorChart();
+            }
+            
+            createQualityChart() {
+                const ctx = document.getElementById('qualityChart');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['6ص', '8ص', '10ص', '12م', '2م', '4م', '6م'],
+                        datasets: [{
+                            label: 'نسبة الجودة %',
+                            data: [95, 94.5, 93.8, 94.2, 94.7, 93.5, 94.1],
+                            borderColor: '#27ae60',
+                            backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100 }
+                        }
+                    }
+                });
+            }
+            
+            createInventoryChart() {
+                const ctx = document.getElementById('inventoryChart');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['مواد خام', 'تشغيل', 'جاهز', 'عيوب'],
+                        datasets: [{
+                            data: [45, 23, 32, 8],
+                            backgroundColor: ['#f39c12', '#3498db', '#27ae60', '#e74c3c']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+            
+            createSalesChart() {
+                const ctx = document.getElementById('salesChart');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['محلي', 'تصدير أوروبا', 'تصدير أمريكا', 'تصدير آسيا'],
+                        datasets: [{
+                            data: [35, 25, 20, 20],
+                            backgroundColor: ['#3498db', '#f39c12', '#27ae60', '#e74c3c']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { 
+                                position: 'bottom',
+                                labels: { color: '#ecf0f1' }
+                            } 
+                        }
+                    }
+                });
+            }
+            
+            createCompetitorChart() {
+                const ctx = document.getElementById('competitorChart');
+                if (!ctx) return;
+                
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['السعر', 'الجودة', 'السرعة', 'الابتكار', 'الخدمة'],
+                        datasets: [{
+                            label: 'مصنعنا',
+                            data: [75, 90, 85, 70, 85],
+                            borderColor: '#f39c12',
+                            backgroundColor: 'rgba(243, 156, 18, 0.2)'
+                        }, {
+                            label: 'المنافس الرئيسي',
+                            data: [85, 80, 70, 80, 75],
+                            borderColor: '#e74c3c',
+                            backgroundColor: 'rgba(231, 76, 60, 0.2)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { 
+                                position: 'bottom',
+                                labels: { color: '#ecf0f1' }
+                            } 
+                        },
+                        scales: {
+                            r: { beginAtZero: true, max: 100 }
+                        }
+                    }
+                });
+            }
+            
+            updatePredictions() {
+                const grid = document.getElementById('predictionsGrid');
+                if (!grid) return;
+                
+                grid.innerHTML = this.predictions.map(pred => `
+                    <div class="sensor-card ${pred.priority === 'high' ? 'critical' : ''}">
+                        <div class="sensor-value" style="font-size: 16px;">
+                            ${pred.priority === 'high' ? '🔴' : pred.priority === 'medium' ? '🟡' : '🔵'}
+                        </div>
+                        <div class="sensor-label" style="font-size: 14px;">
+                            <strong>${pred.title}</strong><br>
+                            ${pred.desc}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            startSimulation() {
+                if (this.isRunning) return;
+                
+                this.isRunning = true;
+                this.showNotification('🚀 بدأت المحاكاة المباشرة', 'success');
+                
+                this.simulationInterval = setInterval(() => {
+                    this.updateSensors();
+                    this.generatePredictions();
+                }, 3000); // تحديث كل 3 ثواني (محاكاة اقتصادية)
+            }
+            
+            pauseSimulation() {
+                if (!this.isRunning) return;
+                
+                this.isRunning = false;
+                clearInterval(this.simulationInterval);
+                this.showNotification('⏸️ تم إيقاف المحاكاة مؤقتاً', 'info');
+            }
+            
+            updateSensors() {
+                // محاكاة قراءات الحساسات الافتراضية
+                Object.keys(this.data.production).forEach(key => {
+                    const variation = (Math.random() - 0.5) * 4;
+                    this.data.production[key] = Math.max(0, this.data.production[key] + variation);
+                });
+                
+                // تحديث واجهة المستخدم
+                document.getElementById('lineSpeed').textContent = this.data.production.lineSpeed.toFixed(0) + '%';
+                document.getElementById('outputRate').textContent = Math.floor(this.data.production.outputRate);
+                document.getElementById('defectRate').textContent = this.data.production.defectRate.toFixed(1) + '%';
+                document.getElementById('oee').textContent = this.data.production.oee.toFixed(0) + '%';
+                
+                // تحديث الكفاءة العامة
+                const avgEfficiency = (this.data.production.oee + this.data.quality.passRate) / 2;
+                document.getElementById('efficiencyValue').textContent = avgEfficiency.toFixed(0) + '%';
+                
+                // إعادة رسم دائرة الكفاءة
+                this.drawEfficiencyRing(avgEfficiency);
+            }
+            
+            drawEfficiencyRing(efficiency) {
+                const canvas = document.getElementById('efficiencyChart');
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                const centerX = 60, centerY = 60, radius = 50;
+                const angle = (efficiency / 100) * 2 * Math.PI;
+                
+                // مسح ورسم جديد
+                ctx.clearRect(0, 0, 120, 120);
+                
+                // دائرة خلفية
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = 10;
+                ctx.stroke();
+                
+                // دائرة التقدم
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle);
+                ctx.strokeStyle = efficiency > 80 ? '#27ae60' : efficiency > 60 ? '#f39c12' : '#e74c3c';
+                ctx.lineWidth = 10;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+            
+            generatePredictions() {
+                // إضافة تنبؤات جديدة بشكل عشوائي
+                if (Math.random() > 0.7) {
+                    const newPredictions = [
+                        { title: "صيانة وقائية", desc: `فحص محرك رقم ${Math.floor(Math.random() * 10) + 1} خلال ${Math.floor(Math.random() * 24) + 12} ساعة`, priority: "high" },
+                        { title: "تحسين جودة", desc: `تعديل إعدادات خط ${Math.floor(Math.random() * 5) + 1} للحد من العيوب`, priority: "medium" },
+                        { title: "توفير طاقة", desc: `إيقاف خط ${Math.floor(Math.random() * 5) + 1} أثناء الاستراحة`, priority: "low" }
+                    ];
+                    
+                    this.predictions.unshift(newPredictions[Math.floor(Math.random() * newPredictions.length)]);
+                    if (this.predictions.length > 6) this.predictions.pop();
+                    
+                    this.updatePredictions();
+                }
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.style.background = type === 'success' ? '#27ae60' : type === 'danger' ? '#e74c3c' : '#3498db';
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 4000);
+            }
+        }
+
+        // ============================================
+        // دوال التحكم الرئيسية
+        // ============================================
+        
+        const simulator = new DigitalTwinSimulator();
+        
+        function startSimulation() {
+            simulator.startSimulation();
+        }
+        
+        function pauseSimulation() {
+            simulator.pauseSimulation();
+        }
+        
+        function switchTab(tabName) {
+            // إخفاء كل المحتويات
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // إزالة النشاط من كل الأزرار
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // تفعيل المحتوى والزر المطلوب
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function simulateProduction() {
+            simulator.showNotification('⚙️ جاري محاكاة دورة إنتاج كاملة...', 'info');
+            
+            setTimeout(() => {
+                const output = Math.floor(Math.random() * 500) + 1000;
+                const defects = (Math.random() * 3).toFixed(1);
+                simulator.showNotification(`✅ اكتملت المحاكاة: ${output} وحدة، نسبة عيوب ${defects}%`, 'success');
+            }, 2000);
+        }
+        
+        function optimizeProduction() {
+            simulator.showNotification('🤖 جاري تحليل البيانات لتوقعات التحسين...', 'info');
+            
+            setTimeout(() => {
+                const improvement = (Math.random() * 15 + 10).toFixed(1);
+                simulator.showNotification(`📊 توقع تحسن بنسبة ${improvement}% خلال أسبوع`, 'success');
+            }, 3000);
+        }
+        
+        function emergencyStop() {
+            if (confirm('⚠️ هل أنت متأكد من إيقاف خط الإنتاج؟')) {
+                simulator.pauseSimulation();
+                simulator.showNotification('🛑 تم إيقاف خط الإنتاج طوارئ', 'danger');
+                
+                // محاكاة إعادة التشغيل بعد 5 ثواني
+                setTimeout(() => {
+                    if (confirm('هل تريد إعادة التشغيل الآن؟')) {
+                        startSimulation();
+                    }
+                }, 5000);
+            }
+        }
+        
+        function simulateSupplyChain() {
+            simulator.showNotification('🚚 جاري محاكاة سلسلة الإمداد...', 'info');
+            
+            setTimeout(() => {
+                const risk = Math.random() > 0.7 ? 'HIGH' : 'LOW';
+                simulator.showNotification(`📦 محاكاة مكتملة: مخاطر المورد ${risk}`, risk === 'HIGH' ? 'danger' : 'success');
+            }, 2500);
+        }
+        
+        function predictDisruption() {
+            simulator.showNotification('🔮 جاري تحليل مخاطر الاختلال...', 'info');
+            
+            setTimeout(() => {
+                const disruptions = [
+                    "تأخير في ميناء بيروت - خطة بديلة: السخنة",
+                    "ارتفاع أسعار البترول بنسبة 5% - تأثير على التكلفة",
+                    "مشكلة في الشحن الجوي - التحويل للبري"
+                ];
+                const disruption = disruptions[Math.floor(Math.random() * disruptions.length)];
+                simulator.showNotification(`⚠️ تنبؤ: ${disruption}`, 'danger');
+            }, 3000);
+        }
+        
+        function simulateExport() {
+            simulator.showNotification('🌍 جاري محاكاة عملية التصدير...', 'info');
+            
+            setTimeout(() => {
+                const country = ['ألمانيا', 'فرنسا', 'إيطاليا', 'إسبانيا'][Math.floor(Math.random() * 4)];
+                const units = Math.floor(Math.random() * 2000) + 1000;
+                simulator.showNotification(`✅ تصدير ${units} وحدة إلى ${country} ناجح`, 'success');
+            }, 3000);
+        }
+        
+        function calculateDuties() {
+            simulator.showNotification('📊 جاري حساب الرسوم الجمركية...', 'info');
+            
+            setTimeout(() => {
+                const duty = (Math.random() * 15 + 5).toFixed(1);
+                simulator.showNotification(`💰 الرسوم الجمركية المتوقعة: ${duty}%`, 'info');
+            }, 2000);
+        }
+        
+        function calculateROI() {
+            simulator.showNotification('💹 جاري حساب العائد على الاستثمار...', 'info');
+            
+            setTimeout(() => {
+                const roi = (Math.random() * 200 + 150).toFixed(0);
+                const payback = (Math.random() * 6 + 3).toFixed(1);
+                simulator.showNotification(`📈 ROI: ${roi}% | فترة الاسترجاع: ${payback} أشهر`, 'success');
+            }, 3000);
+        }
+        
+        function generateReport() {
+            simulator.showNotification('📋 جاري إنشاء تقرير التكاليف الكامل...', 'info');
+            
+            setTimeout(() => {
+                showFullReport();
+                simulator.showNotification('✅ تم إنشاء التقرير', 'success');
+            }, 2000);
+        }
+        
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                production: simulator.data.production,
+                quality: simulator.data.quality,
+                predictions: simulator.predictions,
+                costs: simulator.data.costs
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `digital-twin-report-${Date.now()}.json`;
+            a.click();
+            
+            simulator.showNotification('📤 تم تصدير البيانات بنجاح', 'success');
+        }
+        
+        function showFullReport() {
+            const modal = document.getElementById('reportModal');
+            const content = document.getElementById('modalReportContent');
+            
+            content.innerHTML = `
+                <h3 style="color: #f39c12; margin-bottom: 15px;">📊 تحليل شامل للمصنع</h3>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4>أداء الإنتاج</h4>
+                    <p>معدل الخط: ${simulator.data.production.lineSpeed.toFixed(0)}% | 
+                    الإنتاجية: ${Math.floor(simulator.data.production.outputRate)} وحدة/ساعة</p>
+                    <p>OEE: ${simulator.data.production.oee.toFixed(0)}% | 
+                    نسبة العيوب: ${simulator.data.production.defectRate.toFixed(1)}%</p>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4>جودة المنتج</h4>
+                    <p>نسبة النجاح: ${simulator.data.quality.passRate}% | 
+                    عينات الفحص: ${simulator.data.quality.sampleSize}/ساعة</p>
+                    <p>العيوب الحرجة: ${simulator.data.quality.criticalDefects} حالات</p>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4>التنبؤات النشطة (${simulator.predictions.length})</h4>
+                    ${simulator.predictions.map(p => `
+                        <div style="border-left: 4px solid ${p.priority === 'high' ? '#e74c3c' : p.priority === 'medium' ? '#f39c12' : '#3498db'}; padding-left: 10px; margin: 10px 0;">
+                            <strong>${p.title}</strong><br>
+                            ${p.desc}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div style="background: linear-gradient(45deg, #27ae60, #229954); padding: 20px; border-radius: 10px; text-align: center;">
+                    <h3>عائد الاستثمار السنوي المتوقع</h3>
+                    <div style="font-size: 36px; font-weight: bold; color: #ffd700;">247%</div>
+                    <p>توفير سنوي: <strong>$6,490</strong></p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn" onclick="downloadPDF()">
+                        <i class="fas fa-file-pdf"></i> تحميل PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal('reportModal')">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+        
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // عنوان
+            doc.setFontSize(20);
+            doc.text('Digital Twin Mini Factory Report', 20, 20);
+            
+            // تاريخ
+            doc.setFontSize(12);
+            doc.text(`Generated: ${new Date().toLocaleString('ar-EG')}`, 20, 30);
+            
+            // بيانات الإنتاج
+            doc.setFontSize(14);
+            doc.text('Production Metrics:', 20, 45);
+            doc.setFontSize(10);
+            doc.text(`Line Speed: ${simulator.data.production.lineSpeed.toFixed(0)}%`, 20, 55);
+            doc.text(`Output Rate: ${Math.floor(simulator.data.production.outputRate)} units/hour`, 20, 62);
+            doc.text(`OEE: ${simulator.data.production.oee.toFixed(0)}%`, 20, 69);
+            doc.text(`Defect Rate: ${simulator.data.production.defectRate.toFixed(1)}%`, 20, 76);
+            
+            // التنبؤات
+            doc.setFontSize(14);
+            doc.text('Active Predictions:', 20, 90);
+            doc.setFontSize(10);
+            let yPos = 100;
+            simulator.predictions.slice(0, 3).forEach(pred => {
+                doc.text(`• ${pred.title}: ${pred.desc}`, 20, yPos);
+                yPos += 7;
+            });
+            
+            // حفظ الملف
+            doc.save(`digital-twin-report-${Date.now()}.pdf`);
+            simulator.showNotification('📄 تم تحميل PDF', 'success');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // تحديث الوقت الحقيقي
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-EG');
+            const dateString = now.toLocaleDateString('ar-EG');
+            
+            // تحديث أي عناصر وقت إذا وجدت
+            const timeElements = document.querySelectorAll('.current-time');
+            timeElements.forEach(el => el.textContent = timeString);
+        }
+        
+        // بدء التشغيل
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // تحديث أولي للحساسات
+            setTimeout(() => {
+                simulator.updateSensors();
+            }, 1000);
+        });
+        
+        // إغلاق النافذة المنبثقة بالنقر خارجها
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شبلونة - دليل المفاهيم والمحتوى</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-black: #0a0a0a;
+            --card-bg: #141414;
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --blue: #1E90FF;
+            --red: #FF4500;
+            --green: #32CD32;
+            --purple: #9932CC;
+            --orange: #FF8C00;
+            --cyan: #00CED1;
+            --pink: #FF1493;
+            --yellow: #FFD700;
+            --text-light: #f0f0f0;
+            --text-muted: #888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-light);
+            line-height: 1.8;
+            padding: 20px;
+        }
+
+        /* Header */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .main-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .main-header .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .main-header .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 50px 0 30px;
+            padding: 15px 25px;
+            border-right: 5px solid;
+            background: var(--card-bg);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .section-title.gold { color: var(--gold); border-color: var(--gold); }
+        .section-title.blue { color: var(--blue); border-color: var(--blue); }
+        .section-title.red { color: var(--red); border-color: var(--red); }
+        .section-title.green { color: var(--green); border-color: var(--green); }
+        .section-title.purple { color: var(--purple); border-color: var(--purple); }
+        .section-title.orange { color: var(--orange); border-color: var(--orange); }
+        .section-title.cyan { color: var(--cyan); border-color: var(--cyan); }
+
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+
+        @media (max-width: 1200px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-5 { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+        }
+
+        /* Cards */
+        .concept-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--card-color, var(--gold));
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--card-color, var(--gold));
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .card-content {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .card-meta {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            font-size: 0.85rem;
+            color: var(--card-color, var(--gold));
+            font-weight: 600;
+        }
+
+        /* Color Variants */
+        .gold-card { --card-color: var(--gold); }
+        .gold-card .card-icon { background: linear-gradient(135deg, var(--gold), var(--orange)); }
+
+        .blue-card { --card-color: var(--blue); }
+        .blue-card .card-icon { background: linear-gradient(135deg, var(--blue), #0066CC); }
+
+        .red-card { --card-color: var(--red); }
+        .red-card .card-icon { background: linear-gradient(135deg, var(--red), #CC3300); }
+
+        .green-card { --card-color: var(--green); }
+        .green-card .card-icon { background: linear-gradient(135deg, var(--green), #228B22); }
+
+        .purple-card { --card-color: var(--purple); }
+        .purple-card .card-icon { background: linear-gradient(135deg, var(--purple), #7B1FA2); }
+
+        .orange-card { --card-color: var(--orange); }
+        .orange-card .card-icon { background: linear-gradient(135deg, var(--orange), #FF6B00); }
+
+        .cyan-card { --card-color: var(--cyan); }
+        .cyan-card .card-icon { background: linear-gradient(135deg, var(--cyan), #00AAAA); }
+
+        .pink-card { --card-color: var(--pink); }
+        .pink-card .card-icon { background: linear-gradient(135deg, var(--pink), #C71585); }
+
+        /* Info Boxes */
+        .info-box {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(30,144,255,0.05));
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .info-box h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box li:last-child { border-bottom: none; }
+        .info-box li i { color: var(--gold); }
+
+        /* Stats Grid */
+        .stat-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid var(--stat-color, var(--gold));
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--stat-color, var(--gold));
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Story Box - ماذا لو */
+        .story-box {
+            background: rgba(212,175,55,0.08);
+            border-right: 4px solid var(--gold);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .story-box h5 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .story-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* Brand Colors for Story Boxes */
+        .story-box.red { background: rgba(255,69,0,0.08); border-color: var(--red); }
+        .story-box.red h5 { color: var(--red); }
+        .story-box.red .highlight { color: var(--red); }
+
+        .story-box.blue { background: rgba(30,144,255,0.08); border-color: var(--blue); }
+        .story-box.blue h5 { color: var(--blue); }
+        .story-box.blue .highlight { color: var(--blue); }
+
+        .story-box.green { background: rgba(50,205,50,0.08); border-color: var(--green); }
+        .story-box.green h5 { color: var(--green); }
+        .story-box.green .highlight { color: var(--green); }
+
+        .story-box.purple { background: rgba(153,50,204,0.08); border-color: var(--purple); }
+        .story-box.purple h5 { color: var(--purple); }
+        .story-box.purple .highlight { color: var(--purple); }
+
+        /* Philosophy Shapes */
+        .shape-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid var(--shape-color);
+        }
+
+        .shape-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            clip-path: var(--shape-clip);
+            background: var(--shape-gradient);
+        }
+
+        .shape-card h4 {
+            color: var(--shape-color);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .shape-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Bar */
+        .contact-bar {
+            background: linear-gradient(135deg, var(--card-bg), #1a1a1a);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.2rem;
+        }
+
+        .contact-info strong {
+            color: var(--gold);
+            display: block;
+        }
+
+        .contact-info span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 2px solid #333;
+            color: var(--text-muted);
+        }
+
+        /* Process Steps */
+        .process-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .process-step {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid var(--step-color, var(--gold));
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--step-color, var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #000;
+            margin: 0 auto 15px;
+        }
+
+        .process-step h4 {
+            color: var(--step-color, var(--gold));
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .process-container { flex-direction: column; }
+        }
+
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-list li:last-child { border-bottom: none; }
+
+        .feature-list li i {
+            color: var(--list-color, var(--gold));
+            font-size: 1.1rem;
+        }
+
+        /* Definition Box */
+        .definition-box {
+            background: linear-gradient(135deg, rgba(30,144,255,0.1), rgba(0,0,0,0.3));
+            border: 2px solid var(--blue);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .definition-box h3 {
+            color: var(--blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .definition-box p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin: 5px;
+        }
+
+        .tag-gold { background: rgba(212,175,55,0.2); color: var(--gold); border: 1px solid var(--gold); }
+        .tag-blue { background: rgba(30,144,255,0.2); color: var(--blue); border: 1px solid var(--blue); }
+        .tag-red { background: rgba(255,69,0,0.2); color: var(--red); border: 1px solid var(--red); }
+        .tag-green { background: rgba(50,205,50,0.2); color: var(--green); border: 1px solid var(--green); }
+        .tag-purple { background: rgba(153,50,204,0.2); color: var(--purple); border: 1px solid var(--purple); }
+
+        /* Brand Story Section */
+        .brand-story-section {
+            background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(30,144,255,0.05));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .brand-story-title {
+            color: var(--gold);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .brand-story-content {
+            color: var(--text-muted);
+            line-height: 2;
+            font-size: 1.05rem;
+        }
+
+        .brand-story-content p {
+            margin-bottom: 20px;
+        }
+
+        .fibonacci-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+
+        .fibonacci-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 1200px) {
+            .philosophy-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .philosophy-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Pain Points Section */
+        .pain-points {
+            background: linear-gradient(135deg, rgba(255,69,0,0.1), rgba(0,0,0,0.3));
+            border: 2px solid var(--red);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .pain-points h3 {
+            color: var(--red);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .pain-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pain-points li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,69,0,0.2);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .pain-points li:last-child { border-bottom: none; }
+        .pain-points li i { color: var(--red); margin-top: 5px; }
+
+        /* Capabilities Section */
+        .capabilities-box {
+            background: linear-gradient(135deg, rgba(50,205,50,0.1), rgba(0,0,0,0.3));
+            border: 2px solid var(--green);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .capabilities-box h3 {
+            color: var(--green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .capabilities-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .capabilities-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(50,205,50,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .capabilities-box li:last-child { border-bottom: none; }
+        .capabilities-box li i { color: var(--green); }
+
+        /* What If Story - ماذا لو */
+        .what-if-story {
+            background: linear-gradient(135deg, rgba(153,50,204,0.15), rgba(0,0,0,0.4));
+            border: 2px solid var(--purple);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .what-if-story::before {
+            content: 'ماذا لو؟';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--purple);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .what-if-story h4 {
+            color: var(--purple);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .what-if-story p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .what-if-story .highlight {
+            color: var(--purple);
+            font-weight: 700;
+        }
+
+        /* Precession Highlight */
+        .precession-highlight {
+            background: rgba(153,50,204,0.2);
+            border: 1px solid var(--purple);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .precession-highlight .value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--purple);
+            display: block;
+        }
+
+        .precession-highlight .label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <h1>شبلونة</h1>
+        <p class="subtitle">حلول التوأمة الرقمية المتقدمة | Digital Twins Solutions</p>
+        <span class="badge"><i class="fas fa-crown"></i> شركة ذات مسؤولية محدودة - تحت التأسيس</span>
+    </header>
+
+    <!-- قسم القدرات الاستراتيجية -->
+    <h2 class="section-title green"><i class="fas fa-chess-knight"></i> قدراتنا الاستراتيجية</h2>
+
+    <div class="capabilities-box">
+        <h3><i class="fas fa-users-cog"></i> فريق متخصص ومتكامل</h3>
+        <ul>
+            <li><i class="fas fa-user-tie"></i> <strong>خبراء استراتيجيون</strong> - متخصصون في التحليل الاستراتيجي وصناعة القرار على المدى البعيد</li>
+            <li><i class="fas fa-microchip"></i> <strong>خبراء توأمة رقمية</strong> - مهندسون متخصصون في بناء النماذج الرقمية والمحاكاة المتقدمة</li>
+            <li><i class="fas fa-graduation-cap"></i> <strong>شباب واعد في التوأمة الرقمية</strong> - كوادر شابة مؤهلة ومدربة على أحدث التقنيات</li>
+        </ul>
+    </div>
+
+    <div class="grid-2">
+        <div class="concept-card green-card">
+            <div class="card-icon"><i class="fas fa-sitemap"></i></div>
+            <h3 class="card-title">استراتيجية وهيكلة قوية</h3>
+            <p class="card-content">نمتلك رؤية استراتيجية واضحة وهيكل تنظيمي متين يضمن تنفيذ المشاريع بكفاءة عالية وتحقيق الأهداف المرجوة.</p>
+        </div>
+
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-heart"></i></div>
+            <h3 class="card-title">فريق بيحب بعضه ومخضرم</h3>
+            <p class="card-content">ثقافة عمل إيجابية وفريق متجانس يتميز بالخبرة العملية والتعاون المثمر لتحقيق أفضل النتائج.</p>
+        </div>
+
+        <div class="concept-card blue-card">
+            <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <h3 class="card-title">تدريب وتعلم مستمر</h3>
+            <p class="card-content">نستثمر في تطوير كوادرنا باستمرار من خلال برامج تدريب متخصصة وورش عمل متقدمة في مجال التوائم الرقمية.</p>
+        </div>
+
+        <div class="concept-card purple-card">
+            <div class="card-icon"><i class="fas fa-robot"></i></div>
+            <h3 class="card-title">استعانة بالذكاء الاصطناعي</h3>
+            <p class="card-content">نستخدم أحدث تقنيات الذكاء الاصطناعي والتعلم الآلي لتحليل البيانات وتوليد الرؤى التنبؤية الدقيقة.</p>
+        </div>
+    </div>
+
+    <!-- قسم آلام العملاء -->
+    <h2 class="section-title red"><i class="fas fa-hand-holding-medical"></i> هل تعاني من هذه التحديات؟</h2>
+
+    <div class="pain-points">
+        <h3><i class="fas fa-exclamation-triangle"></i> تحديات سلاسل التوريد والتشغيل</h3>
+        <ul>
+            <li>
+                <i class="fas fa-money-bill-wave"></i>
+                <div>
+                    <strong>النفقات الزائدة على الأعطال</strong><br>
+                    هل تعاني كمصنع / شركة كبار، من العديد من النفقات الزائدة، من أجل علاج الأعطال والمشكلات في سلاسل التوريد والتشغيل؟
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-chart-line"></i>
+                <div>
+                    <strong>انخفاض التنافسية في السوق</strong><br>
+                    هل تعاني كشركة / مصنع من انخفاض في التنافسية في سلاسل القيمة بالسوق، خاصة مع التقلبات وعدم اليقين الذي يسود العالم الآن؟
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-leaf"></i>
+                <div>
+                    <strong>استهلاك الطاقة والانبعاثات الكربونية</strong><br>
+                    هل تعاني من كثرة استهلاك الطاقة، وكثرة الانبعاثات الكربونية، مما يؤثر على تكاليف التشغيل والاستدامة البيئية؟
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- قسم علاج الآلام -->
+    <h2 class="section-title cyan"><i class="fas fa-cogs"></i> كيف نعالج هذه التحديات؟</h2>
+
+    <div class="definition-box">
+        <h3><i class="fas fa-digital-tachograph"></i> التوأم الرقمي - الحل الشامل</h3>
+        <p>نحن نعالج كل هذه الاحتياجات عن طريق <strong>التوائم الرقمية</strong> المتقدمة. التوأم الرقمي هو نسخة افتراضية متزامنة وواقعية لكائن مادي أو عملية أو نظام، تتيح لك:</p>
+    </div>
+
+    <div class="grid-3">
+        <div class="concept-card blue-card">
+            <div class="card-icon"><i class="fas fa-eye"></i></div>
+            <h3 class="card-title">رؤية شاملة</h3>
+            <p class="card-content">تقدم التوأم الرقمي رؤية كاملة لعملياتك على ما هو موجود في الواقع، مع إمكانية مراقبة الأداء لحظياً.</p>
+        </div>
+
+        <div class="concept-card green-card">
+            <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+            <h3 class="card-title">علاج استباقي</h3>
+            <p class="card-content">تقدم كل مزاياه في علاج هذه الآلام من خلال الكشف المبكر عن المشكلات قبل حدوثها والصيانة الوقائية.</p>
+        </div>
+
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-globe"></i></div>
+            <h3 class="card-title">مؤشرات عالمية</h3>
+            <p class="card-content">تقدم مؤشراته في السوق المصري والعالمي، وكيف أنه مجال واعد، تسعى إليه الدول الآن وتتنافس فيه.</p>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h4><i class="fas fa-trophy"></i> قدراتنا التنافسية</h4>
+        <p style="color: var(--text-muted); margin-bottom: 15px;">
+            تصف قدراتنا الاستراتيجية والفنية والتنظيمية السابقة، التي ستحقق لنا أن نكون من أفضل من يقدم هذه الخدمة للشركات / المصانع <span class="highlight">بسعر تنافسي</span> وفي آن <span class="highlight">بجودة وسرعة ودعم فني عالٍ</span>.
+        </p>
+        <ul>
+            <li><i class="fas fa-check"></i> خبرة عميقة في التحليل الاستراتيجي والنمذجة التنبؤية</li>
+            <li><i class="fas fa-check"></i> تقنيات متقدمة في المحاكاة الرقمية والتوائم الرقمية</li>
+            <li><i class="fas fa-check"></i> فريق متكامل من المهندسين والاستشاريين والمحللين</li>
+            <li><i class="fas fa-check"></i> دعم فني مستمر وخدمة ما بعد البيع متميزة</li>
+        </ul>
+    </div>
+
+    <!-- القسم الأول: معلومات الشركة الأساسية -->
+    <h2 class="section-title gold"><i class="fas fa-building"></i> هوية الشركة</h2>
+
+    <div class="grid-2">
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-eye"></i></div>
+            <h3 class="card-title">الرؤية</h3>
+            <p class="card-content">أن نكون الشريك الرقمي المفضل لكل صانع قرار يسعى للتميز والاستباقية في عالم متسارع.</p>
+            <div class="card-meta">رؤية استراتيجية طويلة المدى</div>
+        </div>
+
+        <div class="concept-card blue-card">
+            <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+            <h3 class="card-title">الرسالة</h3>
+            <p class="card-content">نحول البيانات المعقدة إلى رؤى واضحة، والتحديات إلى فرص، والأفكار إلى واقع رقمي ملموس.</p>
+            <div class="card-meta">رسالة تحويلية شاملة</div>
+        </div>
+
+        <div class="concept-card green-card">
+            <div class="card-icon"><i class="fas fa-gem"></i></div>
+            <h3 class="card-title">القيم</h3>
+            <p class="card-content">الدقة المصرية القديمة، الابتكار المستمر، الشفافية المطلقة، والشراكة الحقيقية مع عملائنا.</p>
+            <div class="card-meta">قيم أصيلة ومستدامة</div>
+        </div>
+
+        <div class="concept-card purple-card">
+            <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+            <h3 class="card-title">معنى "شبلونة"</h3>
+            <p class="card-content">مصطلح "شبلونة" (Stencil) يُشير إلى قالب أو نموذج مفرغ يُستخدم لنقل تصميم أو نص بدقة وتكرار. في عالم التوائم الرقمية، نصنع "شبلونات" رقمية متقدمة - قوالب ذكية تحمل البيانات والسيناريوهات والتحليلات.</p>
+            <div class="card-meta">من الفكر المصري القديم إلى الثورة الرقمية</div>
+        </div>
+    </div>
+
+    <!-- قصة البراند الكاملة -->
+    <div class="brand-story-section">
+        <h2 class="brand-story-title"><i class="fas fa-book-open"></i> قصة شبلونة الكاملة</h2>
+
+        <div class="brand-story-content">
+            <p>
+                لما رأينا أننا <span class="highlight">لا نستطيع شرح مدى إنجازات الدولة للناس</span>، في المناحي والمتغيرات المختلفة، لعدم وجود <span class="highlight">شبلونة جامعة</span>، فكرنا أولاً في <span class="highlight">شبلونة الحوار المشاعي</span>، لتوصيل إنجازات الدولة، أقوى من أي إنفوجراف، ولمقاومة أي تحليلات مجتزأة خارجة عن السياق من الخبراء الناقدين!
+            </p>
+            <p>
+                ثم تطور الأمر إلى استخدامات جزئية في <span class="highlight">الحواسب الفلكية الدقيقة</span> وفي تقديم <span class="highlight">السيناريوهات الدرامية</span> ببنية رحلة البطل، وفي تقديم الموضوعات العلمية والأدبية في صورة مترابطة تجمع آلاف البحوث في ملخصات واعية!
+            </p>
+            <p>
+                وأخيراً تطور الأمر لمحاولة علاج <span class="highlight">سلاسل الإمداد والقيمة</span> في المصانع والشركات الكبرى، لزيادة مكاسبها وتوفير نفقاتها وأوقاتها وتقليل خسائرها، فكان اشتغالنا في <span class="highlight">التوائم الرقمية</span> وبدء جلبنا لخبرائها وبرمجياتها المعقدة وخبراء الميكاترونكس، على ما هو متعارف عليه في العالم.
+            </p>
+        </div>
+
+        <!-- اللوجو الأساسي: حلزون فيبوناتشي -->
+        <div class="fibonacci-box">
+            <h3 class="fibonacci-title"><i class="fas fa-infinity"></i> اللوجو الأساسي: حلزون فيبوناتشي</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+                حلزون فيبوناتشي ينتشر في <span class="highlight">الكون كله</span>، صانعاً الأجسام الأفلاطونية الخمسة لتكوين العناصر الأربعة (نار، هواء، ماء، أرض) وخامسهم <span class="highlight">الإثير</span>.
+            </p>
+            <p style="color: var(--text-muted);">
+                ورثنا من <span class="highlight">قدماء المصريين</span> هذه الدقة الهندسية التي تجلت في الأهرامات والمعابد، فكان حلزون فيبوناتشي <span class="highlight">الأم</span> الذي تتفرع منه سلسلة براندات شبلونة الخمسة.
+            </p>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(212,175,55,0.1); border-radius: 10px;">
+                <span style="color: var(--gold); font-weight: 700; font-size: 1.2rem;">φ = 1.618...</span>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">النسبة الذهبية التي تنتشر في الكون من حلزون المجرة إلى DNA</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- القسم الثاني: نشاط الشركة المحدث -->
+    <h2 class="section-title blue"><i class="fas fa-briefcase"></i> نشاط الشركة (الصيغة المُحدَّثة)</h2>
+
+    <div class="definition-box" style="border-color: var(--red); background: linear-gradient(135deg, rgba(255,69,0,0.1), rgba(0,0,0,0.3));">
+        <h3 style="color: var(--red);"><i class="fas fa-file-alt"></i> وصف النشاط القانوني المُحسَّن (14 فبراير 2026)</h3>
+        <p style="color: var(--text-light); font-size: 1.1rem; line-height: 2;">
+            "<strong>تصميم وتطوير وإنتاج برمجيات التوائم الرقمية (Digital Twins) وأنظمة المحاكاة الرياضية والنمذجة التنبؤية، مع تقديم حلول التحول الرقمي المتكاملة التي تشمل: تطوير منصات التحليل البياني المتقدم وتمثيل البيانات التفاعلي (Data Visualization & Interactive Storytelling)، تقديم الاستشارات الفنية والتدريب في مجالات الحوسبة السحابية وتحليل البيانات الضخمة وأدوات الذكاء الاصطناعي الموجهة لدعم صناعة القرار، إدارة المفاوضات التقنية والتحالفات الاستراتيجية بين مقدمي التكنولوجيا والمؤسسات الصناعية والخدمية، وتطوير أنظمة إدارة سلاسل القيمة الرقمية (Digital Value Chain Management)."</strong>
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h4><i class="fas fa-check-double"></i> لماذا هذه الصيغة تحقق أقصى استفادة؟</h4>
+        <ul>
+            <li><i class="fas fa-percentage"></i> <strong>ضمان الفائدة المدعومة 5%:</strong> "برمجيات التوائم الرقمية" ضمن أولويات التمويل المدعوم للتحول الرقمي الصناعي</li>
+            <li><i class="fas fa-calculator"></i> <strong>تحسين الحوافز الضريبية:</strong> إعفاء من الدمغة والتوثيق، تأجيل الفحص الضريبي 5 سنوات</li>
+            <li><i class="fas fa-shield-alt"></i> <strong>تجنب تضارب المصالح:</strong> لا يوجد تداخل مع تراخيص NTRA أو MCIT</li>
+            <li><i class="fas fa-sitemap"></i> <strong>تغطية جميع براندات شبلونة الخمسة:</strong> تحتمس الثالث، الحوار المشاعي، أرسطو، كامبل، مواقع النجوم</li>
+        </ul>
+    </div>
+
+    <div class="grid-3">
+        <div class="concept-card orange-card">
+            <div class="card-icon"><i class="fas fa-users"></i></div>
+            <h3 class="card-title">عملاؤنا</h3>
+            <p class="card-content">جميع الشركات والمصانع والهيئات الكبرى وصناع القرار في مصر والعالم، مع إمكانية التوسع إقليمياً وعالمياً.</p>
+        </div>
+
+        <div class="concept-card cyan-card">
+            <div class="card-icon"><i class="fas fa-clipboard-check"></i></div>
+            <h3 class="card-title">فائدة المنتجات</h3>
+            <p class="card-content">غرفة تحكم رقمية كاملة بجميع المؤشرات للتحكم في سير الأعمال، مع القدرة على التنبؤ بآلاف السيناريوهات.</p>
+        </div>
+
+        <div class="concept-card pink-card">
+            <div class="card-icon"><i class="fas fa-leaf"></i></div>
+            <h3 class="card-title">الاستدامة</h3>
+            <p class="card-content">تقليل البصمة الكربونية وإدارة معايير ESG والحفاظ على الطاقة من خلال أنظمتنا الذكية.</p>
+        </div>
+    </div>
+
+    <!-- القسم الثالث: التوأم الرقمي -->
+    <h2 class="section-title cyan"><i class="fas fa-microchip"></i> مفهوم التوأم الرقمي</h2>
+
+    <div class="definition-box">
+        <h3><i class="fas fa-question-circle"></i> ما هو التوأم الرقمي؟</h3>
+        <p>التوأم الرقمي هو <strong>نسخة افتراضية متزامنة وواقعية</strong> لكائن مادي أو عملية أو نظام. يتم إنشاؤه بجمع البيانات من أجهزة استشعار IoT ومحاكاتها باستخدام الذكاء الاصطناعي ومحاكاة مونت كارلو (Monte Carlo Simulation) لتقييم الأداء واستكشاف سيناريوهات "ماذا لو".</p>
+    </div>
+
+    <div class="process-container">
+        <div class="process-step" style="--step-color: var(--gold);">
+            <div class="step-number">1</div>
+            <h4>الجمع والربط</h4>
+            <p>ربط الكائن المادي بأجهزة استشعار IoT لجمع بيانات آنية</p>
+        </div>
+        <div class="process-step" style="--step-color: var(--blue);">
+            <div class="step-number">2</div>
+            <h4>النمذجة</h4>
+            <p>إنشاء نموذج افتراضي متكامل يحاكي سلوك الأصل بدقة</p>
+        </div>
+        <div class="process-step" style="--step-color: var(--green);">
+            <div class="step-number">3</div>
+            <h4>التحليل</h4>
+            <p>استخدام الذكاء الاصطناعي لتقييم الأداء واستكشاف السيناريوهات</p>
+        </div>
+        <div class="process-step" style="--step-color: var(--purple);">
+            <div class="step-number">4</div>
+            <h4>التحسين</h4>
+            <p>اتخاذ قرارات استباقية للصيانة الوقائية وتطوير العمليات</p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--gold); margin: 30px 0 20px; text-align: center;"><i class="fas fa-chart-line"></i> إحصائيات عالمية عن التوائم الرقمية</h3>
+
+    <div class="grid-4">
+        <div class="stat-box" style="--stat-color: var(--gold);">
+            <span class="stat-number">49.2</span>
+            <div class="stat-label">مليار دولار حجم السوق في 2026</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--blue);">
+            <span class="stat-number">35.95%</span>
+            <div class="stat-label">معدل النمو السنوي CAGR حتى 2031</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--green);">
+            <span class="stat-number">70%</span>
+            <div class="stat-label">من قادة التكنولوجيا يستثمرون في التوائم الرقمية</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--red);">
+            <span class="stat-number">25-50%</span>
+            <div class="stat-label">تخفيض في التوقفات غير المخطط لها</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--orange);">
+            <span class="stat-number">15-40%</span>
+            <div class="stat-label">توفير في استهلاك الطاقة</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--cyan);">
+            <span class="stat-number">50%</span>
+            <div class="stat-label">تخفيض في انبعاثات الكربون للمباني</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--purple);">
+            <span class="stat-number">$52M</span>
+            <div class="stat-label">توفير سنوي لشركة يونيليفر في 8 مصانع</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--pink);">
+            <span class="stat-number">15%</span>
+            <div class="stat-label">تحسن في المبيعات والكفاءة التشغيلية</div>
+        </div>
+    </div>
+
+    <!-- القسم الرابع: الفلسفة والأجسام الأفلاطونية -->
+    <h2 class="section-title purple"><i class="fas fa-shapes"></i> فلسفة الأجسام الأفلاطونية الخمسة</h2>
+
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">
+        نستلهم من الحكمة القديمة التي ربطت بين الأجسام الهندسية المثالية والعناصر الكونية - حلقات الوصل بين المادة والروح
+    </p>
+
+    <div class="philosophy-grid">
+        <div class="shape-card" style="--shape-color: var(--red); --shape-clip: polygon(50% 0%, 0% 100%, 100% 100%); --shape-gradient: linear-gradient(135deg, #FF4500, #FF6347);">
+            <div class="shape-icon"><i class="fas fa-fire"></i></div>
+            <h4>النار</h4>
+            <p>الطاقة والتحول</p>
+            <span class="tag tag-red">تحتمس الثالث</span>
+            <p style="font-size: 0.8rem; margin-top: 10px;">4 وجوه مثلثية</p>
+        </div>
+
+        <div class="shape-card" style="--shape-color: var(--green); --shape-clip: none; border-radius: 15px; --shape-gradient: linear-gradient(135deg, #228B22, #32CD32);">
+            <div class="shape-icon" style="border-radius: 15px;"><i class="fas fa-cube"></i></div>
+            <h4>الأرض</h4>
+            <p>الاستقرار والبنية</p>
+            <span class="tag tag-green">أرسطو</span>
+            <p style="font-size: 0.8rem; margin-top: 10px;">6 وجوه مربعة</p>
+        </div>
+
+        <div class="shape-card" style="--shape-color: var(--gold); --shape-clip: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); --shape-gradient: linear-gradient(135deg, #FFD700, #FFA500);">
+            <div class="shape-icon"><i class="fas fa-wind"></i></div>
+            <h4>الهواء</h4>
+            <p>التواصل والحركة</p>
+            <span class="tag tag-gold">الحوار المشاعي</span>
+            <p style="font-size: 0.8rem; margin-top: 10px;">8 وجوه مثلثية</p>
+        </div>
+
+        <div class="shape-card" style="--shape-color: var(--blue); --shape-clip: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); --shape-gradient: linear-gradient(135deg, #1E90FF, #00BFFF);">
+            <div class="shape-icon"><i class="fas fa-water"></i></div>
+            <h4>الماء</h4>
+            <p>العاطفة والتكيف</p>
+            <span class="tag tag-blue">كامبل</span>
+            <p style="font-size: 0.8rem; margin-top: 10px;">20 وجهاً مثلثياً</p>
+        </div>
+
+        <div class="shape-card" style="--shape-color: var(--purple); --shape-clip: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); --shape-gradient: linear-gradient(135deg, #9932CC, #BA55D3);">
+            <div class="shape-icon"><i class="fas fa-star"></i></div>
+            <h4>الإثير</h4>
+            <p>الكون والكمال</p>
+            <span class="tag tag-purple">مواقع النجوم</span>
+            <p style="font-size: 0.8rem; margin-top: 10px;">12 وجه خماسي</p>
+        </div>
+    </div>
+
+    <!-- القسم الخامس: البراندات الخمسة -->
+    <h2 class="section-title red"><i class="fas fa-cubes"></i> عائلة شبلونة - خمسة براندات</h2>
+
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">
+        خمسة براندات فرعية مشتقة من <span class="highlight">حلزون فيبوناتشي الأم</span>، كل منها يحمل DNA شبلونة مع تخصص فريد
+    </p>
+
+    <!-- Brand 1: Thutmose III -->
+    <h3 style="color: var(--red); margin: 40px 0 20px; font-size: 1.5rem;"><i class="fas fa-fire"></i> 1. شبلونة تحتمس الثالث (النار)</h3>
+
+    <div class="grid-2">
+        <div class="concept-card red-card">
+            <div class="card-icon"><i class="fas fa-chess-king"></i></div>
+            <h3 class="card-title">الاستراتيجية المتقدمة</h3>
+            <p class="card-content">أقوى براندات شبلونة، مستوحى من الملك العظيم <strong>تحتمس الثالث</strong>، أعظم استراتيجيي التاريخ. نقدم أدوات تحليل استراتيجي قوية للمتخذ القرار الاستراتيجي (وليس العادي)، مع تخطيط طويل المدى يمتد لسنوات.</p>
+            <div class="card-meta">عنصر النار - الجسيم الناري (Tetrahedron)</div>
+        </div>
+
+        <div class="info-box" style="border-color: var(--red); background: linear-gradient(135deg, rgba(255,69,0,0.1), rgba(0,0,0,0.3));">
+            <h4 style="color: var(--red);"><i class="fas fa-crown"></i> الملك تحتمس الثالث</h4>
+            <ul style="list-style: none;">
+                <li style="border-color: rgba(255,69,0,0.3);"><i class="fas fa-check" style="color: var(--red);"></i> أقوى استراتيجي في التاريخ المصري القديم</li>
+                <li style="border-color: rgba(255,69,0,0.3);"><i class="fas fa-check" style="color: var(--red);"></i> 17 حملة عسكرية ناجحة</li>
+                <li style="border-color: rgba(255,69,0,0.3);"><i class="fas fa-check" style="color: var(--red);"></i> 54 سنة حكم مزدهر</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="story-box red">
+        <h5><i class="fas fa-microchip"></i> مونت كارلو والذكاء الاصطناعي</h5>
+        <p><strong>مونت كارلو وما تطور عنها</strong> هي لشبلونة التوأم الرقمي عموماً، لكن شبلونة تحتمس تتميز بـ<strong>زيادة أدوات التحليل الاستراتيجي القوية</strong> لمتخذ القرار الاستراتيجي. نستخدم محاكاة مونت كارلو مع آلاف السيناريوهات الأوتوماتيكية، متعانقاً مع الذكاء الاصطناعي وبرمجيات قوية وحساسات متطورة بالميكاترونكس.</p>
+    </div>
+
+    <!-- قصة ماذا لو - تحتمس الثالث -->
+    <div class="what-if-story">
+        <h4><i class="fas fa-chess-board"></i> ماذا لو كان لديك رؤية استراتيجية تسبق الأحداث بسنوات؟</h4>
+        <p>
+            تخيل مصنع سيراميك مصري كبير يواجه تقلبات في أسعار الغاز الطبيعي وتوصيلات التصدير. باستخدام <span class="highlight">شبلونة تحتمس الثالث</span>، تم بناء توأم رقمي لسلسلة الإمداد بالكامل. المحاكاة توقعت أزمة الغاز قبل 6 أشهر واقترحت بدائل الطاقة الشمسية والغاز الحيوي. 
+            <br><br>
+            <strong>النتيجة:</strong> <span class="highlight">توفير 35% في تكاليف الطاقة</span> وضمان استمرارية الإنتاج خلال الأزمة، بينما المنافسين توقفوا.
+        </p>
+    </div>
+
+    <div class="info-box" style="border-color: var(--red); background: linear-gradient(135deg, rgba(255,69,0,0.05), transparent);">
+        <h4 style="color: var(--red);"><i class="fas fa-users"></i> العملاء المستهدفون</h4>
+        <ul>
+            <li><i class="fas fa-check" style="color: var(--red);"></i> كبار صناع القرار الاستراتيجيين (CEO, COO, CFO)</li>
+            <li><i class="fas fa-check" style="color: var(--red);"></i> مديرو سلاسل الإمداد واللوجستيات</li>
+            <li><i class="fas fa-check" style="color: var(--red);"></i> شركات الاستيراد والتصدير</li>
+            <li><i class="fas fa-check" style="color: var(--red);"></i> المستثمرون في القطاع الصناعي والعقاري</li>
+        </ul>
+    </div>
+
+    <!-- Brand 2: Dialogue -->
+    <h3 style="color: var(--gold); margin: 40px 0 20px; font-size: 1.5rem;"><i class="fas fa-wind"></i> 2. الحوار المشاعي (الهواء)</h3>
+
+    <div class="grid-2">
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-comments"></i></div>
+            <h3 class="card-title">UI/UX المتقدم للتواصل</h3>
+            <p class="card-content">نحل مشكلة نقص التواصل بين <strong>صناع القرار</strong> والجمهور والخبراء. نصيغ واجهات مستخدم متقدمة لنشر النماذج التنبؤية والبيانات بأسلوب تفاعلي جذاب، <strong>أقوى من أي إنفوجراف</strong>، ولمقاومة أي تحليلات مجتزأة خارجة عن السياق.</p>
+            <div class="card-meta">عنصر الهواء - الجسيم الهوائي (Octahedron)</div>
+        </div>
+
+        <div class="info-box" style="border-color: var(--gold);">
+            <h4><i class="fas fa-lightbulb"></i> ولادة الفكرة</h4>
+            <p style="font-size: 1.1rem; color: var(--text-muted); margin-top: 15px;">
+                ولدت شبلونة الحوار المشاعي من <span class="highlight">قصتنا نحن</span>: عندما رأينا أننا لا نستطيع شرح مدى إنجازات الدولة للناس في المناحي والمتغيرات المختلفة، لعدم وجود شبلونة جامعة. كانت هذه البداية!
+            </p>
+        </div>
+    </div>
+
+    <!-- قصة ماذا لو - الحوار المشاعي -->
+    <div class="what-if-story" style="--shape-color: var(--gold); border-color: var(--gold);">
+        <h4 style="color: var(--gold);"><i class="fas fa-comments"></i> ماذا لو استطعت توصيل رسالتك للجمهور بشكل يفوق الخيال؟</h4>
+        <p>
+            بنك استثماري كبير كان يواجه صعوبة في توصيل تقارير التحليل المالي المعقدة لعملائه من الأفراد. باستخدام <span class="highlight" style="color: var(--gold);">الحوار المشاعي</span>، تم تحويل البيانات إلى واجهة تفاعلية ثلاثية الأبعاد. العملاء أصبحوا يستطيعون "اللعب" بالسيناريوهات المالية ويرون تأثير القرارات مباشرة.
+            <br><br>
+            <strong>النتيجة:</strong> <span class="highlight" style="color: var(--gold);">زيادة 45% في ثقة العملاء</span> وانخفاض 60% في استفسارات مركز الاتصال.
+        </p>
+    </div>
+
+    <div class="info-box" style="border-color: var(--gold);">
+        <h4 style="color: var(--gold);"><i class="fas fa-users"></i> العملاء المستهدفون</h4>
+        <ul>
+            <li><i class="fas fa-check" style="color: var(--gold);"></i> صناع القرار والخبراء المحللين والنقاد</li>
+            <li><i class="fas fa-check" style="color: var(--gold);"></i> الجهات الحكومية والمؤسسات الكبرى</li>
+            <li><i class="fas fa-check" style="color: var(--gold);"></i> الباحثين عن أدوات تواصل بصرية متقدمة</li>
+        </ul>
+    </div>
+
+    <!-- Brand 3: Aristotle -->
+    <h3 style="color: var(--green); margin: 40px 0 20px; font-size: 1.5rem;"><i class="fas fa-cube"></i> 3. شبلونة أرسطو (الأرض)</h3>
+
+    <div class="grid-2">
+        <div class="concept-card green-card">
+            <div class="card-icon"><i class="fas fa-brain"></i></div>
+            <h3 class="card-title">المفاهيمية التفاعلية</h3>
+            <p class="card-content">نقدم <strong>خرائط مفاهيمية تفاعلية</strong> متقدمة، بديلة قوية عن الإنفوجرافيك التقليدي. نبني المعرفة على أسس صلبة ومنطقية كالمكعب، مع إمكانية التخصيص والتوسع المستمر.</p>
+            <div class="card-meta">عنصر الأرض - الجسيم الترابي (Cube)</div>
+        </div>
+
+        <div class="info-box" style="border-color: var(--green); background: linear-gradient(135deg, rgba(50,205,50,0.1), transparent);">
+            <h4 style="color: var(--green);"><i class="fas fa-graduation-cap"></i> أرسطو - أبو المنطق</h4>
+            <p style="color: var(--text-muted);">نقدم الموضوعات العلمية والأدبية في <span class="highlight" style="color: var(--green);">صورة مترابطة</span> تجمع <span class="highlight" style="color: var(--green);">آلاف البحوث في ملخصات واعية</span>! للجمهور العادي والمتعلمين في أي مجال، الباحثين عن شبلونات مفاهيمية جامعة ومترابطة.</p>
+        </div>
+    </div>
+
+    <!-- قصة ماذا لو - أرسطو -->
+    <div class="what-if-story" style="--shape-color: var(--green); border-color: var(--green);">
+        <h4 style="color: var(--green);"><i class="fas fa-brain"></i> ماذا لو استطعت تعلم أي موضوع معقد في دقائق معدودة؟</h4>
+        <p>
+            شركة أدوية كانت تكافح لشرح آلية عمل دواء جديد معقد لكبار الأطباء والصيادلة. بدلاً من العروض التقليدية، استخدمت <span class="highlight" style="color: var(--green);">شبلونة أرسطو</span> لبناء خريطة مفاهيمية تفاعلية للجزيئات والتفاعلات. الأطباء تفاعلوا مع النموذج مباشرة وفهموا آلية العمل في <span class="highlight" style="color: var(--green);">10 دقائق بدلاً من ساعة</span>.
+            <br><br>
+            <strong>النتيجة:</strong> <span class="highlight" style="color: var(--green);">ارتفاع المبيعات 80%</span> في الربع الأول بعد إطلاق الدواء.
+        </p>
+    </div>
+
+    <div class="info-box" style="border-color: var(--green);">
+        <h4 style="color: var(--green);"><i class="fas fa-users"></i> العملاء المستهدفون</h4>
+        <ul>
+            <li><i class="fas fa-check" style="color: var(--green);"></i> أي أحد من الناس عموماً يهوى موضوعاً معيناً</li>
+            <li><i class="fas fa-check" style="color: var(--green);"></i> الباحثين عن جمع مفاهيمهم من آلاف المصادر</li>
+            <li><i class="fas fa-check" style="color: var(--green);"></i> الطلاب والباحثين والمهتمين بالتعلم المستمر</li>
+        </ul>
+    </div>
+
+    <!-- Brand 4: Campbell -->
+    <h3 style="color: var(--blue); margin: 40px 0 20px; font-size: 1.5rem;"><i class="fas fa-water"></i> 4. شبلونة كامبل (الماء)</h3>
+
+    <div class="grid-2">
+        <div class="concept-card blue-card">
+            <div class="card-icon"><i class="fas fa-theater-masks"></i></div>
+            <h3 class="card-title">السيناريوهات الدرامية</h3>
+            <p class="card-content">شبلونات لـ<strong>سيناريوهات درامية كاملة</strong>، مصاغة من خبراء في حرفية السيناريو وبنيته ومناهجه. يوسف كامبل مؤسس <strong>نظرية البطل</strong> التي يعتمد عليها السيناريستات الجدد كثيراً باعتبارها جامعة لمعظم السيناريوهات.</p>
+            <div class="card-meta">عنصر الماء - الجسيم المائي (Icosahedron)</div>
+        </div>
+
+        <div class="info-box" style="border-color: var(--blue); background: linear-gradient(135deg, rgba(30,144,255,0.1), transparent);">
+            <h4 style="color: var(--blue);"><i class="fas fa-user-tie"></i> يوسف كامبل</h4>
+            <p style="color: var(--text-muted);">مؤسس نظرية البطل (Hero's Journey) - أسلوب سردي قوي يحول أي رحلة إلى قصة درامية مؤثرة.</p>
+        </div>
+    </div>
+
+    <!-- قصة ماذا لو - كامبل -->
+    <div class="what-if-story" style="--shape-color: var(--blue); border-color: var(--blue);">
+        <h4 style="color: var(--blue);"><i class="fas fa-film"></i> ماذا لو استطعت عرض عملك الدرامي بأسلوب يأسر المنتجين؟</h4>
+        <p>
+            شركة عقارات كانت تخطط لإطلاق مشروع سكني ضخم. بدلاً من التحليل التقليدي، استخدمت <span class="highlight" style="color: var(--blue);">شبلونة كامبل</span> لبناء سيناريو درامي للمشروع كـ"رحلة بطل" للعميل من البحث عن منزل إلى السكن. تم اكتشاف 3 نقاط ألم مخفية لم تكن واضحة في التحليل التقليدي.
+            <br><br>
+            <strong>النتيجة:</strong> بعد معالجتها، <span class="highlight" style="color: var(--blue);">زادت مبيعات المرحلة الأولى 120%</span> عن التوقعات.
+        </p>
+    </div>
+
+    <div class="info-box" style="border-color: var(--blue);">
+        <h4 style="color: var(--blue);"><i class="fas fa-users"></i> العملاء المستهدفون</h4>
+        <ul>
+            <li><i class="fas fa-check" style="color: var(--blue);"></i> كتاب الدراما الراغبين في تقديم أعمالهم لشركات الإنتاج</li>
+            <li><i class="fas fa-check" style="color: var(--blue);"></i> شركات الإنتاج التي تريد تلخيص أعمال مقدمة إليها</li>
+            <li><i class="fas fa-check" style="color: var(--blue);"></i> المخرجين والمنتجين الباحثين عن أدوات عرض متقدمة</li>
+        </ul>
+    </div>
+
+    <!-- Brand 5: Stars -->
+    <h3 style="color: var(--purple); margin: 40px 0 20px; font-size: 1.5rem;"><i class="fas fa-star"></i> 5. شبلونة مواقع النجوم (الإثير)</h3>
+
+    <div class="grid-2">
+        <div class="concept-card purple-card">
+            <div class="card-icon"><i class="fas fa-moon"></i></div>
+            <h3 class="card-title">الحواسب الفلكية المتقدمة</h3>
+            <p class="card-content"><strong>"فلا أقسم بمواقع النجوم"</strong><br>حواسب فلكية قوية تنافس أعتى شبلونات الحساب الفلكي بالخارج. توائم رقمية للفلك وحركته، لحساب مواقيت الصلاة والقبلة بدقة عالية.</p>
+            <div class="card-meta">عنصر الإثير - جسيم الإثير (Dodecahedron)</div>
+        </div>
+
+        <div class="info-box" style="border-color: var(--purple); background: linear-gradient(135deg, rgba(153,50,204,0.1), transparent);">
+            <h4 style="color: var(--purple);"><i class="fas fa-exclamation-triangle"></i> مشكلة في الأسترولوجي</h4>
+            <p style="color: var(--text-muted);">بعض من يتصدون للأسترولوجي في وسائل الإعلام <span class="highlight" style="color: var(--purple);">يجهلون اختلاف مواقع الراصد</span>، ويجهلون بعض <span class="highlight" style="color: var(--purple);">الإزاحات في الأفلاك عبر السنين</span>، مما يعطي <span class="highlight" style="color: var(--purple);">قراءات خاطئة</span>! نحن نقدم الدقة الحقيقية.</p>
+        </div>
+    </div>
+
+    <!-- قصة ماذا لو - مواقع النجوم (المعدلة) -->
+    <div class="what-if-story" style="--shape-color: var(--purple); border-color: var(--purple);">
+        <h4 style="color: var(--purple);"><i class="fas fa-star"></i> ماذا لو كانت جميع قراءاتك الفلكية خاطئة بسبب إزاحة دقيقة قوسية؟</h4>
+        <p>
+            تخيل حاسب فلكي مشهور يقرأ النجوم ودلالتها في برامج الإعلام والسوشيال، ثم يفاجأ أن <span class="highlight" style="color: var(--purple);">كل قراءاته خاطئة</span> نتيجة إزاحة دائرة البروج السنوية بمقدار <strong>1 دقيقة قوسية وكسور 3 ثوانٍ و33 ثالثة قوسية</strong>!
+        </p>
+        
+        <div class="precession-highlight">
+            <span class="value">1' 3.33"</span>
+            <span class="label">معدل الإزاحة السنوية لدائرة البروج (Precession of the Equinoxes)</span>
+        </div>
+        
+        <p>
+            هذه الإزاحة الصغيرة التي يتجاهلها الكثيرون تتراكم مع الزمن لتُحدث فرقاً جوهرياً في المواقع الفلكية. مسجد جديد في القاهرة الجديدة كان يواجه مشكلة في تحديد القبلة بدقة بسبب هذا التغير الدقيق والانحراف المغناطيسي. باستخدام <span class="highlight" style="color: var(--purple);">شبلونة مواقع النجوم</span>، تم بناء توأم رقمي للموقع يأخذ في الاعتبار <strong>إزاحة دائرة البروج</strong> والميلانات الهندسية والانحرافات المغناطيسية.
+            <br><br>
+            <strong>النتيجة:</strong> <span class="highlight" style="color: var(--purple);">دقة 0.01 درجة</span> في تحديد القبلة، ومواقيت صلاة دقيقة لـ 50 سنة قادمة مع مراعاة التوقيت الصيفي والشتوي والإزاحات الفلكية المستمرة.
+        </p>
+    </div>
+
+    <div class="info-box" style="border-color: var(--purple);">
+        <h4 style="color: var(--purple);"><i class="fas fa-users"></i> العملاء المستهدفون</h4>
+        <ul>
+            <li><i class="fas fa-check" style="color: var(--purple);"></i> الفلكيين المتكلمين في البرامج ووسائل الإعلام والسوشيال</li>
+            <li><i class="fas fa-check" style="color: var(--purple);"></i> الباحثين عن حسابات فلكية دقيقة وتعوزهم الدقة الفلكية</li>
+            <li><i class="fas fa-check" style="color: var(--purple);"></i> المساجد والمؤسسات الدينية لحساب القبلة والمواقيت بدقة</li>
+        </ul>
+    </div>
+
+    <!-- القسم السادس: المنتجات -->
+    <h2 class="section-title orange"><i class="fas fa-box-open"></i> حافظة المنتجات</h2>
+
+    <div class="grid-3">
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-gift"></i></div>
+            <h3 class="card-title">نموذج B2B التعريفي</h3>
+            <p class="card-content">نموذج توأم رقمي متعدد الصفحات للشركات والمصانع، يعرض إمكانيات التحول الرقمي.</p>
+            <div class="card-meta"><span class="tag tag-gold">مجاني</span> <span class="tag">HTML</span></div>
+        </div>
+
+        <div class="concept-card red-card">
+            <div class="card-icon"><i class="fas fa-chess"></i></div>
+            <h3 class="card-title">شبلونة تحتمس الثالث - الاستراتيجية العسكرية</h3>
+            <p class="card-content">أدوات تحليل استراتيجي متقدمة مستوحاة من tactics تحتمس الثالث.</p>
+            <div class="card-meta"><span class="tag tag-red">$299</span> <span class="tag">Premium</span></div>
+        </div>
+
+        <div class="concept-card gold-card">
+            <div class="card-icon"><i class="fas fa-comments"></i></div>
+            <h3 class="card-title">شبلونة الحوار المشاعي - UI/UX</h3>
+            <p class="card-content">واجهات تفاعلية لنشر البيانات والنماذج التنبؤية للجمهور.</p>
+            <div class="card-meta"><span class="tag tag-gold">$149</span> <span class="tag">B2C</span></div>
+        </div>
+
+        <div class="concept-card green-card">
+            <div class="card-icon"><i class="fas fa-brain"></i></div>
+            <h3 class="card-title">شبلونة أرسطو - المفاهيمية</h3>
+            <p class="card-content">خرائط مفاهيم تفاعلية بديلة عن الإنفوجرافيك التقليدي.</p>
+            <div class="card-meta"><span class="tag tag-green">$99</span> <span class="tag">Fintech</span></div>
+        </div>
+
+        <div class="concept-card blue-card">
+            <div class="card-icon"><i class="fas fa-film"></i></div>
+            <h3 class="card-title">شبلونة كامبل - السيناريو الدرامي</h3>
+            <p class="card-content">سيناريوهات درامية كاملة بأسلوب جديد غير مسبوق.</p>
+            <div class="card-meta"><span class="tag tag-blue">$199</span> <span class="tag">Creative</span></div>
+        </div>
+
+        <div class="concept-card purple-card">
+            <div class="card-icon"><i class="fas fa-star"></i></div>
+            <h3 class="card-title">شبلونة مواقع النجوم - الفلكية</h3>
+            <p class="card-content">حاسبة فلكية متقدمة لمواقيت الصلاة والقبلة والرزمانات مع مراعاة إزاحة دائرة البروج.</p>
+            <div class="card-meta"><span class="tag tag-purple">$499</span> <span class="tag">Astronomy</span></div>
+        </div>
+    </div>
+
+    <!-- القسم السابع: الإحصائيات -->
+    <h2 class="section-title green"><i class="fas fa-chart-pie"></i> إحصائيات الشركة</h2>
+
+    <div class="grid-4">
+        <div class="stat-box" style="--stat-color: var(--gold);">
+            <span class="stat-number">26+</span>
+            <div class="stat-label">شبلونة جاهزة</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--blue);">
+            <span class="stat-number">5</span>
+            <div class="stat-label">براندات فرعية</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--green);">
+            <span class="stat-number">φ</span>
+            <div class="stat-label">النسبة الذهبية</div>
+        </div>
+        <div class="stat-box" style="--stat-color: var(--purple);">
+            <span class="stat-number">∞</span>
+            <div class="stat-label">إمكانيات التخصيص</div>
+        </div>
+    </div>
+
+    <!-- القسم الثامن: التواصل -->
+    <h2 class="section-title cyan"><i class="fas fa-address-card"></i> معلومات التواصل</h2>
+
+    <div class="contact-bar">
+        <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-info">
+                <strong>العنوان</strong>
+                <span>3 ش الأنصار، بجوار محطة البحوث، الدقي، الجيزة، مصر</span>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-info">
+                <strong>واتساب</strong>
+                <span>01090448295</span>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-info">
+                <strong>البريد الإلكتروني</strong>
+                <span>Info@Shabllona.org</span>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+            <div class="contact-info">
+                <strong>الموقع الإلكتروني</strong>
+                <span>Shabllona.org</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 شركة شبلونة لحلول التوأمة الرقمية. جميع الحقوق محفوظة.</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">حلول التوأمة الرقمية المتقدمة - نحول رؤيتك إلى واقع رقمي متكامل</p>
+    </footer>
+
+</body>
+</html>

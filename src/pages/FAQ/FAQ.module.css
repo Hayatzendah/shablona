@@ -1,0 +1,141 @@
+.hero {
+  padding-top: calc(var(--navbar-height) + 60px);
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--primary-gold);
+  margin-bottom: 16px;
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 550px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* FAQ section */
+.faqSection {
+  padding: 20px 0 60px;
+}
+
+.faqWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* CTA section */
+.ctaSection {
+  padding: 20px 0 80px;
+}
+
+.ctaBox {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(30, 58, 95, 0.4));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--border-radius);
+  padding: 48px 32px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-gold);
+  margin-bottom: 12px;
+}
+
+.ctaText {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.ctaButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.ctaBtn:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+}
+
+.ctaBtnOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--primary-gold);
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: 2px solid var(--primary-gold);
+  transition: background-color var(--transition-speed), transform var(--transition-speed), color var(--transition-speed);
+}
+
+.ctaBtnOutline:hover {
+  background: rgba(212, 175, 55, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .pageTitle {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: calc(var(--navbar-height) + 40px);
+    padding-bottom: 24px;
+  }
+
+  .pageTitle {
+    font-size: 1.8rem;
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+  }
+
+  .ctaBox {
+    padding: 32px 20px;
+  }
+
+  .ctaTitle {
+    font-size: 1.3rem;
+  }
+
+  .ctaBtn,
+  .ctaBtnOutline {
+    padding: 12px 24px;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

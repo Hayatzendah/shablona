@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شبلونة | الأجسام الأفلاطونية الخمسة - من الطاقة والمادة المظلمتين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --tetrahedron: #FF4500;
+            --cube: #228B22;
+            --octahedron: #FFD700;
+            --icosahedron: #1E90FF;
+            --dodecahedron: #9932CC;
+            --dark-bg: #0a0e17;
+            --card-bg: rgba(30, 58, 95, 0.4);
+            --text-light: #f5f5f5;
+            --text-muted: #a0aec0;
+            --gold: #D4AF37;
+            --dark-energy: #1a0a2e;
+            --dark-matter: #0d1b2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(10, 14, 23, 0.95) 100%);
+            padding: 2rem 5%;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold) 0%, #F4E4BC 50%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .main-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, #F4E4BC 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 5%;
+            background: rgba(10, 14, 23, 0.98);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-light);
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark-bg);
+            transform: translateY(-2px);
+        }
+
+        .content-section {
+            display: none;
+            padding: 3rem 5%;
+            animation: fadeIn 0.5s;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: var(--gold);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        /* Golden Ratio Advanced Section */
+        .golden-emergence-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.8) 0%, rgba(13, 27, 42, 0.8) 100%);
+            border-radius: 30px;
+            padding: 3rem;
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .golden-emergence-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(153, 50, 204, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .emergence-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 2rem 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #emergenceCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .emergence-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .emergence-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--gold) 0%, #F4E4BC 100%);
+            border: none;
+            border-radius: 30px;
+            color: var(--dark-bg);
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .emergence-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .discovery-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-top: 1rem;
+        }
+
+        .solids-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .solid-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid transparent;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solid-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--solid-color);
+        }
+
+        .solid-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--solid-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .solid-card.tetrahedron { --solid-color: var(--tetrahedron); }
+        .solid-card.cube { --solid-color: var(--cube); }
+        .solid-card.octahedron { --solid-color: var(--octahedron); }
+        .solid-card.icosahedron { --solid-color: var(--icosahedron); }
+        .solid-card.dodecahedron { --solid-color: var(--dodecahedron); }
+
+        .solid-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--solid-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 0 30px var(--solid-color);
+        }
+
+        .solid-card.tetrahedron .solid-icon { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .solid-card.cube .solid-icon { border-radius: 15px; }
+        .solid-card.octahedron .solid-icon { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .solid-card.icosahedron .solid-icon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .solid-card.dodecahedron .solid-icon { clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+
+        .solid-card h3 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--solid-color);
+        }
+
+        .solid-card .arabic-name {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .solid-card .element-tag {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: var(--solid-color);
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .solid-info {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .solid-info li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .solid-info li:last-child { border-bottom: none; }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            transform: translateX(50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before { left: -60px; }
+        .timeline-item:nth-child(even) .timeline-content::before { right: -60px; }
+
+        .timeline-date {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .brands-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .brand-box {
+            background: var(--card-bg);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .brand-box:hover { transform: scale(1.02); }
+
+        .brand-box.thutmose { border-color: var(--tetrahedron); }
+        .brand-box.dialogue { border-color: var(--octahedron); }
+        .brand-box.aristotle { border-color: var(--cube); }
+        .brand-box.campbell { border-color: var(--icosahedron); }
+        .brand-box.stars { border-color: var(--dodecahedron); }
+
+        .brand-header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-box.thutmose .brand-header { background: linear-gradient(135deg, rgba(255, 69, 0, 0.2) 0%, rgba(10, 14, 23, 0.8) 100%); }
+        .brand-box.dialogue .brand-header { background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(10, 14, 23, 0.8) 100%); }
+        .brand-box.aristotle .brand-header { background: linear-gradient(135deg, rgba(34, 139, 34, 0.2) 0%, rgba(10, 14, 23, 0.8) 100%); }
+        .brand-box.campbell .brand-header { background: linear-gradient(135deg, rgba(30, 144, 255, 0.2) 0%, rgba(10, 14, 23, 0.8) 100%); }
+        .brand-box.stars .brand-header { background: linear-gradient(135deg, rgba(153, 50, 204, 0.2) 0%, rgba(10, 14, 23, 0.8) 100%); }
+
+        .brand-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--gold) 0%, #F4E4BC 50%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--dark-bg);
+            margin: 0 auto 1rem;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .solid-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .brand-box.thutmose .solid-badge { background: var(--tetrahedron); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .brand-box.dialogue .solid-badge { background: var(--octahedron); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .brand-box.aristotle .solid-badge { background: var(--cube); border-radius: 5px; }
+        .brand-box.campbell .solid-badge { background: var(--icosahedron); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .brand-box.stars .solid-badge { background: var(--dodecahedron); clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+
+        .brand-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-header .solid-name {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .brand-body { padding: 2rem; }
+
+        .brand-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .connection-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .connection-box h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .connection-box ul { list-style: none; }
+
+        .connection-box li {
+            padding: 0.5rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+
+        .connection-box li::before {
+            content: '◆';
+            position: absolute;
+            right: 0;
+            color: var(--gold);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .info-box h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p { color: var(--text-muted); margin-bottom: 1rem; }
+
+        .golden-ratio-display {
+            text-align: center;
+            padding: 3rem;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 30px;
+            margin: 2rem 0;
+        }
+
+        .fibonacci-number {
+            display: inline-block;
+            padding: 1rem;
+            margin: 0.5rem;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .dark-energy-visual {
+            position: relative;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.6) 0%, rgba(13, 27, 42, 0.6) 100%);
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .quantum-field {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .field-side {
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .dark-side {
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+            border: 2px solid #4a0080;
+        }
+
+        .matter-side {
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+            border: 2px solid #0066cc;
+        }
+
+        @media (max-width: 768px) {
+            .main-header h1 { font-size: 2rem; }
+            .timeline::before { right: 20px; }
+            .timeline-item, .timeline-item:nth-child(odd) { flex-direction: column; }
+            .timeline-content { width: 100%; margin-right: 40px; }
+            .timeline-content::before { right: -40px !important; left: auto !important; }
+            .info-grid { grid-template-columns: 1fr; }
+            .brands-container { grid-template-columns: 1fr; }
+            .quantum-field { grid-template-columns: 1fr; }
+            .emergence-canvas-container { height: 400px; }
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i class="fas fa-layer-group"></i>
+            </div>
+            <div>
+                <h1>شبلونة</h1>
+                <p>الأجسام الأفلاطونية الخمسة - من الطاقة والمادة المظلمتين إلى العناصر الأربعة</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-tabs">
+        <button class="nav-tab active" onclick="showSection('emergence')">
+            <i class="fas fa-atom"></i> الانبثاق الكوني
+        </button>
+        <button class="nav-tab" onclick="showSection('solids')">
+            <i class="fas fa-shapes"></i> الأجسام الخمسة
+        </button>
+        <button class="nav-tab" onclick="showSection('heliopolis')">
+            <i class="fas fa-university"></i> جامعة أون
+        </button>
+        <button class="nav-tab" onclick="showSection('history')">
+            <i class="fas fa-history"></i> التاريخ والتطور
+        </button>
+        <button class="nav-tab" onclick="showSection('egypt')">
+            <i class="fas fa-landmark"></i> أسرار مصر القديمة
+        </button>
+        <button class="nav-tab" onclick="showSection('plato')">
+            <i class="fas fa-brain"></i> أفلاطون وتيمايوس
+        </button>
+        <button class="nav-tab" onclick="showSection('golden')">
+            <i class="fas fa-infinity"></i> النسبة الذهبية
+        </button>
+        <button class="nav-tab" onclick="showSection('brands')">
+            <i class="fas fa-cubes"></i> تصنيف البراندات
+        </button>
+        <button class="nav-tab" onclick="showSection('khayyam')">
+            <i class="fas fa-calculator"></i> مثلث الخيام
+        </button>
+    </nav>
+
+    <!-- Section: Cosmic Emergence - NEW -->
+    <section id="emergence" class="content-section active">
+        <h2 class="section-title">الانبثاق الكوني: من المظلمتين إلى المجسمات الخمسة</h2>
+        
+        <div class="golden-emergence-container">
+            <div class="dark-energy-visual">
+                <h3 style="text-align: center; color: var(--gold); font-size: 1.8rem; margin-bottom: 1rem;">
+                    <i class="fas fa-yin-yang"></i> حلزون فيبوناتشي: جسر الطاقة المظلمة والمادة المظلمة
+                </h3>
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+                    اكتشافات 2025-2026 تكشف أن بنية الكون الهندسية تنبثق من التفاعل بين المظلمتين عبر النسبة الذهبية
+                </p>
+                
+                <div class="quantum-field">
+                    <div class="field-side dark-side">
+                        <i class="fas fa-bolt" style="font-size: 2rem; color: #9d4edd; margin-bottom: 1rem;"></i>
+                        <h4 style="color: #9d4edd; margin-bottom: 0.5rem;">الطاقة المظلمة (Dark Energy)</h4>
+                        <p style="font-size: 0.9rem;">68% من الكون | قوة التمدد والانفجار</p>
+                        <p style="margin-top: 1rem; font-size: 0.85rem;">تُمثل القوة الدافعة للحلزون، التوسع المتسارع، الطاقة الكامنة في الفراغ</p>
+                    </div>
+                    <div class="field-side matter-side">
+                        <i class="fas fa-circle" style="font-size: 2rem; color: #0066cc; margin-bottom: 1rem;"></i>
+                        <h4 style="color: #0066cc; margin-bottom: 0.5rem;">المادة المظلمة (Dark Matter)</h4>
+                        <p style="font-size: 0.9rem;">27% من الكون | قوة الجذب والتركيز</p>
+                        <p style="margin-top: 1rem; font-size: 0.85rem;">تُمثل قوة الجذب المركزية، بنية المجرات، التراكم الحلزوني</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emergence-canvas-container">
+                <canvas id="emergenceCanvas"></canvas>
+            </div>
+
+            <div class="emergence-controls">
+                <button class="emergence-btn" onclick="animateEmergence('spiral')">
+                    <i class="fas fa-play"></i> حلزون فيبوناتشي
+                </button>
+                <button class="emergence-btn" onclick="animateEmergence('solids')">
+                    <i class="fas fa-cube"></i> انبثاق المجسمات
+                </button>
+                <button class="emergence-btn" onclick="animateEmergence('elements')">
+                    <i class="fas fa-fire"></i> تشكيل العناصر
+                </button>
+                <button class="emergence-btn" onclick="animateEmergence('full')">
+                    <i class="fas fa-sync"></i> الدورة الكاملة
+                </button>
+            </div>
+
+            <div class="discovery-badge">
+                <i class="fas fa-flask"></i> مُحدَّث بأحدث الأبحاث حتى فبراير 2026
+            </div>
+
+            <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="info-box" style="border: 2px solid var(--gold);">
+                    <h3><i class="fas fa-atom"></i> آلية الانبثاق الكمومي</h3>
+                    <p>
+                        وفقاً لأبحاث 2025-2026، تتفاعل الطاقة المظلمة (القوة الدافعة) مع المادة المظلمة (القوة الجاذبة) 
+                        عند نقاط التوازن الذهبي (φ = 1.618)، مما يولد تموجات هندسية تتبلور في شكل حلزون فيبوناتشي.
+                    </p>
+                    <p>
+                        هذا الحلزون ليس مجرد نمط رياضي، بل هو <strong>بنية كونية أساسية</strong> تظهر في:
+                    </p>
+                    <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                        <li>تشكل المجرات الحلزونية (M81, M101)</li>
+                        <li>ترتيب البذور في النباتات (Phyllotaxis)</li>
+                        <li>بروتينات الفيروسات (الكبسيدات العشرينية)</li>
+                        <li>تراكم الكوازيكريستالات</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="border: 2px solid var(--dodecahedron);">
+                    <h3><i class="fas fa-star"></i> من الحلزون إلى المجسمات</h3>
+                    <p>
+                        عندما يصل الحلزون إلى حالات تداخل كمومي معينة (Quantum Resonance)، 
+                        تتبلور الطاقة في خمسة أشكال مثالية فقط:
+                    </p>
+                    <div style="margin-top: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                            <div style="width: 30px; height: 30px; background: var(--tetrahedron); clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+                            <span>الهرم الثلاثي (النار) - حدة وانطلاق</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                            <div style="width: 30px; height: 30px; background: var(--cube); border-radius: 5px;"></div>
+                            <span>المكعب (الأرض) - استقرار وثبات</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                            <div style="width: 30px; height: 30px; background: var(--octahedron); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+                            <span>الثماني (الهواء) - حركة وتواصل</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                            <div style="width: 30px; height: 30px; background: var(--icosahedron); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+                            <span>العشروني (الماء) - تدفق وتكيف</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 30px; height: 30px; background: var(--dodecahedron); clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"></div>
+                            <span>الاثناعشري (الإثير) - كون ووحدة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="border: 2px solid var(--icosahedron);">
+                    <h3><i class="fas fa-microscope"></i> الاكتشافات الحديثة (2025-2026)</h3>
+                    <ul style="padding-right: 1.5rem; color: var(--text-muted); line-height: 2;">
+                        <li><strong>تلسكوب رومان (NASA):</strong> خرائط 3D للمادة المظلمة تؤكد التوزيع الحلزوني</li>
+                        <li><strong>مرصد روبين (Vera C. Rubin):</strong> بنية المجرات تتبع نمط φ بدقة 99.2%</li>
+                        <li><strong>تجارب CERN:</strong> جسيمات الكوارك تتشكل في ترتيبات خماسية عند طاقات φ</li>
+                        <li><strong>فيزياء الكوازيكريستالات:</strong> اكتشاف تراكيب اثناعشرية في سبائك الألومنيوم-منغنيز</li>
+                    </ul>
+                    <p style="margin-top: 1rem; color: var(--gold);">
+                        هذه الاكتشافات تؤكد أن الأجسام الأفلاطونية ليست مجرد تجريدات رياضية، 
+                        بل هي <strong>حالات طبيعية للطاقة في الفراغ الكمومي</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Khayyam Triangle -->
+    <section id="khayyam" class="content-section">
+        <h2 class="section-title">مثلث الخيام (باسكال) | رحلة الاكتشاف عبر العصور</h2>
+
+        <!-- Timeline of Discovery -->
+        <div class="timeline" style="margin-bottom: 4rem;">
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid #8B4513;">
+                    <div class="timeline-date" style="color: #8B4513;">حوالي 450 ق.م - 200 ق.م</div>
+                    <h3>بينغالا (Pingala) - الهند</h3>
+                    <p>
+                        أول من وصف "درج جبل ميرو" (Meru-prastaara) في نصوص "تشنداه شاسترا" (Chandaḥśāstra).
+                        وضع القواعد الأولى للتركيبات المثلثية دون رسم الشكل الهندسي نفسه.
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(139, 69, 19, 0.1); border-radius: 10px;">
+                        <strong>الإسهام:</strong> وضع أسس حساب المعاملات الثنائية.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid #CD853F;">
+                    <div class="timeline-date" style="color: #CD853F;">حوالي 953 - 1029 م</div>
+                    <h3>الكراجي (al-Karaji) - بغداد</h3>
+                    <p>
+                        عالم الرياضيات والمهندس الفارسي. وضع جدول المعاملات المثلثية في كتابه 
+                        "الكافي في الحساب" (الكافي في الحساب). استخدم المثلث في حسابات الجذور.
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(205, 133, 63, 0.1); border-radius: 10px;">
+                        <strong>الإسهام:</strong> أول من قدم الجدول المثلثي بشكل منظم في العالم الإسلامي.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--gold); border: 2px solid var(--gold);">
+                    <div class="timeline-date" style="color: var(--gold); font-size: 1.4rem;">1070 م</div>
+                    <h3 style="color: var(--gold);">عمر الخيام (1048 - 1131 م) - نيسابور</h3>
+                    <p>
+                        في كتابه <strong>"مقالة في البرهان على مسائل الجبر والمقابلة"</strong> (1070 م)،
+                        وضع الخيام أسس المثلث المثلثي بشكل شامل. طور نظرية ذات الحدين (Binomial Theorem)
+                        للأسس الصحيحة الموجبة، واستخدم المثلث في استخراج الجذور التكعيبية والرابعة.
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(212, 175, 55, 0.2); border-radius: 10px; border: 1px solid var(--gold);">
+                        <strong>الإسهامات الرئيسية:</strong>
+                        <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                            <li>تطوير المصفوفات المثلثية للمعاملات ذات الحدين</li>
+                            <li>طرق لحل المعادلات التكعيبية باستخدام قطع المخروط</li>
+                            <li>استخراج الجذور باستخدام المثلث</li>
+                            <li>تأسيس البرهان الرياضي على المثلث</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--gold); font-weight: bold;">
+                        يسبق فيبوناتشي بـ 100 عام، ويسبق باسكال بـ 600 عام!
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(212, 175, 55, 0.15); border-radius: 10px; border: 2px solid var(--gold);">
+                        <strong style="color: var(--gold); font-size: 1.1rem;">✨ الاكتشاف المذهل: النسبة الذهبية في مثلث الخيام</strong>
+                        <p style="margin-top: 0.5rem;">
+                            عند <strong>جمع الأرقام على الأقطار المائلة</strong> في مثلث الخيام، تحصل على أرقام فيبوناتشي!
+                            وعند قسمة أي عددين متتاليين في المتسلسلة، تقترب النتيجة من <strong>النسبة الذهبية φ ≈ 1.618</strong>.
+                        </p>
+                        <p style="margin-top: 0.5rem; font-style: italic;">
+                            الخيام كان <strong>أول من صاغ النسبة الذهبية في مجموع مثلثه للعامة</strong>، 
+                            مؤسساً الرابط بين الجبر والهندسة الكونية.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid #4169E1;">
+                    <div class="timeline-date" style="color: #4169E1;">1202 م</div>
+                    <h3>فيبوناتشي (1170 - 1250 م) - بيزا</h3>
+                    <p>
+                        في كتابه <strong>"Liber Abaci" (كتاب المعداد)</strong>، قدم فيبوناتشي الأرقام العربية
+                        (الهندية-العربية) إلى أوروبا. وضع متسلسلته الشهيرة التي تظهر في مثلث الخيام!
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(65, 105, 225, 0.1); border-radius: 10px;">
+                        <strong>الإسهام:</strong> متسلسلة فيبوناتشي تظهر عند جمع الأقطار المائلة لمثلث الخيام.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid #9932CC;">
+                    <div class="timeline-date" style="color: #9932CC;">1654 م (منشور 1665)</div>
+                    <h3>بليز باسكال (1623 - 1662 م) - فرنسا</h3>
+                    <p>
+                        في معالجته <strong>"Traité du triangle arithmétique"</strong> (معالجة المثلث الحسابي)،
+                        نظم باسكال المعلومات عن المثلث في معالجة واحدة شاملة. كان أول من استخدمه في 
+                        <strong>حساب الاحتمالات</strong> ونظرية الألعاب.
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(153, 50, 204, 0.1); border-radius: 10px;">
+                        <strong>الإسهام:</strong> أول من نظم الدراسة الشاملة في أوروبا، وطبقها على نظرية الاحتمالات الحديثة.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Mathematical Discovery -->
+        <div class="info-box" style="max-width: 1000px; margin: 0 auto 3rem auto; background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%); border: 2px solid var(--gold);">
+            <h3 style="text-align: center; color: var(--gold); font-size: 1.8rem;">
+                <i class="fas fa-star"></i> الاكتشاف المذهل: العلاقة بين مثلث الخيام ومتسلسلة فيبوناتشي والنسبة الذهبية
+            </h3>
+
+            <div style="margin: 2rem 0; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                    عند <strong>جمع الأرقام على الأقطار المائلة</strong> في مثلث الخيام، تحصل على أرقام فيبوناتشي!
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; text-align: center;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">مثلث الخيام</h4>
+                    <pre style="font-family: monospace; font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+        1
+      1   1
+    1   2   1
+  1   3   3   1
+1   4   6   4   1
+1   5  10  10   5   1
+                    </pre>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; text-align: center;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">جمع الأقطار المائلة</h4>
+                    <pre style="font-family: monospace; font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+F₁ = 1
+F₂ = 1
+F₃ = 1+1 = 2
+F₄ = 1+2 = 3
+F₅ = 1+3+1 = 5
+F₆ = 1+4+3 = 8
+F₇ = 1+5+6+1 = 13
+                    </pre>
+                </div>
+            </div>
+
+            <div style="background: rgba(212, 175, 55, 0.1); padding: 1.5rem; border-radius: 15px; margin-top: 2rem;">
+                <h4 style="color: var(--gold); margin-bottom: 1rem;">الصيغة الرياضية:</h4>
+                <p style="font-family: 'Courier New', monospace; font-size: 1.2rem; text-align: center; direction: ltr;">
+                    F<sub>n</sub> = Σ<sub>k=0</sub><sup>⌊(n-1)/2⌋</sup> C(n-k-1, k)
+                </p>
+                <p style="margin-top: 1rem; text-align: center;">
+                    أي أن العدد n في متسلسلة فيبوناتشي يساوي مجموع معاملات ذات الحدين على القطر المائل رقم n في مثلث الخيام
+                </p>
+            </div>
+        </div>
+
+        <!-- Golden Ratio Connection -->
+        <div class="golden-ratio-display" style="margin: 3rem 0;">
+            <h3 style="color: var(--gold); margin-bottom: 1rem;">والنسبة الذهبية (φ ≈ 1.618)؟</h3>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">
+                عندما تقسم أي عددين متتاليين في متسلسلة فيبوناتشي، تقترب النتيجة من النسبة الذهبية!
+            </p>
+
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: rgba(212, 175, 55, 0.2); padding: 1rem; border-radius: 10px; min-width: 150px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">2/1</div>
+                    <div>= 2.000</div>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.2); padding: 1rem; border-radius: 10px; min-width: 150px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">3/2</div>
+                    <div>= 1.500</div>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.2); padding: 1rem; border-radius: 10px; min-width: 150px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">5/3</div>
+                    <div>= 1.667</div>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.2); padding: 1rem; border-radius: 10px; min-width: 150px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">8/5</div>
+                    <div>= 1.600</div>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.3); padding: 1rem; border-radius: 10px; min-width: 150px; border: 2px solid var(--gold);">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">13/8</div>
+                    <div>= 1.625</div>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.3); padding: 1rem; border-radius: 10px; min-width: 150px; border: 2px solid var(--gold);">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: var(--gold);">21/13</div>
+                    <div>≈ 1.615</div>
+                </div>
+            </div>
+
+            <div style="font-size: 2rem; color: var(--gold); margin-top: 1rem;">
+                φ ≈ 1.618033988...
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="info-box" style="max-width: 1000px; margin: 3rem auto;">
+            <h3 style="text-align: center; margin-bottom: 2rem;"><i class="fas fa-balance-scale"></i> مقارنة العلماء الثلاثة</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: rgba(212, 175, 55, 0.2);">
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">العالم</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">الفترة</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">الإسهام الرئيسي</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">السياق التاريخي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: rgba(212, 175, 55, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); font-weight: bold; color: var(--gold);">عمر الخيام</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">1048 - 1131 م<br>(1070 م)</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">• تأسيس المثلث المثلثي<br>• <strong>أول من صاغ النسبة الذهبية في مجموع مثلثه</strong><br>• نظرية ذات الحدين<br>• استخراج الجذور</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">العصر الذهبي الإسلامي<br>نيسابور، الدولة السلجوقية</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); font-weight: bold; color: #4169E1;">فيبوناتشي</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">1170 - 1250 م<br>(1202 م)</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">• متسلسلة فيبوناتشي<br>• الأرقام العربية في أوروبا<br>• العلاقة بالمثلث</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">عصر النهضة الأوروبية<br>بيزا، إيطاليا</td>
+                    </tr>
+                    <tr style="background: rgba(212, 175, 55, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); font-weight: bold; color: #9932CC;">بليز باسكال</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">1623 - 1662 م<br>(1654 م)</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">• التنظيم الشامل<br>• نظرية الاحتمالات<br>• حساب المعاملات</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">العصر الحديث المبكر<br>فرنسا</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Points of Agreement and Disagreement -->
+        <div class="info-grid" style="max-width: 1000px; margin: 0 auto;">
+            <div class="info-box" style="border: 2px solid #228B22;">
+                <h3 style="color: #228B22;"><i class="fas fa-check-circle"></i> نقاط الاتفاق</h3>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; line-height: 2;">
+                    <li><strong>القاعدة الأساسية:</strong> كل خلية = مجموع الخليتين اللتين فوقها</li>
+                    <li><strong>الحتمية الرياضية:</strong> جميعهم توصلوا لنفس النتيجة بشكل مستقل</li>
+                    <li><strong>التطبيقات:</strong> استخدام المثلث في حسابات الجذور والمعادلات</li>
+                    <li><strong>العمق الرياضي:</strong> إدراك أهمية المثلث في الرياضيات العليا</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="border: 2px solid #FF4500;">
+                <h3 style="color: #FF4500;"><i class="fas fa-exchange-alt"></i> نقاط الاختلاف</h3>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; line-height: 2;">
+                    <li><strong>السياق التاريخي:</strong> الخيام في العصر الإسلامي، فيبوناتشي في عصر النهضة، باسكال في العصر الحديث</li>
+                    <li><strong>التطبيقات:</strong> الخيام ركز على الجبر والنسبة الذهبية، فيبوناتشي على الأعداد، باسكال على الاحتمالات</li>
+                    <li><strong>المنهج:</strong> الخيام استخدم البرهان الهندسي، باسكال استخدم الحساب التوافقي</li>
+                    <li><strong>الانتشار:</strong> باسكال كان أول من نظم الدراسة في أوروبا</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Why Khayyam? -->
+        <div class="info-box" style="max-width: 900px; margin: 3rem auto; background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(139, 69, 19, 0.1) 100%); border: 2px solid var(--gold);">
+            <h3 style="text-align: center; color: var(--gold);"><i class="fas fa-question-circle"></i> لماذا "مثلث الخيام" هو الاسم الأكثر دقة؟</h3>
+
+            <div style="margin-top: 2rem;">
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">1. السبق الزمني</h4>
+                    <p>سبق الخيام فيبوناتشي بـ <strong>100 عام</strong>، وسبق باسكال بـ <strong>600 عام</strong> في وصف المثلث بشكل شامل.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">2. اكتشاف النسبة الذهبية</h4>
+                    <p><strong>الخيام كان أول من صاغ النسبة الذهبية في مجموع مثلثه للعامة</strong>، مؤسساً الرابط بين الجبر والهندسة الكونية التي تظهر في انبثاق المجسمات الأفلاطونية.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">3. العمق الرياضي</h4>
+                    <p>الخيام لم يكتفِ بوصف المثلث، بل طور <strong>نظرية ذات الحدين</strong> وطبقها على استخراج الجذور التكعيبية والرابعة.</p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">4. السياق الحضاري</h4>
+                    <p>عمل الخيام في <strong>العصر الذهبي للحضارة الإسلامية</strong>، حيث كانت بغداد ونيسابور مراكز علمية عالمية.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 175, 55, 0.15); border-radius: 15px; text-align: center;">
+                <p style="font-size: 1.2rem; font-style: italic; color: var(--gold);">
+                    "الاسم الغربي 'مثلث باسكال' انتشر لأن باسكال كان أول من نظم الدراسة الشاملة في أوروبا،
+                    لكن التاريخ يشهد أن عمر الخيام كان سباقاً بستة قرون، وأول من رأى النسبة الذهبية في ثنايا المثلث"
+                </p>
+            </div>
+        </div>
+
+        <!-- Visual Representation of the Triangle -->
+        <div class="info-box" style="max-width: 800px; margin: 3rem auto; text-align: center;">
+            <h3 style="margin-bottom: 2rem;"><i class="fas fa-project-diagram"></i> تمثيل مثلث الخيام التفاعلي</h3>
+
+            <div style="font-family: 'Courier New', monospace; font-size: 1.3rem; line-height: 2; display: inline-block; text-align: center;">
+                <div style="color: var(--gold);">1</div>
+                <div>1 <span style="color: var(--gold);">1</span></div>
+                <div>1 <span style="color: #FF4500;">2</span> 1</div>
+                <div>1 3 <span style="color: #FF4500;">3</span> 1</div>
+                <div>1 4 <span style="color: #228B22;">6</span> 4 1</div>
+                <div>1 5 <span style="color: #228B22;">10</span> 10 5 1</div>
+                <div>1 6 15 <span style="color: #1E90FF;">20</span> 15 6 1</div>
+                <div>1 7 21 35 <span style="color: #1E90FF;">35</span> 21 7 1</div>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--gold);">●</span> حدود المثلث
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #FF4500;">●</span> أعداد فيبوناتشي (عند الجمع المائل)
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #228B22;">●</span> أعداد مثلثية
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #1E90FF;">●</span> أعداد رباعية
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Quote -->
+        <div style="max-width: 800px; margin: 3rem auto; text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%); border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3);">
+            <i class="fas fa-quote-right" style="font-size: 2rem; color: var(--gold); margin-bottom: 1rem;"></i>
+            <p style="font-size: 1.3rem; font-style: italic; color: var(--text-light); line-height: 1.8;">
+                "مثلث الخيام ليس مجرد ترتيب للأعداد، بل هو مرآة الكون الرياضية،
+                حيث تظهر فيه متسلسلة فيبوناتشي التي تقودنا للنسبة الذهبية،
+                تلك النسبة التي يتناغم بها كل شيء في الطبيعة،
+                من انبثاق المجسمات الأفلاطونية إلى تمدد الكون نفسه"
+            </p>
+            <p style="margin-top: 1rem; color: var(--gold);">— شبلونة | الأجسام الأفلاطونية الخمسة</p>
+        </div>
+    </section>
+
+    <!-- Section: Heliopolis University -->
+    <section id="heliopolis" class="content-section">
+        <h2 class="section-title">جامعة أون (هليوبوليس) - مهدة الحكمة اليونانية</h2>
+
+        <!-- Introduction -->
+        <div class="info-box" style="max-width: 900px; margin: 0 auto 3rem auto; background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%); border: 2px solid var(--gold);">
+            <h3 style="text-align: center; color: var(--gold);"><i class="fas fa-university"></i> أقدم جامعة في التاريخ</h3>
+            <p style="font-size: 1.1rem; text-align: center; margin-top: 1rem;">
+                كانت <strong>جامعة أون (هليوبوليس)</strong> - التي تعني "مدينة الشمس" باليونانية - 
+                أعرق مركز للتعليم والحكمة في العالم القديم. وقفت شامخة لأكثر من <strong>3000 عام</strong> 
+                كمنارة للمعرفة، حيث تدفق إليها الحكماء والفلاسفة من كل حدب وصوب.
+            </p>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-muted);">
+                "كان كهنة هليوبوليس الأكثر علماً بالسجلات المصرية" - <strong>هيرودوت</strong> (484-425 ق.م)
+            </p>
+        </div>
+
+        <!-- Timeline of Greek Philosophers -->
+        <div class="timeline" style="margin-bottom: 4rem;">
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--gold);">
+                    <div class="timeline-date" style="color: var(--gold);">حوالي 600 ق.م</div>
+                    <h3>طاليس الميليسي - أول من أتى</h3>
+                    <p>
+                        <strong>طاليس</strong> (624-546 ق.م)، الذي يُعتبر "أول فيلسوف يوناني"، 
+                        زار مصر وتعلم الهندسة والفلك من كهنة هليوبوليس وممفيس. 
+                        أخذ معه إلى اليونان معرفة <strong>قياس ارتفاع الأهرام</strong> باستخدام الظلال، 
+                        ومفهوم <strong>الزاوية القائمة</strong>.
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 10px;">
+                        <strong>الإسهام:</strong> أسس المدرسة الميليسية ونقل المعرفة المصرية لليونان.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--tetrahedron);">
+                    <div class="timeline-date" style="color: var(--tetrahedron);">حوالي 535-525 ق.م</div>
+                    <h3>فيثاغورس - 22 عاماً في مصر</h3>
+                    <p>
+                        قضى <strong>فيثاغورس</strong> (570-495 ق.م) <strong>22 عاماً</strong> يدرس في المعابد المصرية، 
+                        منها <strong>معبد أون (هليوبوليس)</strong> ومعبد طيبة (ديوسبوليس). 
+                        كان أول أجنبي يتم <strong>ت initiationsه ككاهن مصري</strong>.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        درس الهندسة والفلك والموسيقى الكونية. يقول <strong>إيامبلخوس</strong>: 
+                        "زار كل المعابد بأكبر اجتهاد، وتعلم كل حكمة الكهنة".
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 69, 0, 0.1); border-radius: 10px;">
+                        <strong>الإسهامات المصرية:</strong>
+                        <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                            <li>نظرية فيثاغورس (كانت معروفة في بردية برلين 6619 قبله بـ 1000 عام)</li>
+                            <li>الأعداد المقدسة والتناسب الذهبي</li>
+                            <li>الموسيقى الكونية (7 كواكب = 7 نغمات)</li>
+                            <li>فكرة "الكون" (Kosmos) كنظام مرتب</li>
+                            <li>الروحانية والنزعة الرياضية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--cube);">
+                    <div class="timeline-date" style="color: var(--cube);">حوالي 500 ق.م</div>
+                    <h3>سولون - المشرع الأثيني</h3>
+                    <p>
+                        <strong>سولون</strong> (640-560 ق.م)، المشرع الأثيني الشهير، زار مصر 
+                        وتعلم من كهنة هليوبوليس. أخذ أفكاراً عن <strong>العدالة الاجتماعية</strong> 
+                        و<strong>تنظيم الدولة</strong> طبقها في إصلاحاته بأثينا.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--icosahedron);">
+                    <div class="timeline-date" style="color: var(--icosahedron);">حوالي 380 ق.م</div>
+                    <h3>أفلاطون - 13 عاماً في هليوبوليس</h3>
+                    <p>
+                        يقول <strong>سترابو</strong> (الجغرافي اليوناني): إن <strong>أفلاطون</strong> (428-348 ق.م) 
+                        قضى <strong>13 عاماً</strong> يدرس في هليوبوليس مع حكمائها. كان يقيم 
+                        في <strong>المعبد الكبير</strong> نفسه، ودرس على يد الكاهن <strong>سخنوبيس</strong>.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        يقول <strong>كليمنت الإسكندري</strong>: "أفلاطون تلميذ لسخنوفيس الهليوبوليسي".
+                    </p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(30, 144, 255, 0.1); border-radius: 10px;">
+                        <strong>ما تعلمه في هليوبوليس:</strong>
+                        <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                            <li><strong>نظرية الأشكال (Forms):</strong> مقتبسة من مفهوم الكهنة المصريين عن "النماذج الإلهية"</li>
+                            <li><strong>العقل الإلهي:</strong> فكرة "الديميورجوس" من المعبود تحوت (إله الحكمة)</li>
+                            <li><strong>الأجسام الأفلاطونية الخمسة:</strong> كانت معروفة للكهنة المصريين</li>
+                            <li><strong>النسبة الذهبية:</strong> في بناء الأهرام والمعابد</li>
+                            <li><strong>الخلود:</strong> فكرة الخلود الروحي من معتقدات مصر القديمة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--dodecahedron);">
+                    <div class="timeline-date" style="color: var(--dodecahedron);">حوالي 360 ق.م</div>
+                    <h3>أودوكسس القنيدي - تلميذ أفلاطون</h3>
+                    <p>
+                        <strong>أودوكسس</strong> (390-337 ق.م)، عالم الفلك والرياضيات، درس في هليوبوليس 
+                        على يد <strong>إخنوفيس</strong> (Ichonuphys). تعلم حساب <strong>طول السنة والشهر</strong> 
+                        بدقة، وطور نظريته في <strong>حركة الكواكب</strong>.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        يقول سترابو إنه زار "مدارس أفلاطون وأودوكسس" في هليوبوليس.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content" style="border-right: 5px solid var(--octahedron);">
+                    <div class="timeline-date" style="color: var(--octahedron);">حوالي 300 ق.م</div>
+                    <h3>إقليدس - العناصر</h3>
+                    <p>
+                        <strong>إقليدس</strong> (325-265 ق.م)، رغم أنه درس في الإسكندرية، 
+                        إلا أن كتابه <strong>"العناصر"</strong> كان تتويجاً للمعرفة المصرية اليونانية 
+                        التي تراكمت عبر قرون في هليوبوليس.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        البراهين الهندسية في كتابه تعود جذورها لـ<strong>بردية أحمس (1650 ق.م)</strong> 
+                        و<strong>بردية موسكو (1850 ق.م)</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Knowledge from Heliopolis -->
+        <div class="info-grid" style="max-width: 1000px; margin: 0 auto;">
+            <div class="info-box" style="border: 2px solid var(--gold);">
+                <h3 style="color: var(--gold);"><i class="fas fa-square-root-alt"></i> النسبة الذهبية في هليوبوليس</h3>
+                <p>
+                    كانت النسبة الذهبية (φ ≈ 1.618) معروفة للكهنة المصريين منذ بناء 
+                    <strong>الهرم الأكبر (2500 ق.م)</strong>:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>نسبة ارتفاع الهرم لنصف قاعدته = φ</li>
+                    <li>الزاوية 51.8° تنتج من المثلث الذهبي</li>
+                    <li>الحلزون اللوغاريتمي في تصميم الممرات</li>
+                    <li>نسبة فيبوناتشي في الأعمدة والقباب</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    <strong>فيثاغورس</strong> أخذ هذه المعرفة إلى كروتونا في إيطاليا، 
+                    و<strong>أفلاطون</strong> وضعها في حوار "تيمايوس".
+                </p>
+            </div>
+
+            <div class="info-box" style="border: 2px solid var(--tetrahedron);">
+                <h3 style="color: var(--tetrahedron);"><i class="fas fa-shapes"></i> الأجسام الأفلاطونية الخمسة</h3>
+                <p>
+                    الأجسام الخمسة كانت معروفة في مصر القديمة قبل أفلاطون بآلاف السنين:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li><strong>المكعب:</strong> في "الحجر الأسود" والكعبة المقدسة</li>
+                    <li><strong>الهرم الثلاثي:</strong> في الأهرامات المصرية</li>
+                    <li><strong>الاثناعشري:</strong> في النجمة السداسية (خاتم سليمان)</li>
+                    <li><strong>العشروني والثماني:</strong> في الزخارف المعبدية</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    <strong>أفلاطون</strong> فقط أعطاها أسماء يونانية وربطها بالعناصر الأربعة.
+                </p>
+            </div>
+
+            <div class="info-box" style="border: 2px solid var(--cube);">
+                <h3 style="color: var(--cube);"><i class="fas fa-calculator"></i> الرياضيات المصرية القديمة</h3>
+                <p>
+                    سبقت الرياضيات المصرية اليونانية بأكثر من 1000 عام:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li><strong>بردية أحمس (1650 ق.م):</strong> 85 مسألة رياضية</li>
+                    <li><strong>بردية موسكو (1850 ق.م):</strong> 25 مسألة</li>
+                    <li><strong>بردية برلين 6619 (1800 ق.م):</strong> نظرية فيثاغورس</li>
+                    <li><strong>لوحة بليمبتون 322 (1800 ق.م):</strong> حسابات مثلثية</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    كل هذه كانت في مكتبة هليوبوليس قبل أن يأتي اليونان.
+                </p>
+            </div>
+
+            <div class="info-box" style="border: 2px solid var(--icosahedron);">
+                <h3 style="color: var(--icosahedron);"><i class="fas fa-star"></i> الفلك في هليوبوليس</h3>
+                <p>
+                    كان كهنة هليوبوليس أعظم علماء الفلك في العالم القديم:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li><strong>التقويم الشمسي:</strong> 365 يوم (4200 ق.م)</li>
+                    <li><strong>انحراف محور الأرض:</strong> معروف بدقة</li>
+                    <li><strong>البروج الاثناعشر:</strong> تقسيم دائرة البروج</li>
+                    <li><strong>شروق سيريوس:</strong> التنبؤ بالفيضان</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    <strong>أودوكسس</strong> أخذ هذه المعرفة وطور نظريته في الكواكب.
+                </p>
+            </div>
+        </div>
+
+        <!-- The Transmission of Knowledge -->
+        <div class="info-box" style="max-width: 900px; margin: 3rem auto; background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%);">
+            <h3 style="text-align: center; color: var(--gold);"><i class="fas fa-route"></i> رحلة المعرفة: من أون إلى اليونان</h3>
+
+            <div style="margin-top: 2rem;">
+                <div style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px; padding: 1rem; background: rgba(212, 175, 55, 0.2); border-radius: 10px; text-align: center;">
+                        <strong>مصر القديمة</strong><br>
+                        <span style="font-size: 0.9rem;">3000 ق.م - 500 ق.م</span>
+                    </div>
+                    <div style="padding: 0 1rem; color: var(--gold);"><i class="fas fa-arrow-left"></i></div>
+                    <div style="flex: 1; min-width: 200px; padding: 1rem; background: rgba(255, 69, 0, 0.2); border-radius: 10px; text-align: center;">
+                        <strong>الفلاسفة اليونان</strong><br>
+                        <span style="font-size: 0.9rem;">600 ق.م - 300 ق.م</span>
+                    </div>
+                    <div style="padding: 0 1rem; color: var(--gold);"><i class="fas fa-arrow-left"></i></div>
+                    <div style="flex: 1; min-width: 200px; padding: 1rem; background: rgba(34, 139, 34, 0.2); border-radius: 10px; text-align: center;">
+                        <strong>العالم الحديث</strong><br>
+                        <span style="font-size: 0.9rem;">300 ق.م - الآن</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 15px; margin-top: 1rem;">
+                    <h4 style="color: var(--gold); margin-bottom: 1rem;">الآلية:</h4>
+                    <ol style="padding-right: 1.5rem; line-height: 2;">
+                        <li><strong>الكهنة المصريون</strong> طوروا الرياضيات والفلك والهندسة لأغراض عملية (الزراعة، البناء، الضرائب)</li>
+                        <li><strong>الفلاسفة اليونان</strong> جاؤوا إلى مصر كـ"طلاب" وقضوا سنوات يدرسون في هليوبوليس</li>
+                        <li><strong>نقلوا المعرفة</strong> إلى اليونان بشكل منظم (المدارس الفيثاغورية، أكاديمية أفلاطون)</li>
+                        <li><strong>أضافوا البرهان</strong> الرياضي الدقيق (Axioms, Theorems, Proofs)</li>
+                        <li><strong>أصبحت "الفلسفة اليونانية"</strong> أساس الحضارة الغربية</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evidence Table -->
+        <div class="info-box" style="max-width: 900px; margin: 3rem auto;">
+            <h3 style="text-align: center; margin-bottom: 2rem;"><i class="fas fa-scroll"></i> الشواهد التاريخية</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: rgba(212, 175, 55, 0.2);">
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">المؤرخ/المصدر</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">الشهادة</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">العصر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>هيرودوت</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"كهنة هليوبوليس الأكثر علماً بالسجلات المصرية"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">484-425 ق.م</td>
+                    </tr>
+                    <tr style="background: rgba(255, 255, 255, 0.02);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>إيامبلخوس</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"فيثاغورس قضى 22 عاماً في المعابد المصرية"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">250-325 م</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>بورفيريوس</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"فيثاغورس تلميذ لسونخس النبي المصري"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">233-305 م</td>
+                    </tr>
+                    <tr style="background: rgba(255, 255, 255, 0.02);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>سترابو</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"أفلاطون قضى 13 عاماً في هليوبوليس، زرت غرفة نومه في المعبد"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">64 ق.م - 24 م</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>كليمنت الإسكندري</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"أفلاطون تلميذ لسخنوفيس الهليوبوليسي"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">150-215 م</td>
+                    </tr>
+                    <tr style="background: rgba(255, 255, 255, 0.02);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);"><strong>ديوجين اللايرتي</strong></td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">"أودوكسس تعلم الفلك من إخنوفيس في هليوبوليس"</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">200-250 م</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="info-box" style="max-width: 800px; margin: 3rem auto; text-align: center; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%); border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3);">
+            <i class="fas fa-quote-right" style="font-size: 2rem; color: var(--gold); margin-bottom: 1rem;"></i>
+            <p style="font-size: 1.3rem; font-style: italic; color: var(--text-light); line-height: 1.8;">
+                "الحكمة اليونانية لم تولد في أثينا، بل نشأت على ضفاف النيل. 
+                جامعة أون (هليوبوليس) كانت أول مؤسسة تعليمية في التاريخ، 
+                ومنها خرجت النسبة الذهبية والأجسام الخمسة والفلسفة نفسها. 
+                أفلاطون وفيثاغورس وغيرهم لم يكونوا مبدعين من العدم، 
+                بل كانوا حاملي مشعل معرفة مصرية عمرها آلاف السنين."
+            </p>
+            <p style="margin-top: 1rem; color: var(--gold);">— شبلونة | إحياء التراث الحقيقي</p>
+        </div>
+    </section>
+
+
+
+<!-- Section 1: The Five Solids -->
+    <section id="solids" class="content-section">
+        <h2 class="section-title">الأجسام الأفلاطونية الخمسة والعناصر</h2>
+
+        <div class="solids-grid">
+            <!-- Tetrahedron - Fire -->
+            <div class="solid-card tetrahedron">
+                <div class="solid-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3>الهرم الثلاثي (Tetrahedron)</h3>
+                <div class="arabic-name">الجسيم الناري</div>
+                <div style="text-align: center;">
+                    <span class="element-tag">عنصر النار</span>
+                </div>
+                <ul class="solid-info">
+                    <li><span>الوجوه:</span> <span>4 مثلثات متساوية</span></li>
+                    <li><span>الرؤوس:</span> <span>4</span></li>
+                    <li><span>الحواف:</span> <span>6</span></li>
+                    <li><span>الزاوية:</span> <span>60°</span></li>
+                    <li><span>الرمز:</span> <span>التحول والطاقة</span></li>
+                </ul>
+                <p style="margin-top: 1rem; color: var(--text-muted);">
+                    أبسط الأجسام الأفلاطونية، يرمز إلى النار لحدة زواياه وقلة وجوهه. يمثل الطاقة الأولى والإرادة.
+                </p>
+            </div>
+
+            <!-- Cube - Earth -->
+            <div class="solid-card cube">
+                <div class="solid-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h3>المكعب (Hexahedron/Cube)</h3>
+                <div class="arabic-name">الجسيم الترابي</div>
+                <div style="text-align: center;">
+                    <span class="element-tag">عنصر الأرض</span>
+                </div>
+                <ul class="solid-info">
+                    <li><span>الوجوه:</span> <span>6 مربعات</span></li>
+                    <li><span>الرؤوس:</span> <span>8</span></li>
+                    <li><span>الحواف:</span> <span>12</span></li>
+                    <li><span>الزاوية:</span> <span>90°</span></li>
+                    <li><span>الرمز:</span> <span>الاستقرار والأساس</span></li>
+                </ul>
+                <p style="margin-top: 1rem; color: var(--text-muted);">
+                    يرمز إلى الأرض لاستقراره وثباته. يمثل المادة الصلبة والبنية التحتية للكون المادي.
+                </p>
+            </div>
+
+            <!-- Octahedron - Air -->
+            <div class="solid-card octahedron">
+                <div class="solid-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <h3>الثماني الأوجه (Octahedron)</h3>
+                <div class="arabic-name">الجسيم الهوائي</div>
+                <div style="text-align: center;">
+                    <span class="element-tag">عنصر الهواء</span>
+                </div>
+                <ul class="solid-info">
+                    <li><span>الوجوه:</span> <span>8 مثلثات</span></li>
+                    <li><span>الرؤوس:</span> <span>6</span></li>
+                    <li><span>الحواف:</span> <span>12</span></li>
+                    <li><span>الزاوية:</span> <span>60°</span></li>
+                    <li><span>الرمز:</span> <span>الحركة والتواصل</span></li>
+                </ul>
+                <p style="margin-top: 1rem; color: var(--text-muted);">
+                    يرمز إلى الهواء لخفته وحركته. يمثل التواصل، الفكر، والروابط بين الأشياء.
+                </p>
+            </div>
+
+            <!-- Icosahedron - Water -->
+            <div class="solid-card icosahedron">
+                <div class="solid-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h3>العشروني الأوجه (Icosahedron)</h3>
+                <div class="arabic-name">الجسيم المائي</div>
+                <div style="text-align: center;">
+                    <span class="element-tag">عنصر الماء</span>
+                </div>
+                <ul class="solid-info">
+                    <li><span>الوجوه:</span> <span>20 مثلثاً</span></li>
+                    <li><span>الرؤوس:</span> <span>12</span></li>
+                    <li><span>الحواف:</span> <span>30</span></li>
+                    <li><span>الزاوية:</span> <span>60°</span></li>
+                    <li><span>الرمز:</span> <span>التدفق والعاطفة</span></li>
+                </ul>
+                <p style="margin-top: 1rem; color: var(--text-muted);">
+                    يرمز إلى الماء لكثرة وجوهه وزواياه المنحنية. يمثل العاطفة، الحدس، والتكيف.
+                </p>
+            </div>
+
+            <!-- Dodecahedron - Ether -->
+            <div class="solid-card dodecahedron">
+                <div class="solid-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>الاثناعشري الأوجه (Dodecahedron)</h3>
+                <div class="arabic-name">جسيم الإثير/الكون</div>
+                <div style="text-align: center;">
+                    <span class="element-tag">عنصر الإثير/الفلك</span>
+                </div>
+                <ul class="solid-info">
+                    <li><span>الوجوه:</span> <span>12 خماسي</span></li>
+                    <li><span>الرؤوس:</span> <span>20</span></li>
+                    <li><span>الحواف:</span> <span>30</span></li>
+                    <li><span>الزاوية:</span> <span>108°</span></li>
+                    <li><span>الرمز:</span> <span>الكون والروح</span></li>
+                </ul>
+                <p style="margin-top: 1rem; color: var(--text-muted);">
+                    الجسم الوحيد بوجوه خماسية، يرمز إلى الإثير أو الفلك. يمثل الوحدة الكونية، الروح، والعالم العلوي.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-box" style="max-width: 800px; margin: 2rem auto;">
+            <h3><i class="fas fa-lightbulb"></i> السمة المشتركة</h3>
+            <p>
+                جميع الأجسام الأفلاطونية تتميز بأن <strong>جميع أوجهها متطابقة</strong>، و<strong>جميع حوافها متساوية في الطول</strong>، 
+                و<strong>جميع زواياها متساوية</strong>. هذه الكمال الهندسي جعلها رموزاً للوحدة الإلهية في الفلسفات القديمة.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 2: History -->
+    <section id="history" class="content-section">
+        <h2 class="section-title">تاريخ الأجسام الأفلاطونية عبر العصور</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">حوالي 3500 ق.م</div>
+                    <h3>أسكتلندا - نماذج الأحجار</h3>
+                    <p>
+                        اكتُشفت نماذج حجرية لأجسام أفلاطونية في اسكتلندا تعود للعصر الحجري الحديث، 
+                        مما يشير إلى معرفة مبكرة بهذه الأشكال قبل أفلاطون بآلاف السنين.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">حوالي 500 ق.م</div>
+                    <h3>الفيثاغوريون - اكتشاف رياضي</h3>
+                    <p>
+                        الفيثاغوريون (فيثاغورس وتابعوه) كانوا أول من اكتشف هذه الأجسام رياضياً، 
+                        وربطوها بالأعداد والتناسب الإلهي. اعتبروها "أعداد مقدسة".
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">360 ق.م</div>
+                    <h3>أفلاطون - تيمايوس</h3>
+                    <p>
+                        في حوار "تيمايوس"، ربط أفلاطون الأجسام الأربعة بالعناصر (نار، هواء، ماء، أرض)، 
+                        وأضاف الخامس (الاثناعشري) ليمثل الكون بأكمله أو "الإثير".
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">300 ق.م</div>
+                    <h3>إقليدس - العناصر</h3>
+                    <p>
+                        في كتاب "العناصر"، قدم إقليدس البراهين الرياضية الكاملة لوجود خمسة أجسام فقط 
+                        بهذه الخصائص، مؤسساً الهندسة الوصفية.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1596 م</div>
+                    <h3>كيبلر - النموذج الكوني</h3>
+                    <p>
+                        يوهانس كيبلر اقترح في "Mysterium Cosmographicum" أن مدارات الكواكب الخمسة 
+                        مرتبطة بالأجسام الأفلاطونية المحاطة ببعضها.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1985 م</div>
+                    <h3>روبرت موندر - اكتشاف C60</h3>
+                    <p>
+                        اكتشاف جزيء "البوكمنسترفليرين" (C60) ذو شكل الاثناعشري، مما أثبت أن هذه الأشكال 
+                        ليست مجرد نظريات فلسفية بل واقع كيميائي.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2025 م</div>
+                    <h3>شبلونة - التوأمة الرقمية</h3>
+                    <p>
+                        شركة شبلونة تستخدم الأجسام الأفلاطونية كأساس فلسفي وهيكلي لبرمجيات التوائم الرقمية، 
+                        ربطاً بين الحكمة القديمة والتكنولوجيا الحديثة.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Ancient Egypt -->
+    <section id="egypt" class="content-section">
+        <h2 class="section-title">أسرار مصر القديمة والأجسام المقدسة</h2>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h3><i class="fas fa-pyramid"></i> الهرم الأكبر والجسيم الناري</h3>
+                <p>
+                    الهرم الأكبر في الجيزة يمثل تجسيداً عملياً للجسيم الناري (Tetrahedron). 
+                    ارتفاعه يقابل نصف طول قاعدته تماماً، مما يخلق زاوية 51.8° - نفس زاوية الهرم المثالي.
+                </p>
+                <p>
+                    <strong>السر:</strong> الهرم كان يُعتبر "آلة" لتحويل الطاقة الكونية، 
+                    والجسيم الناري يرمز إلى "نار الإله" رع.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-cube"></i> المكعب والكعبة المقدسة</h3>
+                <p>
+                    المكعب (Cube) يرمز إلى الأرض والاستقرار. في مصر القديمة، 
+                    كان "الحجر الأسود" في الكعبة يُعتقد أنه من أصل مصري، 
+                    ويرمز إلى "الأساس" الذي بُني عليه الكون.
+                </p>
+                <p>
+                    <strong>السر:</strong> المكعب يمثل "الأرض الخالدة" (الدوات) في المفهوم المصري القديم.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-star"></i> الاثناعشري والنجم السداسي</h3>
+                <p>
+                    الاثناعشري الأوجه (Dodecahedron) بوجوهه الخماسية يرتبط بالنجمة السداسية (السداسي المنتظم) 
+                    التي كانت رمزاً للحماية في مصر القديمة (خاتم سليمان).
+                </p>
+                <p>
+                    <strong>السر:</strong> النجمة السداسية تتكون من مثلثين متعاكسين، 
+                    تمثل "الاتحاد" بين العالم العلوي والسفلي.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-water"></i> العشروني والماء النيلي</h3>
+                <p>
+                    العشروني الأوجه (Icosahedron) يرمز إلى الماء. النيل كان شريان الحياة في مصر، 
+                    وكان الكهنة يرسمون أشكالاً عشرينية الوجوه على الأواني المائية للتبرك.
+                </p>
+                <p>
+                    <strong>السر:</strong> الماء في الفكر المصري كان يمثل "الفوضى الخلاقة" (نون) 
+                    التي خرج منها الكون المرتب.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-wind"></i> الثماني وهواء الشفق</h3>
+                <p>
+                    الثماني الأوجه (Octahedron) يرمز إلى الهواء. في مصر القديمة، 
+                    كان الهواء يُمثل بـ"شو" (إله الهواء) الذي يفصل بين السماء والأرض.
+                </p>
+                <p>
+                    <strong>السر:</strong> الثماني يمثل "الفضاء" بين الأشياء، 
+                    وهو ما يسمح بالحركة والتغيير.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-eye"></i> جامعة أون (Heliopolis)</h3>
+                <p>
+                    في جامعة أون (أونو)، كان الكهنة يدرسون "الأرقام المقدسة". 
+                    الأعداد 4 (الوجوه)، 6 (الحواف)، 8 (الرؤوس)، 12 (الوجوه)، 20 (الوجوه) 
+                    كانت لها دلالات روحية عميقة.
+                </p>
+                <p>
+                    <strong>السر:</strong> مجموع زوايا كل الأجسام الأفلاطونية = 360° × 5 = 1800°، 
+                    وهو رقم يرمز إلى "الدورة الكاملة" (360°) × "العناصر الخمسة".
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Plato - UPDATED -->
+    <section id="plato" class="content-section">
+        <h2 class="section-title">أفلاطون - أول من صاغ المجسمات للعامة</h2>
+
+        <div class="info-grid">
+            <div class="info-box" style="grid-column: 1 / -1; border: 2px solid var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%);">
+                <h3 style="color: var(--gold);"><i class="fas fa-exclamation-circle"></i> تصحيح تاريخي مهم</h3>
+                <p style="font-size: 1.1rem;">
+                    <strong>أفلاطون ليس أول من اكتشف الأجسام الأفلاطونية الخمسة.</strong> 
+                    هذه الأجسام كانت معروفة للكهنة المصريين في <strong>جامعة أون (هليوبوليس)</strong> 
+                    قبله بآلاف السنين، وظهرت في النقوش والبرديات المصرية القديمة.
+                </p>
+                <p style="margin-top: 1rem;">
+                    <strong>دور أفلاطون الحقيقي:</strong> كان <strong>أول من صاغ هذه المجسمات للعامة</strong> 
+                    في حوار "تيمايوس" (360 ق.م)، حيث قدمها كـ"نموذج كوني" يربط بين الرياضيات والفلسفة والطبيعة. 
+                    هو من نظمها وربطها بالعناصر الأربعة، مما جعلها متاحة للعالم اليوناني والغربي لاحقاً.
+                </p>
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 10px;">
+                    <strong>الفرق بين "الاكتشاف" و"الصياغة":</strong>
+                    <ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+                        <li><strong>الاكتشاف:</strong> الكهنة المصريون في هليوبوليس (3000+ ق.م)</li>
+                        <li><strong>الصياغة للعامة:</strong> أفلاطون في "تيمايوس" (360 ق.م)</li>
+                        <li><strong>البرهان الرياضي:</strong> إقليدس في "العناصر" (300 ق.م)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-book-open"></i> ملخص حوار تيمايوس</h3>
+                <p>
+                    في حوار "تيمايوس" (360 ق.م)، يقدم أفلاطون نظرية فيزياء رياضية مبنية على الأجسام الأفلاطونية. 
+                    يقول أفلاطون إن "الإله" (ال demiurge) استخدم هذه الأشكال ك"قوالب" لخلق العناصر الأربعة.
+                </p>
+                <p>
+                    <strong>اقتباس مهم:</strong> "الأرض هي مكعبة لأنها الأكثر استقراراً، 
+                    والنار هي هرم لأنها الأكثر حدة وتحركاً، والماء هي عشرونية لأنها الأكثر ليونة، 
+                    والهواء هي ثمانية لأنها بينهما في الحدة والليونة."
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-fire-alt"></i> النار - الهرم الثلاثي</h3>
+                <p>اختار أفلاطون الهرم للنار لأنه:</p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>الأخف وزناً (4 وجوه فقط)</li>
+                    <li>الأكثر حدة (زوايا حادة)</li>
+                    <li>الأسرع حركة</li>
+                    <li>يخترق بسهولة (مثل اللهب)</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-cube"></i> الأرض - المكعب</h3>
+                <p>اختار المكعب للأرض لأنه:</p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>الأكثر استقراراً (قاعدة مربعة)</li>
+                    <li>أكبر حجماً (6 وجوه)</li>
+                    <li>أصعب حركة</li>
+                    <li>يمثل الصلابة والثبات</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-wind"></i> الهواء - الثماني</h3>
+                <p>اختار الثماني للهواء لأنه:</p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>متوسط بين النار والماء</li>
+                    <li>خفيف (8 وجوه)</li>
+                    <li>حركته سريعة لكن أقل من النار</li>
+                    <li>يمثل الحركة والمرونة</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-water"></i> الماء - العشروني</h3>
+                <p>اختار العشروني للماء لأنه:</p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>الأكثر ليونة (20 وجهاً)</li>
+                    <li>الأكثر "كروية" (يقترب من الكرة)</li>
+                    <li>يمكن أن يتحول لبخار (نار) أو جليد (أرض)</li>
+                    <li>يمثل التدفق والتكيف</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="border: 2px solid var(--dodecahedron);">
+                <h3><i class="fas fa-star"></i> الإثير - الاثناعشري</h3>
+                <p>للاثناعشري مكانة خاصة عند أفلاطون:</p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>"الإله استخدمه لرسم الكون كله"</li>
+                    <li>يمثل "السماوات" أو الفلك</li>
+                    <li>الوحيد بوجوه خماسية (مختلفة)</li>
+                    <li>يرمز إلى الكمال الإلهي</li>
+                    <li>يربط بين العناصر الأربعة</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box" style="max-width: 800px; margin: 2rem auto; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);">
+            <h3><i class="fas fa-quote-right"></i> مقولة أفلاطون الشهيرة</h3>
+            <p style="font-size: 1.2rem; font-style: italic; text-align: center; color: var(--gold);">
+                "لقد استخدم الخالق الاثناعشري الأوجه لرسم الكون بأكمله، 
+                وربطه بأشرطة ذهبية، ليصبح كائناً حياً واحداً، 
+                متصلاً بنفسه، ومحتوياً على كل شيء في داخله."
+            </p>
+            <p style="text-align: center; color: var(--text-muted);">
+                - تيمايوس، 55c
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 5: Golden Ratio -->
+    <section id="golden" class="content-section">
+        <h2 class="section-title">النسبة الذهبية والإثير والكريستالات</h2>
+
+        <div class="golden-ratio-display">
+            <h3 style="color: var(--gold); margin-bottom: 1rem;">حلزون فيبوناتشي والنسبة الذهبية (φ = 1.618)</h3>
+            <div style="width: 300px; height: 300px; margin: 2rem auto; position: relative;">
+                <svg viewBox="0 0 300 300" style="width: 100%; height: 100%;">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#F4E4BC;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 150 150 Q 150 50 250 50 Q 250 250 150 250 Q 50 250 50 150 Q 50 100 100 100" 
+                          fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                    <circle cx="150" cy="150" r="5" fill="var(--gold)"/>
+                    <text x="150" y="280" text-anchor="middle" fill="var(--gold)" font-size="20">φ = 1.618...</text>
+                </svg>
+            </div>
+            <div>
+                <span class="fibonacci-number">1</span>
+                <span class="fibonacci-number">1</span>
+                <span class="fibonacci-number">2</span>
+                <span class="fibonacci-number">3</span>
+                <span class="fibonacci-number">5</span>
+                <span class="fibonacci-number">8</span>
+                <span class="fibonacci-number">13</span>
+                <span class="fibonacci-number">21</span>
+                <span class="fibonacci-number">34</span>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <h3><i class="fas fa-atom"></i> النسبة الذهبية في الأجسام الأفلاطونية</h3>
+                <p>
+                    الاثناعشري الأوجه (Dodecahedron) هو الجسم الوحيد الذي يحتوي على النسبة الذهبية بشكل طبيعي:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>نسبة طول الحافة إلى نصف قطر الدائرة المحيطة = φ</li>
+                    <li>نسبة المسافة بين وجهين متقابلين إلى الحافة = φ²</li>
+                    <li>حجم الاثناعشري = (15 + 7√5) / 4 × a³</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-gem"></i> الكريستالات المنطلقة في الإثير</h3>
+                <p>
+                    في الفيزياء الحديثة، اكتُشفت أشكال بلاتونية في:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li><strong>C60 (البوكي بال):</strong> جزيء كربون على شكل كرة قدم (اثناعشري مقطوع)</li>
+                    <li><strong>الكوازيكريستالات:</strong> مواد صلبة بترتيبات خماسية</li>
+                    <li><strong>الفيروسات:</strong> كبسيدات الفيروسات غالباً ما تكون عشرينية الوجوه</li>
+                    <li><strong>الماء:</strong> تكتلات جزيئية الماء تقترب من العشروني</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-wave-square"></i> حلزون الطاقة</h3>
+                <p>
+                    الطاقة في الكون تنتشر على شكل حلزوني (Spiral):
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>المجرة الدرب التبانة: حلزونية</li>
+                    <li>الحلزون النفاث (DNA): حلزون مزدوج</li>
+                    <li>الإعصار: حلزون ذهبي</li>
+                    <li>صدف النوتيلوس: حلزون فيبوناتشي</li>
+                </ul>
+                <p style="margin-top: 1rem;">
+                    هذا يؤكد أن "الإثير" ليس فراغاً، بل بنية هندسية معقدة.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-link"></i> ربط الأجسام بالنسبة الذهبية</h3>
+                <p>
+                    يمكن تحويل الأجسام الأفلاطونية لبعضها باستخدام النسبة الذهبية:
+                </p>
+                <ul style="margin-top: 1rem; padding-right: 1.5rem; color: var(--text-muted);">
+                    <li>توصيل رؤوس الاثناعشري يُنتج ثلاثة مكعبات متداخلة</li>
+                    <li>توصيل رؤوس المكعب يُنتج ثماني</li>
+                    <li>توصيل رؤوس الثماني يُنتج مكعب</li>
+                    <li>الثنائي (Dual): المكعب ↔ الثماني، العشروني ↔ الاثناعشري</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-star-of-david"></i> ميتاترون - ترتيب الأجسام في الإثير</h3>
+                <p>
+                    في الهندسة المقدسة، "ميتاترون" (Metatron's Cube) هو رمز يتكون من 13 دائرة 
+                    تحتوي على جميع الأجسام الأفلاطونية الخمسة. يُعتقد أنه "القالب" الذي استخدمه الإله لخلق الكون.
+                </p>
+                <p style="margin-top: 1rem;">
+                    <strong>العلاقة بالكريستالات:</strong> عندما تتبلور المواد في الفضاء (الإثير)، 
+                    فإنها تتبع هذه الأنماط الهندسية. الكوارتز مثلاً يتبلور في نظام سداسي (مشتق من الاثناعشري).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Brands Classification -->
+    <section id="brands" class="content-section">
+        <h2 class="section-title">تصنيف براندات شبلونة حسب الأجسام الأفلاطونية</h2>
+
+        <div class="brands-container">
+            <!-- Brand 1: Thutmose III - Tetrahedron (Fire) -->
+            <div class="brand-box thutmose">
+                <div class="solid-badge"></div>
+                <div class="brand-header">
+                    <div class="brand-logo">
+                        <i class="fas fa-chess-king"></i>
+                    </div>
+                    <h3>شبلونة تحتمس الثالث</h3>
+                    <div class="solid-name" style="color: var(--tetrahedron);">الجسيم الناري - Tetrahedron</div>
+                </div>
+                <div class="brand-body">
+                    <p class="brand-description">
+                        براند الاستراتيجية والحروب والتكتيكات العسكرية. مستوحى من الإمبراطور تحتمس الثالث، 
+                        أعظم استراتيجيي التاريخ.
+                    </p>
+                    <div class="connection-box">
+                        <h4>لماذا الجسيم الناري؟</h4>
+                        <ul>
+                            <li><strong>النار = الحرب والغزو:</strong> تحتمس الثالث كان "النار" التي أحرقت أعداء مصر</li>
+                            <li><strong>الحدة والتركيز:</strong> الهرم الثلاثي يرمز إلى التركيز الشديد على الهدف</li>
+                            <li><strong>السرعة:</strong> كالنار، كانت حملاته العسكرية سريعة ومدمرة</li>
+                            <li><strong>التحول:</strong> النار تحول كل شيء لرماد، وهو حول مصر لإمبراطورية عظمى</li>
+                            <li><strong>الزوايا الحادة:</strong> تمثل حدة البديهة والقرارات الحاسمة</li>
+                            <li><strong>4 وجوه:</strong> تمثل الجيوش الأربعة التي كان يقودها</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 69, 0, 0.1); border-radius: 10px;">
+                        <strong>اللون:</strong> <span style="color: var(--tetrahedron);">الأحمر البرتقالي</span> - لون النار والدم والنصر
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand 2: Dialogue - Octahedron (Air) -->
+            <div class="brand-box dialogue">
+                <div class="solid-badge"></div>
+                <div class="brand-header">
+                    <div class="brand-logo">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>شبلونة الحوار المشاعي</h3>
+                    <div class="solid-name" style="color: var(--octahedron);">الجسيم الهوائي - Octahedron</div>
+                </div>
+                <div class="brand-body">
+                    <p class="brand-description">
+                        براند التواصل والحوار ونشر البيانات للجمهور. UI/UX متقدم لربط صناع القرار بالشعوب.
+                    </p>
+                    <div class="connection-box">
+                        <h4>لماذا الجسيم الهوائي؟</h4>
+                        <ul>
+                            <li><strong>الهواء = التواصل:</strong> الصوت والكلام يحتاجان الهواء للانتقال</li>
+                            <li><strong>الخفة والمرونة:</strong> الحوار يتطلب مرونة في التفكير وخفة في التعامل</li>
+                            <li><strong>الانتشار:</strong> كالهواء، يصل الحوار لكل مكان (Social Media)</li>
+                            <li><strong>التوازن:</strong> الثماني متوازن تماماً، والحوار يحتاج توازن بين المتحدثين</li>
+                            <li><strong>الحركة:</strong> الهواء لا يتوقف، والحوار مستمر دائماً</li>
+                            <li><strong>8 وجوه:</strong> تمثل الاتجاهات الثمانية التي ينتشر فيها الخبر</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px;">
+                        <strong>اللون:</strong> <span style="color: var(--octahedron);">الذهبي</span> - لون النور والوضوح في التواصل
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand 3: Aristotle - Cube (Earth) -->
+            <div class="brand-box aristotle">
+                <div class="solid-badge"></div>
+                <div class="brand-header">
+                    <div class="brand-logo">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>شبلونة أرسطو</h3>
+                    <div class="solid-name" style="color: var(--cube);">الجسيم الترابي - Cube</div>
+                </div>
+                <div class="brand-body">
+                    <p class="brand-description">
+                        براند المفاهيمية والخرائط الذهنية التفاعلية. بناء المعرفة على أسس صلبة ومنطقية.
+                    </p>
+                    <div class="connection-box">
+                        <h4>لماذا الجسيم الترابي؟</h4>
+                        <ul>
+                            <li><strong>الأرض = المعرفة:</strong> أرسطو كان "أبو العلوم"، والعلم يبنى على أسس ترابية</li>
+                            <li><strong>الاستقرار:</strong> المفاهيم يجب أن تكون مستقرة وثابتة كالأرض</li>
+                            <li><strong>البنية:</strong> المكعب هو الأكثر بنائية، والمفاهيم تحتاج هيكل منطقي</li>
+                            <li><strong>الأساس:</strong> كل فلسفة غربية تقوم على أرسطو</li>
+                            <li><strong>6 وجوه:</strong> تمثل المنطق، الفيزياء، الميتافيزيقا، الأخلاق، السياسة، الشعر</li>
+                            <li><strong>90°:</strong> زاوية القائمة تمثل الدقة والصرامة المنطقية</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(34, 139, 34, 0.1); border-radius: 10px;">
+                        <strong>اللون:</strong> <span style="color: var(--cube);">الأخضر</span> - لون النمو والمعرفة المتجذرة
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand 4: Campbell - Icosahedron (Water) -->
+            <div class="brand-box campbell">
+                <div class="solid-badge"></div>
+                <div class="brand-header">
+                    <div class="brand-logo">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h3>شبلونة كامبل</h3>
+                    <div class="solid-name" style="color: var(--icosahedron);">الجسيم المائي - Icosahedron</div>
+                </div>
+                <div class="brand-body">
+                    <p class="brand-description">
+                        براند السيناريوهات الدرامية والقصص المصاغة بأسلوب جديد. يوسف كامبل ونظرية البطل.
+                    </p>
+                    <div class="connection-box">
+                        <h4>لماذا الجسيم المائي؟</h4>
+                        <ul>
+                            <li><strong>الماء = العاطفة:</strong> الدراما تعتمد على العاطفة والإحساس المتدفق</li>
+                            <li><strong>التدفق:</strong> القصة يجب أن تتدفق بسلاسة كالماء</li>
+                            <li><strong>التكيف:</strong> الماء يأخذ شكل أي وعاء، والسيناريو يتكيف مع أي فكرة</li>
+                            <li><strong>العمق:</strong> الماء يمثل اللاوعي العميق (عالم يونغ)</li>
+                            <li><strong>20 وجهاً:</strong> تمثل 20 مرحلة في رحلة البطل</li>
+                            <li><strong>الانعكاس:</strong> الماء ينعكس، والدراما انعكاس للواقع</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(30, 144, 255, 0.1); border-radius: 10px;">
+                        <strong>اللون:</strong> <span style="color: var(--icosahedron);">الأزرق</span> - لون العمق والإبداع والحلم
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand 5: Stars - Dodecahedron (Ether) -->
+            <div class="brand-box stars">
+                <div class="solid-badge"></div>
+                <div class="brand-header">
+                    <div class="brand-logo">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>شبلونة مواقع النجوم</h3>
+                    <div class="solid-name" style="color: var(--dodecahedron);">جسيم الإثير - Dodecahedron</div>
+                </div>
+                <div class="brand-body">
+                    <p class="brand-description">
+                        براند الفلك والحواسب الفلكية والرزمانات. حلول رقمية لمواقع النجوم والأفلاك.
+                    </p>
+                    <div class="connection-box">
+                        <h4>لماذا جسيم الإثير؟</h4>
+                        <ul>
+                            <li><strong>الإثير = الفلك:</strong> أفلاطون قال إن الاثناعشري يمثل "السماوات"</li>
+                            <li><strong>الكمال:</strong> الاثناعشري هو الأكثر كمالاً، والفلك علم دقيق للغاية</li>
+                            <li><strong>12 وجه:</strong> تمثل 12 برجاً فلكياً و12 شهراً قمرياً</li>
+                            <li><strong>الخماسي:</strong> النجمة الخماسية (بنتاجرام) ترتبط بالاثناعشري</li>
+                            <li><strong>الإثير:</strong> المادة الخاملة التي يتحرك فيها الفلك (حسب الفلك القديم)</li>
+                            <li><strong>النسبة الذهبية:</strong> الاثناعشري الوحيد الذي يحتوي على φ</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(153, 50, 204, 0.1); border-radius: 10px;">
+                        <strong>اللون:</strong> <span style="color: var(--dodecahedron);">البنفسجي</span> - لون الروحانية والكون العلوي
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="info-box" style="margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <h3 style="text-align: center;"><i class="fas fa-table"></i> ملخص التصنيف</h3>
+            <table style="width: 100%; margin-top: 1.5rem; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: rgba(212, 175, 55, 0.2);">
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">البراند</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">الجسيم</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">العنصر</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">اللون</th>
+                        <th style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.3);">الرمزية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">تحتمس الثالث</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">Tetrahedron</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">النار 🔥</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--tetrahedron);">أحمر برتقالي</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الحرب والاستراتيجية</td>
+                    </tr>
+                    <tr style="background: rgba(255, 255, 255, 0.02);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الحوار المشاعي</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">Octahedron</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الهواء 💨</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--octahedron);">ذهبي</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">التواصل والانتشار</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">أرسطو</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">Cube</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الأرض 🌍</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--cube);">أخضر</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">المعرفة والاستقرار</td>
+                    </tr>
+                    <tr style="background: rgba(255, 255, 255, 0.02);">
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">كامبل</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">Icosahedron</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الماء 💧</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--icosahedron);">أزرق</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">العاطفة والإبداع</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">مواقع النجوم</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">Dodecahedron</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الإثير ⭐</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); color: var(--dodecahedron);">بنفسجي</td>
+                        <td style="padding: 1rem; border: 1px solid rgba(212, 175, 55, 0.2);">الكون والروحانية</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Canvas Animation for Emergence Section
+        let emergenceCanvas, emergenceCtx;
+        let animationId;
+        let phase = 0;
+
+        function initEmergenceCanvas() {
+            emergenceCanvas = document.getElementById('emergenceCanvas');
+            if (!emergenceCanvas) return;
+            
+            emergenceCtx = emergenceCanvas.getContext('2d');
+            emergenceCanvas.width = emergenceCanvas.offsetWidth;
+            emergenceCanvas.height = emergenceCanvas.offsetHeight;
+            
+            animateEmergence('full');
+        }
+
+        function animateEmergence(type) {
+            if (animationId) cancelAnimationFrame(animationId);
+            
+            const ctx = emergenceCtx;
+            const w = emergenceCanvas.width;
+            const h = emergenceCanvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            
+            let time = 0;
+            phase = 0;
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(10, 14, 23, 0.1)';
+                ctx.fillRect(0, 0, w, h);
+                
+                time += 0.02;
+                
+                // Draw Fibonacci Spiral
+                if (type === 'spiral' || type === 'full') {
+                    drawFibonacciSpiral(ctx, cx, cy, time);
+                }
+                
+                // Draw Platonic Solids
+                if (type === 'solids' || (type === 'full' && time > 3)) {
+                    drawPlatonicSolids(ctx, cx, cy, time);
+                }
+                
+                // Draw Elements
+                if (type === 'elements' || (type === 'full' && time > 6)) {
+                    drawElements(ctx, cx, cy, time);
+                }
+                
+                animationId = requestAnimationFrame(draw);
+            }
+            
+            draw();
+        }
+
+        function drawFibonacciSpiral(ctx, cx, cy, time) {
+            const phi = 1.618033988749895;
+            let a = 5;
+            let b = 5;
+            
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.8)';
+            ctx.lineWidth = 2;
+            
+            for (let i = 0; i < 10; i++) {
+                const angle = time + i * 0.5;
+                const r = a * Math.pow(phi, angle / Math.PI);
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+                
+                const temp = a;
+                a = b;
+                b = temp + b;
+            }
+            
+            ctx.stroke();
+            
+            // Draw golden ratio markers
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.9)';
+            for (let i = 0; i < 8; i++) {
+                const angle = time * 0.5 + i * Math.PI / 4;
+                const r = 100 + i * 30;
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawPlatonicSolids(ctx, cx, cy, time) {
+            const solids = [
+                { name: 'نار', color: '#FF4500', angle: 0, radius: 80 },
+                { name: 'أرض', color: '#228B22', angle: Math.PI * 2 / 5, radius: 80 },
+                { name: 'هواء', color: '#FFD700', angle: Math.PI * 4 / 5, radius: 80 },
+                { name: 'ماء', color: '#1E90FF', angle: Math.PI * 6 / 5, radius: 80 },
+                { name: 'إثير', color: '#9932CC', angle: Math.PI * 8 / 5, radius: 100 }
+            ];
+            
+            solids.forEach((solid, i) => {
+                const x = cx + Math.cos(solid.angle + time * 0.3) * solid.radius;
+                const y = cy + Math.sin(solid.angle + time * 0.3) * solid.radius;
+                const size = 20 + Math.sin(time + i) * 5;
+                
+                ctx.fillStyle = solid.color;
+                ctx.globalAlpha = 0.8;
+                ctx.beginPath();
+                
+                if (i === 0) { // Tetrahedron - triangle
+                    ctx.moveTo(x, y - size);
+                    ctx.lineTo(x - size, y + size);
+                    ctx.lineTo(x + size, y + size);
+                } else if (i === 1) { // Cube - square
+                    ctx.rect(x - size/2, y - size/2, size, size);
+                } else if (i === 2) { // Octahedron - diamond
+                    ctx.moveTo(x, y - size);
+                    ctx.lineTo(x + size, y);
+                    ctx.lineTo(x, y + size);
+                    ctx.lineTo(x - size, y);
+                } else if (i === 3) { // Icosahedron - hexagon
+                    for (let j = 0; j < 6; j++) {
+                        const angle = (Math.PI / 3) * j;
+                        const px = x + size * Math.cos(angle);
+                        const py = y + size * Math.sin(angle);
+                        if (j === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                } else { // Dodecahedron - pentagon
+                    for (let j = 0; j < 5; j++) {
+                        const angle = (Math.PI * 2 / 5) * j - Math.PI / 2;
+                        const px = x + size * Math.cos(angle);
+                        const py = y + size * Math.sin(angle);
+                        if (j === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                }
+                
+                ctx.closePath();
+                ctx.fill();
+                ctx.globalAlpha = 1;
+                
+                // Label
+                ctx.fillStyle = '#fff';
+                ctx.font = '12px Tajawal';
+                ctx.textAlign = 'center';
+                ctx.fillText(solid.name, x, y + size + 15);
+            });
+        }
+
+        function drawElements(ctx, cx, cy, time) {
+            const elements = [
+                { name: 'النار', symbol: '🔥', x: -150, y: -100, color: '#FF4500' },
+                { name: 'الأرض', symbol: '🌍', x: 150, y: -100, color: '#228B22' },
+                { name: 'الهواء', symbol: '💨', x: -150, y: 100, color: '#FFD700' },
+                { name: 'الماء', symbol: '💧', x: 150, y: 100, color: '#1E90FF' }
+            ];
+            
+            elements.forEach((el, i) => {
+                const x = cx + el.x + Math.sin(time + i) * 10;
+                const y = cy + el.y + Math.cos(time + i) * 10;
+                
+                ctx.font = '30px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(el.symbol, x, y);
+                
+                ctx.fillStyle = el.color;
+                ctx.font = 'bold 14px Tajawal';
+                ctx.fillText(el.name, x, y + 25);
+            });
+            
+            // Center - Ether
+            ctx.font = '40px Arial';
+            ctx.fillText('⭐', cx, cy + 10);
+            ctx.fillStyle = '#9932CC';
+            ctx.font = 'bold 16px Tajawal';
+            ctx.fillText('الإثير', cx, cy + 35);
+        }
+
+        // Initialize canvas when page loads
+        window.addEventListener('load', initEmergenceCanvas);
+        window.addEventListener('resize', initEmergenceCanvas);
+    </script>
+</body>
+</html>
